@@ -15,12 +15,10 @@ const jobSchema = new Schema({
   },
   apply: {
     type: Boolean,
-    required: true,
     default: 0
   },
   select: {
     type: Boolean,
-    required: true,
     default: 0
   }
 });

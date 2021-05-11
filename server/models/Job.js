@@ -23,7 +23,6 @@ const jobSchema = new Schema({
   },
   status: {
     type: String,
-    required: true,
     default: 'Live'
   }
 });

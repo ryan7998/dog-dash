@@ -5,6 +5,17 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+    jobs: async (parent) => {
+      return await Job.find().populate('user');
+    },
+    users: async (parent) => {
+        const users = await User.find().populate({
+          path: 'orders.jobs',
+          populate: 'job'
+        });
+        return users;
+    },
+
     job: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
     },
@@ -68,7 +79,21 @@ const resolvers = {
       return { session: session.id };
     }
   },
+
   Mutation: {
+    applyJob: async (parent, {job_id}, context) => {
+      if (context.user) {
+        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+          { walker_id: context.user._id },
+          { job_id: job_id },
+          { $push: { apply: 1 } },
+          { new: true }
+        );
+        return updatedWalkerJob;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);

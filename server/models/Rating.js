@@ -14,7 +14,9 @@ const jobSchema = new Schema({
     required: true
   },
   ratingNb: {
-    type: Number
+    type: Number,
+    required: true,
+    default :0
   },
   text: {
     type: String,
