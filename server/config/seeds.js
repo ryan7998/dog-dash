@@ -50,9 +50,11 @@ db.once('open', async () => {
   });
 
   console.log('users seeded');
+  const users = await User.find();
+
 
   await Dog.create({
-    user_id: 0,
+    user_id: users[0]._id,
     name: 'Doggy1',
     description: 'white dog',
     image: './images/user1.JPG',
@@ -60,7 +62,7 @@ db.once('open', async () => {
   });
 
   await Dog.create({
-    user_id: 1,
+    user_id: users[1]._id,
     name: 'Doggy2',
     description: 'brown dog',
     image: './images/user1.JPG',
@@ -70,7 +72,7 @@ db.once('open', async () => {
   console.log('dogs seeded');
 
   await Job.create({
-    user_id: 0,
+    user_id: users[0]._id,
     description: 'walk my white dog',
     price: 7.00,
     date: '06-06-2021',
@@ -78,7 +80,7 @@ db.once('open', async () => {
   });
 
   await Job.create({
-    user_id: 1,
+    user_id: users[1]._id,
     description: 'walk my brown dog',
     price: 8.00,
     date: '07-06-2021',
@@ -86,17 +88,18 @@ db.once('open', async () => {
   });
 
   console.log('jobs seeded');
+  const jobs = await Job.find();
 
   await WalkerJob.create({
-    walker_id: 2,
-    job_id: 0,
+    walker_id: users[2]._id,
+    job_id: jobs[0]._id,
     apply: 1,
     select: 0
   });
 
   await WalkerJob.create({
-    walker_id: 2,
-    job_id: 1,
+    walker_id: users[2]._id,
+    job_id: jobs[1]._id,
     apply: 1,
     select: 1
   });
