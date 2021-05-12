@@ -81,15 +81,89 @@ const resolvers = {
   },
 
   Mutation: {
+
+    addJob: async (parent, {description, price, date, status}, context) => {
+      if (context.user) {
+        const newJob = await Job.create(
+          { user_id: context.user._id },
+          { description: description},
+          { price: price},
+          { date: date},
+          { status: status}, 
+          { new: true }
+        )
+        .populate({
+          path: 'users.submittedJobs',
+          populate: 'job'
+        })
+        ;
+        return newJob;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     applyJob: async (parent, {job_id}, context) => {
+      if (context.user) {
+        const updatedWalkerJob = await WalkerJob.create(
+          { walker_id: context.user._id },
+          { job_id: job_id },
+          { apply: 1 }, 
+          { new: true }
+        )
+        .populate({
+          path: 'users.applyedJobs',
+          populate: 'job'
+        })
+        .populate({
+          path: 'jobs.applyedUsersJobs',
+          populate: 'user'
+        })
+        ;
+        const updatedJob = await Job.find({ _id: job_id })
+        return updatedJob;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
           { walker_id: context.user._id },
           { job_id: job_id },
-          { $push: { apply: 1 } }, ////////////////////to be corrected/////////////////
+          { $set: { apply: 0 } }, 
           { new: true }
-        );
-        return updatedWalkerJob;
+        )
+        .populate({
+          path: 'users.applyedJobs',
+          populate: 'job'
+        })
+        .populate({
+          path: 'jobs.applyedUsersJobs',
+          populate: 'user'
+        })
+        ;
+        const updatedJob = await Job.find({ _id: job_id })
+        return updatedJob;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    selectWalker: async (parent, {walker_id, job_id}, context) => {
+      if (context.user) {
+        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+          { walker_id: walker_id },
+          { job_id: job_id },
+          { $set: { select: 1 } }, 
+          { new: true }
+        )
+        .populate({
+          path: 'users.applyedJobs',
+          populate: 'job'
+        })
+        .populate({
+          path: 'jobs.applyedUsersJobs',
+          populate: 'user'
+        })
+        ;
+        const updatedJob = await Job.find({ _id: job_id })
+        return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
