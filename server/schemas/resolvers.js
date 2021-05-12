@@ -91,12 +91,8 @@ const resolvers = {
           { date: date},
           { status: status}, 
           { new: true }
-        )
-        .populate({
-          path: 'users.submittedJobs',
-          populate: 'job'
-        })
-        ;
+        );
+        const user = await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
         return newJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -108,17 +104,10 @@ const resolvers = {
           { job_id: job_id },
           { apply: 1 }, 
           { new: true }
-        )
-        .populate({
-          path: 'users.applyedJobs',
-          populate: 'job'
-        })
-        .populate({
-          path: 'jobs.applyedUsersJobs',
-          populate: 'user'
-        })
-        ;
-        const updatedJob = await Job.find({ _id: job_id })
+        );
+        const updatedJob = await Job.find({ _id: job_id });
+        const user = await User.findByIdAndUpdate(context.user._id, { $push: { applyedJobs: updatedJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { applyedUsers: user } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -130,17 +119,10 @@ const resolvers = {
           { job_id: job_id },
           { $set: { apply: 0 } }, 
           { new: true }
-        )
-        .populate({
-          path: 'users.applyedJobs',
-          populate: 'job'
-        })
-        .populate({
-          path: 'jobs.applyedUsersJobs',
-          populate: 'user'
-        })
-        ;
-        const updatedJob = await Job.find({ _id: job_id })
+        );
+        const updatedJob = await Job.find({ _id: job_id });
+        const user = await User.findByIdAndUpdate(context.user._id, { $pull: { applyedJobs: updatedJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { applyedUsers: user } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
