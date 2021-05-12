@@ -92,7 +92,7 @@ const resolvers = {
           { status: status}, 
           { new: true }
         );
-        const user = await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
         return newJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -129,22 +129,31 @@ const resolvers = {
     },
     selectWalker: async (parent, {walker_id, job_id}, context) => {
       if (context.user) {
+
+        await WalkerJob.updateMany({
+          where: {
+            job_id: job_id ,
+            select: 1 
+          },
+          $set: { select: 0 } 
+         }); 
         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
           { walker_id: walker_id },
           { job_id: job_id },
           { $set: { select: 1 } }, 
           { new: true }
         )
-        .populate({
-          path: 'users.applyedJobs',
-          populate: 'job'
-        })
-        .populate({
-          path: 'jobs.applyedUsersJobs',
-          populate: 'user'
-        })
         ;
-        const updatedJob = await Job.find({ _id: job_id })
+        const updatedJob = await Job.find({ _id: job_id });
+
+        await User.updateMany({
+          /*where: {
+            id: 
+          },*/
+          $pull: { selectedJobs: updatedJob }
+         }); 
+        const user = await User.findByIdAndUpdate(context.user._id, { $push: { selectedJobs: updatedJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: user } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
