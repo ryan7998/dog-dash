@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const User = require('./User');
+const Comment = require('./Comment');
 
 const jobSchema = new Schema({
   user_id: {
@@ -25,8 +27,8 @@ const jobSchema = new Schema({
     type: String,
     default: 'Live'
   },
-  appliedUsers: [WalkerJob.schema],
-  selectedUser: WalkerJob.schema,
+  appliedUsers: [User.schema],
+  selectedUser: User.schema,
   comments: [Comment.schema]
 });
 

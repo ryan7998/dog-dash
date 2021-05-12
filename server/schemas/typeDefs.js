@@ -41,8 +41,8 @@ const typeDefs = gql`
     price: Float!
     date: Date
     status: String
-    applyedUsers : [WalkerJob]
-    selectedUser : WalkerJob
+    applyedUsers : [Users]
+    selectedUser : User
     comments: [Comment]
   }
 
@@ -61,9 +61,9 @@ const typeDefs = gql`
     description: String
     image: String
     type: String!
-    submittedJobs : [WalkerJob]
-    applyedJobs : [WalkerJob]
-    selectedJobs : [WalkerJob]
+    submittedJobs : [Job]
+    applyedJobs : [Job]
+    selectedJobs : [Job]
     dogs: [Dog]
     doneRatings: [Rating]
     receivedRatings: [Rating]
