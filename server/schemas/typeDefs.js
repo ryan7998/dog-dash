@@ -13,8 +13,8 @@ const typeDefs = gql`
 
   type Rating {
     _id: ID
-    owner_id: ID!
-    walker_id: ID!
+    rater_id: ID!
+    rated_id: ID!
     ratingNb: String!
     text: String
   }
@@ -91,11 +91,12 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    applyJob(job_id: ID!): WalkerJob
-    withdrawJob(job_id: ID!): WalkerJob
-    selectWalker(walker_id: ID!, job_id: ID!): WalkerJob
+    addJob(description: String!, price: Float!, date: Date, status: String): Job
+    applyJob(job_id: ID!): Job
+    withdrawJob(job_id: ID!): Job
+    selectWalker(walker_id: ID!, job_id: ID!): Job
     
-    rateUser(owner_id: ID!, walker_id: ID!, ratingNb!:String, text:String): User
+    rateUser(rated_id: ID!, ratingNb!:String, text:String): User
     commentJob(user_id:ID!, job_id: ID, text:String!): Job
 
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
