@@ -25,7 +25,7 @@ export const QUERY_JOBS = gql`
       price
       date
       status
-      applyedUsers : {
+      appliedUsers : {
         _id: ID
         firstName
         lastName
@@ -90,6 +90,12 @@ export const QUERY_USERS = gql`
         price
         date
         status
+      }
+      receivedRatings:  {
+        _id
+        rater_id
+        ratingNb
+        text
       }
       orders {
         _id

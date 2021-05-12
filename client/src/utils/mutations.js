@@ -1,26 +1,7 @@
 import gql from 'graphql-tag';
-/*
-
-
-    selectWalker(walker_id: ID!, job_id: ID!): Job
-
-    applyedUsers : {
-      _id: ID
-      firstName
-      lastName
-      email
-      address
-      description
-      image
-      type
-      receivedRatings: [Rating]
-  }
-  selectedUser : User
-  comments: [Comment]
-  */
 
 export const ADD_JOB = gql`
-    mutation addJob($description: String!, $price: Float!, $date: Date, $status: String ) {
+    mutation addJob($description: String!, $price: Float!, $date: String, $status: String ) {
       addJob(description: $description, price: $price, date: $date, status: $status) {
         _id
         user_id
@@ -41,7 +22,7 @@ export const APPLY_JOB = gql`
         price
         date
         status
-        applyedUsers : {
+        appliedUsers : {
           _id: ID
           firstName
           lastName
@@ -86,7 +67,7 @@ export const WITHDRAW_JOB = gql`
         price
         date
         status
-        applyedUsers : {
+        appliedUsers : {
           _id: ID
           firstName
           lastName
@@ -131,7 +112,7 @@ export const SELECT_WALKER = gql`
         price
         date
         status
-        applyedUsers : {
+        appliedUsers : {
           _id: ID
           firstName
           lastName

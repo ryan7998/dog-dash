@@ -39,10 +39,10 @@ const typeDefs = gql`
     user_id: ID!
     description: String!
     price: Float!
-    date: Date
+    date: String
     status: String
-    applyedUsers : [Users]
-    selectedUser : User
+    appliedUsers : [WalkerJob]
+    selectedUser : WalkerJob
     comments: [Comment]
   }
 
@@ -62,7 +62,7 @@ const typeDefs = gql`
     image: String
     type: String!
     submittedJobs : [Job]
-    applyedJobs : [Job]
+    appliedJobs : [Job]
     selectedJobs : [Job]
     dogs: [Dog]
     doneRatings: [Rating]
@@ -91,13 +91,13 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addJob(description: String!, price: Float!, date: Date, status: String): Job
+    addJob(description: String!, price: Float!, date: String, status: String): Job
     applyJob(job_id: ID!): Job
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
     
-    rateUser(rated_id: ID!, ratingNb!:String, text:String): User
-    commentJob(user_id:ID!, job_id: ID, text:String!): Job
+    rateUser(rated_id: ID!, ratingNb:String!, text:String): User
+    commentJob(user_id: ID!, job_id: ID, text:String!): Job
 
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     addOrder(jobs: [ID]!): Order
