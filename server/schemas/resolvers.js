@@ -99,7 +99,7 @@ const resolvers = {
     },
     applyJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        const updatedWalkerJob = await WalkerJob.create(
+        await WalkerJob.create(
           { walker_id: context.user._id },
           { job_id: job_id },
           { apply: 1 }, 
@@ -114,7 +114,7 @@ const resolvers = {
     },
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+        await WalkerJob.findOneAndUpdate(
           { walker_id: context.user._id },
           { job_id: job_id },
           { $set: { apply: 0 } }, 
@@ -130,7 +130,7 @@ const resolvers = {
     selectWalker: async (parent, {walker_id, job_id}, context) => {
       if (context.user) {
 
-        await WalkerJob.updateMany({
+        const selectedWalkerJobs = await WalkerJob.updateMany({
           where: {
             job_id: job_id ,
             select: 1 
@@ -148,7 +148,7 @@ const resolvers = {
 
         await User.updateMany({
           /*where: {
-            id: 
+            id: selectedWalkerJobs[i].walker_id
           },*/
           $pull: { selectedJobs: updatedJob }
          }); 
