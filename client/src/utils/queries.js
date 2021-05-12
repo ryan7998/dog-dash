@@ -6,13 +6,102 @@ export const QUERY_JOBS = gql`
     jobs {
       _id
       user {
+        _id: ID
         firstName
         lastName
+        email
+        address
+        description
+        image
+        type
+        receivedRatings:  {
+          _id
+          rater_id
+          ratingNb
+          text
+        }
       }
       description
       price
       date
       status
+      applyedUsers : {
+        _id: ID
+        firstName
+        lastName
+        email
+        address
+        description
+        image
+        type
+        receivedRatings:  {
+          _id
+          rater_id
+          ratingNb
+          text
+        }
+      }
+      selectedUser : {
+        _id: ID
+        firstName
+        lastName
+        email
+        address
+        description
+        image
+        type
+        receivedRatings:  {
+          _id
+          rater_id
+          ratingNb
+          text
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_USERS = gql`
+  {
+    users {
+      _id
+      firstName
+      lastName
+      submittedJobs{
+          description
+          price
+          date
+          status
+      }
+      submittedJobs{
+        description
+        price
+        date
+        status
+      }
+      appliedJobs{
+        description
+        price
+        date
+        status
+      }
+      selectedJobs{
+        description
+        price
+        date
+        status
+      }
+      orders {
+        _id
+        purchaseDate
+        jobs {
+          _id
+          description
+          price
+          date
+          status
+        }
+      }
     }
   }
 `;

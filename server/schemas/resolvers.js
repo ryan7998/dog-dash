@@ -137,7 +137,7 @@ const resolvers = {
           },
           $set: { select: 0 } 
          }); 
-        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+        await WalkerJob.findOneAndUpdate(
           { walker_id: walker_id },
           { job_id: job_id },
           { $set: { select: 1 } }, 

@@ -1,4 +1,171 @@
 import gql from 'graphql-tag';
+/*
+
+
+    selectWalker(walker_id: ID!, job_id: ID!): Job
+
+    applyedUsers : {
+      _id: ID
+      firstName
+      lastName
+      email
+      address
+      description
+      image
+      type
+      receivedRatings: [Rating]
+  }
+  selectedUser : User
+  comments: [Comment]
+  */
+
+export const ADD_JOB = gql`
+    mutation addJob($description: String!, $price: Float!, $date: Date, $status: String ) {
+      addJob(description: $description, price: $price, date: $date, status: $status) {
+        _id
+        user_id
+        description
+        price
+        date
+        status
+      }
+    }
+  `;
+
+export const APPLY_JOB = gql`
+  mutation applyJob($job_id: ID!) {
+    applyJob(job_id: $job_id) {
+        _id
+        user_id
+        description
+        price
+        date
+        status
+        applyedUsers : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+        selectedUser : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+    }
+  }
+`;
+
+export const WITHDRAW_JOB = gql`
+  mutation withdrawJob($job_id: ID!) {
+    withdrawJob(job_id: $job_id) {
+        _id
+        user_id
+        description
+        price
+        date
+        status
+        applyedUsers : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+        selectedUser : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+    }
+  }
+`;
+
+export const SELECT_WALKER = gql`
+  mutation selectWalker($walker_id: ID!, $job_id: ID!) {
+    selectWalker(walker_id: $walker_id, job_id: $job_id) {
+        _id
+        user_id
+        description
+        price
+        date
+        status
+        applyedUsers : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+        selectedUser : {
+          _id: ID
+          firstName
+          lastName
+          email
+          address
+          description
+          image
+          type
+          receivedRatings:  {
+            _id
+            rater_id
+            ratingNb
+            text
+          }
+        }
+    }
+  }
+`;
 
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -10,7 +177,6 @@ export const LOGIN = gql`
     }
   }
 `;
-
 
 export const ADD_ORDER = gql`
   mutation addOrder($jobs: [ID]!) {
@@ -26,7 +192,6 @@ export const ADD_ORDER = gql`
     }
   }
 `;
-
 
 export const ADD_USER = gql`
   mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
