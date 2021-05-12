@@ -85,13 +85,13 @@ const resolvers = {
     addJob: async (parent, {description, price, date, status}, context) => {
       if (context.user) {
         const newJob = await Job.create(
-          { user_id: context.user._id },
-          { description: description},
-          { price: price},
-          { date: date},
-          { status: status}, 
-          { new: true }
+          { user_id: context.user._id,
+           description: description,
+           price: price,
+           date: date,
+           status: status}
         );
+
         await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
         return newJob;
       }
@@ -107,7 +107,7 @@ const resolvers = {
         );
         const updatedJob = await Job.find({ _id: job_id });
         const user = await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: updatedWalkerJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: context.user._id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -122,7 +122,7 @@ const resolvers = {
         );
         const updatedJob = await Job.find({ _id: job_id });
         const user = await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: updatedWalkerJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -153,7 +153,7 @@ const resolvers = {
           $pull: { selectedJobs: updatedJob }
          }); 
         const user = await User.findByIdAndUpdate(context.user._id, { $push: { selectedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: updatedWalkerJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: updatedWalkerJob.walker_id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');

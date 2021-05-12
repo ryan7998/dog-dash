@@ -12,6 +12,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware
+  // context: ({ req }) => req.headers
 });
 
 server.applyMiddleware({ app });
