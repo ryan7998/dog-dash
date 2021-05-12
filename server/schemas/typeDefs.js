@@ -32,8 +32,6 @@ const typeDefs = gql`
     job_id: ID!
     apply: Boolean
     select: Boolean
-    walker: User
-    job: Job
   }
 
   type Job {
@@ -43,9 +41,9 @@ const typeDefs = gql`
     price: Float!
     date: Date
     status: String
+    applyedUsers : [WalkerJob]
+    selectedUser : WalkerJob
     comments: [Comment]
-    applyedWalkers : [WalkerJob]
-    selectedWalker : WalkerJob
   }
 
   type Order {
@@ -63,14 +61,14 @@ const typeDefs = gql`
     description: String
     image: String
     type: String!
+    submittedJobs : [WalkerJob]
+    applyedJobs : [WalkerJob]
+    selectedJobs : [WalkerJob]
     dogs: [Dog]
     doneRatings: [Rating]
     receivedRatings: [Rating]
     comments: [Comment]
     orders: [Order]
-    submittedJobs : [WalkerJob]
-    applyedJobs : [WalkerJob]
-    selectededJobs : [WalkerJob]
   }
 
   type Checkout {

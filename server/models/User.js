@@ -7,6 +7,7 @@ const Dog = require('./Dog');
 const Rating = require('./Rating');
 const Comment = require('./Comment');
 const Order = require('./Order');
+const WalkerJob = require('./WalkerJob');
 
 const userSchema = new Schema({
   firstName: {
@@ -46,7 +47,9 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  jobs: [Job.schema],
+  submittedJobs : [WalkerJob.schema],
+  applyedJobs : [WalkerJob.schema],
+  selectedJobs : [WalkerJob.schema],
   dogs: [Dog.schema],
   doneRatings: [Rating.schema],
   receivedRatings: [Rating.schema],

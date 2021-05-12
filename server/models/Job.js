@@ -24,7 +24,10 @@ const jobSchema = new Schema({
   status: {
     type: String,
     default: 'Live'
-  }
+  },
+  appliedUsers: [WalkerJob.schema],
+  selectedUser: WalkerJob.schema,
+  comments: [Comment.schema]
 });
 
 const Job = mongoose.model('Job', jobSchema);

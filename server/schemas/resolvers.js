@@ -86,7 +86,7 @@ const resolvers = {
         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
           { walker_id: context.user._id },
           { job_id: job_id },
-          { $push: { apply: 1 } },
+          { $push: { apply: 1 } }, ////////////////////to be corrected/////////////////
           { new: true }
         );
         return updatedWalkerJob;
