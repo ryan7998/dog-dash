@@ -1,13 +1,48 @@
 import React from "react";
-import JobList from "../components/JobList";
-import Cart from "../components/Cart";
+import { Link } from "react-router-dom";
+
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  List,
+  Menu,
+  Segment,
+  Sidebar,
+  Visibility,
+} from 'semantic-ui-react'
 
 const Home = () => {
   return (
-    <div className="container">
-      <JobList />
-      <Cart />
-    </div>
+    <Container text>
+      <Header
+        as='h1'
+        content='Dog Dash'
+        style={{
+          fontSize: '4em',
+          fontWeight: 'normal',
+          marginBottom: 0,
+          marginTop: '3em',
+        }}
+      />
+      <Header
+        as='h2'
+        content='Do whatever you want when you want to.'
+        style={{
+          fontWeight: 'normal',
+        }}
+      />
+              <Link to="/login">
+      <Button color='teal' size='huge'>
+        Register
+        <Icon name='right arrow' />
+      </Button>
+      </Link>
+    </Container>
   );
 };
 
