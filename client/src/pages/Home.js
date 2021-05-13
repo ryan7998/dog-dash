@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import {
   Button,
   Container,
@@ -31,15 +33,15 @@ const Home = () => {
         as='h2'
         content='Do whatever you want when you want to.'
         style={{
-          // fontSize: mobile ? '1.5em' : '1.7em',
           fontWeight: 'normal',
-          // marginTop: mobile ? '0.5em' : '1.5em',
         }}
       />
-      <Button primary size='huge'>
+              <Link to="/login">
+      <Button color='teal' size='huge'>
         Register
         <Icon name='right arrow' />
       </Button>
+      </Link>
     </Container>
   );
 };
