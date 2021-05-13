@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const ADD_JOB = gql`
-    mutation addJob($description: String!, $price: Float!, $date: String, $status: String ) {
+    mutation addJob($description: String!, $price: Float!, $date: String!, $status: String! ) {
       addJob(description: $description, price: $price, date: $date, status: $status) {
         _id
         user_id
@@ -22,38 +22,8 @@ export const APPLY_JOB = gql`
         price
         date
         status
-        appliedUsers : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
-        selectedUser : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
+        appliedUsers 
+        selectedUser 
     }
   }
 `;
@@ -67,38 +37,8 @@ export const WITHDRAW_JOB = gql`
         price
         date
         status
-        appliedUsers : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
-        selectedUser : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
+        appliedUsers 
+        selectedUser 
     }
   }
 `;
@@ -112,38 +52,8 @@ export const SELECT_WALKER = gql`
         price
         date
         status
-        appliedUsers : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
-        selectedUser : {
-          _id: ID
-          firstName
-          lastName
-          email
-          address
-          description
-          image
-          type
-          receivedRatings:  {
-            _id
-            rater_id
-            ratingNb
-            text
-          }
-        }
+        appliedUsers 
+        selectedUser 
     }
   }
 `;
