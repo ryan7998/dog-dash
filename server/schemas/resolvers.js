@@ -85,13 +85,14 @@ const resolvers = {
     addJob: async (parent, {description, price, date, status}, context) => {
       if (context.user) {
         const newJob = await Job.create(
-          { user_id: context.user._id },
-          { description: description},
-          { price: price},
-          { date: date},
-          { status: status}, 
-          { new: true }
+          { user_id: context.user._id,
+           description: description,
+           price: price,
+           date: date,
+           status: status, 
+           new: true }
         );
+
         await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
         return newJob;
       }
@@ -99,15 +100,15 @@ const resolvers = {
     },
     applyJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        const updatedWalkerJob = await WalkerJob.create(
-          { walker_id: context.user._id },
-          { job_id: job_id },
-          { apply: 1 }, 
-          { new: true }
+       await WalkerJob.create(
+          { walker_id: context.user._id ,
+           job_id: job_id ,
+           apply: 1 , 
+           new: true }
         );
-        const updatedJob = await Job.find({ _id: job_id });
-        const user = await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: updatedWalkerJob } });
+        let updatedJob = await Job.find({ _id: job_id });
+        await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: updatedJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: context.user._id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -115,45 +116,36 @@ const resolvers = {
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
-          { walker_id: context.user._id },
-          { job_id: job_id },
-          { $set: { apply: 0 } }, 
-          { new: true }
+          { walker_id: context.user._id, job_id: job_id, new: true  },
+          { $set: { apply: 0 } }
         );
-        const updatedJob = await Job.find({ _id: job_id });
+        let updatedJob = await Job.find({ _id: job_id });
         const user = await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: updatedWalkerJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
     selectWalker: async (parent, {walker_id, job_id}, context) => {
       if (context.user) {
-
-        const selectedWalkerJobs = await WalkerJob.updateMany({
-          where: {
-            job_id: job_id ,
-            select: 1 
-          },
-          $set: { select: 0 } 
-         }); 
-         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
-          { walker_id: walker_id },
-          { job_id: job_id },
-          { $set: { select: 1 } }, 
-          { new: true }
-        )
-        ;
+        await WalkerJob.updateMany(
+          {job_id: job_id },
+          {$set: { select: 0 } }
+         ); 
+       
+        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+          { walker_id: walker_id ,job_id: job_id },
+          { $set: { select: 1 } }
+        );
         const updatedJob = await Job.find({ _id: job_id });
-
-        await User.updateMany({
-          /*where: {
-            id: selectedWalkerJobs[i].walker_id
-          },*/
-          $pull: { selectedJobs: updatedJob }
-         }); 
-        const user = await User.findByIdAndUpdate(context.user._id, { $push: { selectedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: updatedWalkerJob } });
+        console.log("****ok1****")
+        await User.updateMany(
+          { user_id: !walker_id  },
+          {$pull: { selectedJobs: updatedJob }}
+         ); 
+         console.log("****ok2****")
+        await User.findByIdAndUpdate(walker_id, { $push: { selectedJobs: updatedJob } });
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: walker_id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');

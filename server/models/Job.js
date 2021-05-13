@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const User = require('./User');
 const Comment = require('./Comment');
-const WalkerJob = require('./WalkerJob');
+const WalkerJob = require('./Comment');
 
 const jobSchema = new Schema({
   user_id: {
@@ -22,14 +22,25 @@ const jobSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true,
   },
   status: {
     type: String,
-    default: 'Live'
+    default: 'Live',
+    required: true
   },
-  appliedUsers: [WalkerJob.schema],
-  selectedUser: WalkerJob.schema,
+  appliedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  selectedUser: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ,
   comments: [Comment.schema]
 });
 
