@@ -1,53 +1,68 @@
-import React from "react";
+import React, {useState} from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import {Container, Menu} from 'semantic-ui-react'
 
 function Nav() {
+  const [activeItem, setActiveItem] = useState('home');
 
   function showNavigation() {
     if (Auth.loggedIn()) {
-      return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/orderHistory">
-              Order History
-            </Link>
-          </li>
-          <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
-      );
+      // return (
+      //   <ul className="flex-row">
+      //     <li className="mx-1">
+      //       <Link to="/orderHistory">
+      //         Order History
+      //       </Link>
+      //     </li>
+      //     <li className="mx-1">
+      //       {/* this is not using the Link component to logout or user and then refresh the application to the start */}
+      //       <a href="/" onClick={() => Auth.logout()}>
+      //         Logout
+      //       </a>
+      //     </li>
+      //   </ul>
+      // );
     } else {
-      return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
-              Signup
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/login">
-              Login
-            </Link>
-          </li>
-        </ul>
-      );
+      return(
+        <Menu fixed='top' inverted>
+          <Container>
+            <Menu.Item as='a' header>
+              {/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
+              Dog Dash
+            </Menu.Item>
+            <Menu.Item
+              name='home'
+              active={activeItem === 'home'}
+              onClick={()=>setActiveItem('home')}
+            />
+            <Menu.Item
+                name='job-list'
+                active={activeItem === 'job-list'}
+                onClick={()=>setActiveItem('job-list')}
+              />
+
+            <Menu.Menu position='right'>
+              <Menu.Item
+                name='login'
+                active={activeItem === 'login'}
+                onClick={()=>setActiveItem('login')}
+
+              />
+              <Menu.Item
+                name='signup'
+                active={activeItem === 'signup'}
+                onClick={()=>setActiveItem('signup')}
+              />
+            </Menu.Menu>
+          </Container>
+        </Menu>
+      )
     }
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
-        </Link>
-      </h1>
-
+    <header>
       <nav>
         {showNavigation()}
       </nav>
