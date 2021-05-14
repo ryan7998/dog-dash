@@ -43,7 +43,7 @@ function JobItem(item) {
         <p>{description}</p>
       </Link>
       <div>
-        <div>date: {date}</div>
+        <div>{date}</div>
         <span>${price}</span>
       </div>
       <button onClick={addToCart}>Add to cart</button>
