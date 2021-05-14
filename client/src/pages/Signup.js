@@ -1,53 +1,70 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button, Grid, Header,Icon, Image, Message, Segment } from 'semantic-ui-react'
-// import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
-// import { ADD_USER } from "../utils/mutations";
+import { ADD_USER } from "../utils/mutations";
 
 function Signup(props) {
+
   const [formState, setFormState] = useState({ email: '', password: '' });
+  
   const options = [
     { key: 'o', text: 'Dog Owner', value: 'owner' },
     { key: 'w', text: 'Dog Walker', value: 'walker' },
   ]
-  // const [addUser] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async event => {
     event.preventDefault();
-    // const mutationResponse = await addUser({
-    //   variables: {
-    //     email: formState.email, password: formState.password,
-    //     firstName: formState.firstName, lastName: formState.lastName
-    //   }
-    // });
-    // const token = mutationResponse.data.addUser.token;
-    // Auth.login(token);
+    const mutationResponse = await addUser({
+      variables: {
+        firstName: formState.firstName, 
+        lastName: formState.lastName,
+        email: formState.email, 
+        password: formState.password,
+        type: formState.type,
+        address: formState.address, 
+        description: formState.description, 
+        image: "testimage"
+      }
+    });
+    const token = mutationResponse.data.addUser.token;
+    Auth.login(token);
+    // console.log(formState);
   };
 
   const handleChange = event => {
-    const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value
-    });
+    if(event.target.textContent){
+      setFormState({
+        ...formState,
+        'type' : event.target.textContent
+        
+      })
+    }else{
+      const { name, value } = event.target;
+      setFormState({
+        ...formState,
+        [name]: value
+      });
+    }
   };
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>Sign up</Header>
-      <Form size='large'>
+      <Form size='large' onSubmit={handleFormSubmit}>
       <Segment stacked>
 
         <Form.Group widths='equal'>
-          <Form.Input required fluid placeholder='First name' />
-          <Form.Input required fluid placeholder='Last name' />
+          <Form.Input required fluid placeholder='First name' name="firstName" onChange={handleChange} />
+          <Form.Input required fluid placeholder='Last name' name="lastName" onChange={handleChange} />
         </Form.Group>
-          <Form.Input required fluid placeholder='Email' />
-          <Form.Input type='password' required fluid placeholder='Password' />
-          <Form.Input required fluid placeholder='Address' />
-        <Form.Select required options={options} placeholder='Type' />
+          <Form.Input required fluid placeholder='Email' name="email" onChange={handleChange} />
+          <Form.Input type='password' required fluid placeholder='Password' name="password" onChange={handleChange} />
+          <Form.Input required fluid placeholder='Address' name="address" onChange={handleChange} />
+        <Form.Select required options={options} placeholder='Type' search selection name="type" onChange={handleChange}/>
         <Form.Checkbox required label='I agree to the Terms and Conditions' />
         </Segment>
         
