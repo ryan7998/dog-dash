@@ -41,6 +41,7 @@ function JobList(props) {
 
   return (
     <div className="my-2">
+      <h2></h2>
       <h2>Our Jobs:</h2>
       {state.jobs.length ? (
         <div className="flex-row">
