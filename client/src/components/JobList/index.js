@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-//import JobItem from "../JobItem";
+import JobItem from "../JobItem";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
 import { UPDATE_JOBS } from "../../utils/actions";
@@ -10,42 +10,56 @@ import spinner from "../../assets/spinner.gif"
 
 
 function JobList() {
-  console.log("ok");
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-  console.log(state);
+ console.log("state", state);
+
 
   const { loading, data } = useQuery(QUERY_JOBS);
-  console.log(data);
+  const jobs= data?.jobs || {};
+  console.log("data.jobs",jobs);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if(data) {
       dispatch({
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        data.jobs.forEach((job) => {
-          idbPromise('jobs', 'put', job);
-        });
-    } else if (!loading) {
+        /*data.jobs.forEach((job) => {
+          idbPromise('jobs', 'put', job); 
+        });*/
+    } /*else if (!loading) {
       idbPromise('jobs', 'get').then((jobs) => {
         dispatch({
           type: UPDATE_JOBS,
          jobs: jobs
        });
       });
-    }
-  }, [data, loading, dispatch]);*/
+    }*/
+  }, [data, loading, dispatch]);
 
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
+ 
 
   return (
     <div className="my-2">
       <h2>Our Jobs:</h2>
       {data.jobs.length ? (
         <div className="flex-row">
-    
+            {data.jobs.map(job => (
+                <JobItem
+                  key= {job._id}
+                  _id={job._id}
+                  image={job.image}
+                  description={job.description}
+                  price={job.price}
+                  date={job.date}
+                />
+            ))}
         </div>
       ) : (
         <h3>You haven't added any jobs yet!</h3>

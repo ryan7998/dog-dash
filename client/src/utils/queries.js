@@ -5,28 +5,14 @@ export const QUERY_JOBS = gql`
   {
     jobs {
       _id
-      user {
-        _id: ID
-        firstName
-        lastName
-        email
-        address
-        description
-        image
-        type
-        receivedRatings:  {
-          _id
-          rater_id
-          ratingNb
-          text
-        }
-      }
+      user_id
       description
       price
       date
       status
-      appliedUsers 
-      selectedUser 
+      appliedUsers
+      selectedUser
+   
     }
   }
 `;
@@ -61,12 +47,7 @@ export const QUERY_USERS = gql`
         date
         status
       }
-      receivedRatings:  {
-        _id
-        rater_id
-        ratingNb
-        text
-      }
+     
       orders {
         _id
         purchaseDate

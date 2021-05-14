@@ -6,16 +6,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ADD_TO_CART } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 
-function ProductItem(item) {
+function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
 
   const {
     image,
-    name,
+    description,
     _id,
     price,
-    quantity
+    date
   } = item;
 
   const { cart } = state
@@ -26,7 +26,7 @@ function ProductItem(item) {
       
       dispatch({
         type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 }
+        job: { ...item, purchaseQuantity: 1 }
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     
@@ -37,13 +37,13 @@ function ProductItem(item) {
     <div className="card px-1 py-1">
       <Link to={`/jobs/${_id}`}>
         <img
-          alt={name}
+          alt={description}
           src={`/images/${image}`}
         />
-        <p>{name}</p>
+        <p>{description}</p>
       </Link>
       <div>
-        <div>{quantity} {pluralize("item", quantity)} in stock</div>
+        <div>date: {date}</div>
         <span>${price}</span>
       </div>
       <button onClick={addToCart}>Add to cart</button>

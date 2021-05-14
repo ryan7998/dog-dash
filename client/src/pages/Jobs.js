@@ -3,14 +3,14 @@ import React from "react";
 
 //import { useQuery } from '@apollo/react-hooks';
 //import { QUERY_USER } from "../utils/queries";
-//import JobList from "../components/JobList";
+import JobList from "../components/JobList";
 //import Cart from "../components/Cart";
 
 function Jobs(){
   return (
     <div className="container">
 
-  
+      <JobList />
 
     </div>
      
