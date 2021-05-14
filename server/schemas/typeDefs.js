@@ -99,7 +99,7 @@ const typeDefs = gql`
     rateUser(rated_id: ID!, ratingNb:String!, text:String): User
     commentJob(user_id: ID!, job_id: ID, text:String!): Job
 
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String, description: String, image: String, type: String!): Auth
     addOrder(jobs: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
