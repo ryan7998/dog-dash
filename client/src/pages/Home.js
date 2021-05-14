@@ -4,16 +4,9 @@ import { Link } from "react-router-dom";
 import {
   Button,
   Container,
-  Divider,
-  Grid,
   Header,
   Icon,
-  Image,
-  List,
-  Menu,
-  Segment,
-  Sidebar,
-  Visibility,
+  
 } from 'semantic-ui-react'
 
 const Home = () => {
