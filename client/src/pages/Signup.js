@@ -74,7 +74,7 @@ function Signup(props) {
           <Form.Input required fluid placeholder='Address' name="address" onChange={handleChange} />
         <Form.Select options={options} placeholder='Type' search selection name="type" onChange={handleChange}/>
         {ownerType && 
-          <Form.TextArea fluid placeholder="Please Enter your Dog's Description" name="description" onChange={handleChange} />
+          <Form.TextArea fluid placeholder="Please Enter your description" name="description" onChange={handleChange} />
         }
         <Form.Checkbox required label='I agree to the Terms and Conditions' />
         </Segment>

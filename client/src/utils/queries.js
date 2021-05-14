@@ -25,38 +25,8 @@ export const QUERY_JOBS = gql`
       price
       date
       status
-      appliedUsers : {
-        _id: ID
-        firstName
-        lastName
-        email
-        address
-        description
-        image
-        type
-        receivedRatings:  {
-          _id
-          rater_id
-          ratingNb
-          text
-        }
-      }
-      selectedUser : {
-        _id: ID
-        firstName
-        lastName
-        email
-        address
-        description
-        image
-        type
-        receivedRatings:  {
-          _id
-          rater_id
-          ratingNb
-          text
-        }
-      }
+      appliedUsers 
+      selectedUser 
     }
   }
 `;
