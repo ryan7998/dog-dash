@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMutation } from '@apollo/react-hooks';
+import { Form, Button, Grid, Header,Icon, Image, Message, Segment } from 'semantic-ui-react'
+// import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+// import { ADD_USER } from "../utils/mutations";
 
 function Signup(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [addUser] = useMutation(ADD_USER);
+  const options = [
+    { key: 'o', text: 'Dog Owner', value: 'owner' },
+    { key: 'w', text: 'Dog Walker', value: 'walker' },
+  ]
+  // const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async event => {
     event.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        email: formState.email, password: formState.password,
-        firstName: formState.firstName, lastName: formState.lastName
-      }
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
+    // const mutationResponse = await addUser({
+    //   variables: {
+    //     email: formState.email, password: formState.password,
+    //     firstName: formState.firstName, lastName: formState.lastName
+    //   }
+    // });
+    // const token = mutationResponse.data.addUser.token;
+    // Auth.login(token);
   };
 
   const handleChange = event => {
@@ -29,60 +34,30 @@ function Signup(props) {
   };
 
   return (
-    <div className="container my-1">
-      <Link to="/login">
-        ← Go to Login
-      </Link>
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as='h2' color='teal' textAlign='center'>Sign up</Header>
+      <Form size='large'>
+      <Segment stacked>
 
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            placeholder="First"
-            name="firstName"
-            type="firstName"
-            id="firstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="lastName"
-            type="lastName"
-            id="lastName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email:</label>
-          <input
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
-          <input
-            placeholder="******"
-            name="password"
-            type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row flex-end">
-          <button type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+        <Form.Group widths='equal'>
+          <Form.Input required fluid placeholder='First name' />
+          <Form.Input required fluid placeholder='Last name' />
+        </Form.Group>
+          <Form.Input required fluid placeholder='Email' />
+          <Form.Input type='password' required fluid placeholder='Password' />
+          <Form.Input required fluid placeholder='Address' />
+        <Form.Select required options={options} placeholder='Type' />
+        <Form.Checkbox required label='I agree to the Terms and Conditions' />
+        </Segment>
+        
+        <Button color='teal' fluid size='large'>
+          Sign up
+        </Button>
+      </Form>
+    </Grid.Column>
+  </Grid>
+
   );
 
 }

@@ -52,7 +52,7 @@ function Login(props) {
         </Segment>
       </Form>
       <Message>
-        New to us? <a href='#'>Sign Up</a>
+        New to us?<Link to="/signup">Sign up</Link>
       </Message>
     </Grid.Column>
   </Grid>

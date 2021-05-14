@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react'
+// import Signup from "./pages/Signup";
+
 
 function Nav() {
   const [activeItem, setActiveItem] = useState('home');
@@ -45,25 +47,25 @@ function Nav() {
                 active={activeItem === 'job-list'}
                 onClick={()=>setActiveItem('job-list')}
               />
+            {Auth.loggedIn() ? 'LogOut' :
+              <Menu.Menu position='right'>
+                <Link to="/login">
+                  <Menu.Item
+                    name='login'
+                    active={activeItem === 'login'}
+                    onClick={()=>setActiveItem('login')}
+                  />
+                </Link>
 
-            <Menu.Menu position='right'>
-              <Link to="/login">
-                <Menu.Item
-                  name='login'
-                  active={activeItem === 'login'}
-                  onClick={()=>setActiveItem('login')}
-                />
-              </Link>
-
-              <Link to="/login">
-                <Menu.Item
-                  name='signup'
-                  active={activeItem === 'signup'}
-                  onClick={()=>setActiveItem('signup')}
-                  href="/login"
-                />
-              </Link>
-            </Menu.Menu>
+                <Link to="/signup">
+                  <Menu.Item
+                    name='signup'
+                    active={activeItem === 'signup'}
+                    onClick={()=>setActiveItem('signup')}
+                  />
+                </Link>
+              </Menu.Menu>
+            }
           </Container>
         </Menu>
       )
