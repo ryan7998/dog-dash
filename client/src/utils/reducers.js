@@ -1,4 +1,5 @@
 import {
+  UPDATE_JOBS,
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
@@ -19,7 +20,12 @@ export function jobReducer(state = initialState, action) {
   // Reducers usually look at the type of action that happened
   // to decide how to update the state
   switch (action.type) {
- 
+    
+    case UPDATE_JOBS:
+      return {
+        ...state,
+        jobs: [...action.jobs],
+      };
 
     case ADD_TO_CART:
       return {
