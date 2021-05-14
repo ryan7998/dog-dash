@@ -13,12 +13,7 @@ function JobList() {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
- console.log("state", state);
-
-
   const { loading, data } = useQuery(QUERY_JOBS);
-  const jobs= data?.jobs || {};
-  console.log("data.jobs",jobs);
 
   useEffect(() => {
     if(data) {
@@ -26,31 +21,30 @@ function JobList() {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        /*data.jobs.forEach((job) => {
-          idbPromise('jobs', 'put', job); 
-        });*/
-    } /*else if (!loading) {
+        data.jobs.forEach((job) => {
+          idbPromise('jobs', 'put', job);
+        });
+    } else if (!loading) {
       idbPromise('jobs', 'get').then((jobs) => {
         dispatch({
           type: UPDATE_JOBS,
-         jobs: jobs
+          jobs: jobs
        });
       });
-    }*/
+    }
   }, [data, loading, dispatch]);
 
-  if (loading) {
-    return <h2>LOADING...</h2>;
+  function filterJobs() {
+    return state.jobs.filter(job => job.status === "Live");
   }
 
- 
 
   return (
     <div className="my-2">
       <h2>Our Jobs:</h2>
-      {data.jobs.length ? (
+      {state.jobs.length ? (
         <div className="flex-row">
-            {data.jobs.map(job => (
+            {filterJobs().map(job => (
                 <JobItem
                   key= {job._id}
                   _id={job._id}
