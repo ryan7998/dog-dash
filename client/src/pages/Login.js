@@ -5,7 +5,7 @@ import { LOGIN } from "../utils/mutations"
 import Auth from "../utils/auth";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-function Login(props) {
+function Login() {
   const [formState, setFormState] = useState({ email: '', password: '' })
   const [login, { error }] = useMutation(LOGIN);
 
@@ -17,7 +17,7 @@ function Login(props) {
       const token = mutationResponse.data.login.token;
       Auth.login(token);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 
@@ -33,7 +33,6 @@ function Login(props) {
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
-        {/* <Image src='/logo.png' />  */}
         Log-in to your account
       </Header>
       <Form size='large' onSubmit={handleFormSubmit}>
@@ -52,6 +51,7 @@ function Login(props) {
           <Button color='teal' fluid size='large'>
             Login
           </Button>
+            {error && <Message color='red'>Incorrect email / password</Message>}
         </Segment>
       </Form>
       <Message>
