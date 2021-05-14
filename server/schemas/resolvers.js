@@ -128,23 +128,26 @@ const resolvers = {
     },
     selectWalker: async (parent, {walker_id, job_id}, context) => {
       if (context.user) {
-        await WalkerJob.updateMany(
+        const previouslySelected = await WalkerJob.updateMany(
           {job_id: job_id },
           {$set: { select: 0 } }
          ); 
        
-        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
+        await WalkerJob.findOneAndUpdate(
           { walker_id: walker_id ,job_id: job_id },
           { $set: { select: 1 } }
         );
-        const updatedJob = await Job.find({ _id: job_id });
-        console.log("****ok1****")
+        let updatedJob = await Job.find({ _id: job_id });
+        
+        for (i = 0; i < previouslySelected.length; i++) {
         await User.updateMany(
-          { user_id: !walker_id  },
-          {$pull: { selectedJobs: updatedJob }}
+          { user_id: previouslySelected[i].walker_id },
+          {$pull: { selectedJobs: updatedJob }} 
          ); 
-         console.log("****ok2****")
+        }
+   
         await User.findByIdAndUpdate(walker_id, { $push: { selectedJobs: updatedJob } });
+        
         updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: walker_id } });
         return updatedJob;
       }

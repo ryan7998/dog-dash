@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react'
 // import Signup from "./pages/Signup";
 
-
 function Nav() {
   const [activeItem, setActiveItem] = useState('home');
 
   function showNavigation() {
 
       return(
-        <Menu fixed='top' inverted>
+        <Menu fixed='top' inverted >
           <Container>
             <Menu.Item as='a' header>
               {/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
@@ -59,6 +58,7 @@ function Nav() {
               </Menu.Menu>
             }
           </Container>
+          
         </Menu>
       )
     
@@ -70,6 +70,7 @@ function Nav() {
         {showNavigation()}
       </nav>
     </header>
+    
   );
 }
 
