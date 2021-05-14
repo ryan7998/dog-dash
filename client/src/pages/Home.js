@@ -29,11 +29,11 @@ const Home = () => {
           fontWeight: 'normal',
         }}
       />
-              <Link to="/login">
-      <Button color='teal' size='huge'>
-        Register
-        <Icon name='right arrow' />
-      </Button>
+      <Link to="/login">
+        <Button color='teal' size='huge'>
+          Register
+          <Icon name='right arrow' />
+        </Button>
       </Link>
     </Container>
   );

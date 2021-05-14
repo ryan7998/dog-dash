@@ -17,6 +17,7 @@ function Nav() {
               {/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
               Dog Dash
             </Menu.Item>
+
             <Link to="/">
               <Menu.Item
                 name='home'
@@ -26,11 +27,15 @@ function Nav() {
                 />
             </Link>
 
-            <Menu.Item
-                name='job-list'
-                active={activeItem === 'job-list'}
-                onClick={()=>setActiveItem('job-list')}
-              />
+            <Link to="/jobs">
+              <Menu.Item
+                name='jobs'
+                active={activeItem === 'jobs'}
+                onClick={()=>setActiveItem('jobs')}
+                href='/jobs'
+                />
+            </Link>
+
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
                   <Menu.Item
