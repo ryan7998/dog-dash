@@ -23,6 +23,11 @@ export const QUERY_USERS = gql`
       _id
       firstName
       lastName
+      description
+      address
+      email
+      image
+      type
       submittedJobs{
           description
           price
