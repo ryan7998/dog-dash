@@ -6,7 +6,6 @@ import {
   Container,
   Header,
   Icon,
-
 } from 'semantic-ui-react'
 
 const Home = () => {
