@@ -4,20 +4,18 @@ import { Link } from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react'
 // import Signup from "./pages/Signup";
 
-
 function Nav() {
   const [activeItem, setActiveItem] = useState('home');
 
   function showNavigation() {
 
       return(
-        <Menu fixed='top' inverted>
+        <Menu fixed='top' inverted >
           <Container>
             <Menu.Item as='a' header>
               {/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
               Dog Dash
             </Menu.Item>
-
             <Link to="/">
               <Menu.Item
                 name='home'
@@ -27,15 +25,11 @@ function Nav() {
                 />
             </Link>
 
-            <Link to="/jobs">
-              <Menu.Item
-                name='jobs'
-                active={activeItem === 'jobs'}
-                onClick={()=>setActiveItem('jobs')}
-                href='/jobs'
-                />
-            </Link>
-
+            <Menu.Item
+                name='job-list'
+                active={activeItem === 'job-list'}
+                onClick={()=>setActiveItem('job-list')}
+              />
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
                   <Menu.Item
@@ -64,6 +58,7 @@ function Nav() {
               </Menu.Menu>
             }
           </Container>
+          
         </Menu>
       )
     
@@ -75,6 +70,7 @@ function Nav() {
         {showNavigation()}
       </nav>
     </header>
+    
   );
 }
 

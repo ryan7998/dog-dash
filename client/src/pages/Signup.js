@@ -4,6 +4,7 @@ import { Form, Button, Grid, Header, Icon, Image, Message, Segment, TextArea } f
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
+import background from "../assets/bgwhite.png";
 
 function Signup(props) {
 
@@ -60,6 +61,7 @@ function Signup(props) {
   };
 
   return (
+    <div style={{ backgroundImage: `url(${background})` }}>
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>Sign up</Header>
@@ -74,7 +76,7 @@ function Signup(props) {
           <Form.Input required fluid placeholder='Address' name="address" onChange={handleChange} />
         <Form.Select options={options} placeholder='Type' search selection name="type" onChange={handleChange}/>
         {ownerType && 
-          <Form.TextArea fluid placeholder="Please Enter your description" name="description" onChange={handleChange} />
+          <Form.TextArea fluid placeholder="Please Enter your Dog's Description" name="description" onChange={handleChange} />
         }
         <Form.Checkbox required label='I agree to the Terms and Conditions' />
         </Segment>
@@ -87,6 +89,7 @@ function Signup(props) {
       </Form>
     </Grid.Column>
   </Grid>
+  </div>
 
   );
 
