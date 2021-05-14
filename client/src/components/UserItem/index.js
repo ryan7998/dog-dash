@@ -10,9 +10,14 @@ function UserItem(item) {
   const dispatch = useDispatch()
 
   const {
-    image,
-    description,
-    _id
+      _id,
+      firstName,
+      lastName,
+      description,
+      address,
+      email,
+      image,
+      type
   } = item;
 
 
@@ -23,7 +28,12 @@ function UserItem(item) {
           alt={description}
           src={`/images/${image}`}
         />
+        <p>{type}</p>
+        <p>{firstName}</p>
+        <p>{lastName}</p>
         <p>{description}</p>
+        <p>{email}</p>
+        <p>{address}</p>
       </Link>
     </div>
   );

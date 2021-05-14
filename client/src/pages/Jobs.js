@@ -7,14 +7,21 @@ import JobList from "../components/JobList";
 import UserList from "../components/UserList";
 //import Cart from "../components/Cart";
 
+import {
+  Button,
+  Container,
+  Header,
+  Icon,
+} from 'semantic-ui-react'
+
 function Jobs(){
   return (
-    <div className="container">
-
+    <Container text>
+ 
       <JobList status="Live"/>
       <UserList type="walker"/>
-
-    </div>
+   
+    </Container>
      
   );
 };

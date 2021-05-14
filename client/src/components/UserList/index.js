@@ -37,7 +37,7 @@ function UserList(props) {
   function filterUsers() {
     return state.users.filter(user => user.type === props.type);
   }
-
+console.log(state.users)
 
   return (
     <div className="my-2">
@@ -48,8 +48,13 @@ function UserList(props) {
                 <UserItem
                   key= {user._id}
                   _id={user._id}
-                  image={user.image}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
                   description={user.description}
+                  address={user.address}
+                  email={user.email}
+                  image={user.image}
+                  type={user.type}
                 />
             ))}
         </div>
