@@ -25,11 +25,14 @@ function Nav() {
                 />
             </Link>
 
+            <Link to="/jobs">
             <Menu.Item
-                name='job-list'
-                active={activeItem === 'job-list'}
-                onClick={()=>setActiveItem('job-list')}
+                name='jobs'
+                active={activeItem === 'jobs'}
+                onClick={()=>setActiveItem('jobs')}
               />
+            </Link>
+
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
                   <Menu.Item
