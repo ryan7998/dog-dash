@@ -9,10 +9,9 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
-import Jobs from "./pages/Jobs";
 // //import { StoreProvider } from "./utils/GlobalState";
- import { Provider } from 'react-redux'
- import { store } from "./utils/store";
+// import { Provider } from 'react-redux'
+// import { store } from "./utils/store";
 // import Success from "./pages/Success";
 // import OrderHistory from "./pages/OrderHistory";
 
@@ -32,19 +31,18 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-      <Provider store={store}>
+          {/* <Provider> */}
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/jobs" component={Jobs} />
               {/* <Route exact path="/success" component={Success} />
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} /> */}
               <Route component={NoMatch} />
             </Switch>
-      </Provider> 
+          {/* </Provider> */}
       
       </Router>
     </ApolloProvider>

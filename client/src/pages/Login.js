@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations"
 import Auth from "../utils/auth";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import background from "../assets/bgwhite.png";
 
 function Login() {
   const [formState, setFormState] = useState({ email: '', password: '' })
@@ -30,8 +31,9 @@ function Login() {
   };
 
   return (
+    <div style={{ backgroundImage: `url(${background})` }}>
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
+    <Grid.Column style={{maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
         Log-in to your account
       </Header>
@@ -59,6 +61,7 @@ function Login() {
       </Message>
     </Grid.Column>
   </Grid>
+  </div>
   );
 }
 

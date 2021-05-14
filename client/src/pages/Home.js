@@ -6,7 +6,6 @@ import {
   Container,
   Header,
   Icon,
-  
 } from 'semantic-ui-react'
 
 const Home = () => {
@@ -29,11 +28,11 @@ const Home = () => {
           fontWeight: 'normal',
         }}
       />
-      <Link to="/login">
-        <Button color='teal' size='huge'>
-          Register
-          <Icon name='right arrow' />
-        </Button>
+              <Link to="/login">
+      <Button color='teal' size='huge'>
+        Register
+        <Icon name='right arrow' />
+      </Button>
       </Link>
     </Container>
   );
