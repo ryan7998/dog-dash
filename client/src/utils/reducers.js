@@ -1,4 +1,5 @@
 import {
+  UPDATE_USERS,
   UPDATE_JOBS,
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -11,7 +12,8 @@ const initialState = {
     jobs: [],
     cart: [],
     cartOpen: false,
-    walkers: [] 
+    walkers: [] ,
+    users: [] 
 }
 
 // Create a "reducer" function that determines what the new state
@@ -20,6 +22,12 @@ export function jobReducer(state = initialState, action) {
   // Reducers usually look at the type of action that happened
   // to decide how to update the state
   switch (action.type) {
+
+    case UPDATE_USERS:
+      return {
+        ...state,
+        users: [...action.users],
+      };
     
     case UPDATE_JOBS:
       return {

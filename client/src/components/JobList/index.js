@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-//import JobItem from "../JobItem";
+import JobItem from "../JobItem";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
 import { UPDATE_JOBS } from "../../utils/actions";
@@ -9,17 +9,13 @@ import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
 
 
-function JobList() {
-  console.log("ok");
+function JobList(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-  console.log(state);
-
   const { loading, data } = useQuery(QUERY_JOBS);
-  console.log(data);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if(data) {
       dispatch({
           type: UPDATE_JOBS,
@@ -32,20 +28,32 @@ function JobList() {
       idbPromise('jobs', 'get').then((jobs) => {
         dispatch({
           type: UPDATE_JOBS,
-         jobs: jobs
+          jobs: jobs
        });
       });
     }
-  }, [data, loading, dispatch]);*/
+  }, [data, loading, dispatch]);
 
+  function filterJobs() {
+    return state.jobs.filter(job => job.status === props.status);
+  }
 
 
   return (
     <div className="my-2">
       <h2>Our Jobs:</h2>
-      {data.jobs.length ? (
+      {state.jobs.length ? (
         <div className="flex-row">
-    
+            {filterJobs().map(job => (
+                <JobItem
+                  key= {job._id}
+                  _id={job._id}
+                  image={job.image}
+                  description={job.description}
+                  price={job.price}
+                  date={job.date}
+                />
+            ))}
         </div>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
