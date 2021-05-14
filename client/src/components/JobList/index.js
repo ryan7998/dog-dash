@@ -9,7 +9,7 @@ import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
 
 
-function JobList() {
+function JobList(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
@@ -35,7 +35,7 @@ function JobList() {
   }, [data, loading, dispatch]);
 
   function filterJobs() {
-    return state.jobs.filter(job => job.status === "Live");
+    return state.jobs.filter(job => job.status === props.status);
   }
 
 

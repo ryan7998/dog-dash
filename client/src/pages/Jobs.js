@@ -10,7 +10,7 @@ function Jobs(){
   return (
     <div className="container">
 
-      <JobList />
+      <JobList status="Live"/>
 
     </div>
      
