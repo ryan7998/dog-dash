@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 
 
 export const QUERY_JOB_BYID = gql`
-  query jobById($_id: ID!) {
-    jobById(_id: $_id) {
+  query jobById($id: ID!) {
+    jobById(_id: $id) {
       _id
       user_id
       description
@@ -17,8 +17,8 @@ export const QUERY_JOB_BYID = gql`
 `;
 
 export const QUERY_USER_BYID = gql`
-  query userById($_id: ID!) {
-    userById(_id: $_id) {
+  query userById($id: ID!) {
+    userById(_id: $id) {
         _id
         firstName
         lastName
@@ -61,14 +61,6 @@ export const QUERY_JOBS = gql`
       status
       appliedUsers
       selectedUser
-      user{
-        image
-        firstName
-        lastName
-        receivedRatings{
-          text
-        }
-      }
     }
   }
 `;

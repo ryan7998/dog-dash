@@ -13,6 +13,7 @@ import Auth from '../../utils/auth';
 import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
 import { useLazyQuery } from '@apollo/react-hooks';
 
+
 function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
@@ -22,81 +23,97 @@ function JobItem(item) {
   const {
     _id,
     user_id,
+    title,
     description,
     price,
     date,
     status,
-    image,
-    user,
-    title
+    image
   } = item;
 
-  console.log(image)
+let data= useQuery(QUERY_USER)
+const me = data?.user || {};
+
+data = useQuery(QUERY_USER_BYID, {
+    variables: { id: user_id }
+});
+const submitter = data?.userById || {};
 
 
 const [applyJob] = useMutation(APPLY_JOB);
 const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
+const walkerjobitem ={
+  walker_id: me._id,
+  _id: _id,
+  apply:1,
+  select:0
+}
+
 const applyForJob = async () => {
   
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-    try {
-      await applyJob({
-        variables: { job_id:_id}
-      });
-      /*dispatch({
-        type: APPLY_TO_JOB,
-        jobs: item
-      });
-      idbPromise('walkerjobs', 'put', item);*/
-        
-    } catch (e) {
-      console.error(e);
-    }
+   
+        if (!token) {
+          return false;
+        }
+        try {
+          await applyJob({
+            variables: { job_id:_id}
+          });
+          dispatch({
+            type: APPLY_TO_JOB,
+            job: item
+          });
+          idbPromise('walkerjobs', 'put', walkerjobitem);
+            
+        } catch (e) {
+          console.error(e);
+        }
+    
   };
-
 const withdrawFromJob = async () => {
-  
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
-    try {
-      await withdrawJob({
-        variables: { job_id:_id}
-      });
-      /*dispatch({
-        type: WITHDRAW_FROM_JOB,
-        jobs: item
-      });
-      idbPromise('walkerjobs', 'pull', item);*/
-        
-    } catch (e) {
-      console.error(e);
-    }
+        if (!token) {
+          return false;
+        }
+        try {
+          await withdrawJob({
+            variables: { job_id:_id}
+          });
+          dispatch({
+            type: WITHDRAW_FROM_JOB,
+            job: item
+          });
+          idbPromise('walkerjobs', 'pull', walkerjobitem);
+            
+        } catch (e) {
+          console.error(e);
+        }
+    
 };
 
-  
-  // console.log(item);
+console.log(state.appliedjobs, item)
 
   return (
     <>
       <Card
         image={image ? image : 'https://placedog.net/500'}
         header={title}
-        meta={`${user[0]?.firstName}  ${user[0]?.lastName}`}
+        meta={`${submitter?.firstName}  ${submitter?.lastName}`}
         description={description}
         // description={`Wage: $ ${price}`}
-        // extra={`$ ${price}`}
+        // extra={`$ ${price}`}     
       />
-      {/* <button onClick={applyForJob}>Apply</button> */}
-      {/* <button onClick={applyForJob}>Apply</button>
-      <button onClick={withdrawFromJob}>Withdraw</button> */}
+ 
+      { (Auth.loggedIn() && state.appliedjobs.includes(item)) ? 
+          (<button onClick={withdrawFromJob}>Withdraw</button>):null
+      }
+      { (Auth.loggedIn() && !state.appliedjobs.includes(item)) ? 
+        (<button onClick={applyForJob}>Apply</button>):null
+      }
     </>
   );
 }
