@@ -104,7 +104,7 @@ const typeDefs = gql`
 
     addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String!, type: String!): Auth
     addOrder(jobs: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    updateUser(firstName: String, lastName: String, email: String, password: String, image: String ): User
     login(email: String!, password: String!): Auth
   }
 `;
