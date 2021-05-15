@@ -15,10 +15,18 @@ const resolvers = {
         });
         return users;
     },
-
-    job: async (parent, { _id }) => {
+    jobById: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
     },
+    userById: async (parent, { _id }) => {
+        const users = await User.findById(_id).populate({
+          path: 'orders.jobs',
+          populate: 'job'
+        });
+        return users;
+    },
+
+    
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({

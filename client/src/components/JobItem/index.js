@@ -7,10 +7,11 @@ import { useSelector, useDispatch } from 'react-redux'
 //import { ADD_TO_CART } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_USER_BYID } from '../../utils/queries';
 import { APPLY_JOB, WITHDRAW_JOB } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
+import { useLazyQuery } from '@apollo/react-hooks';
 
 function JobItem(item) {
   const state = useSelector(state => state)
@@ -18,6 +19,7 @@ function JobItem(item) {
 
   const {
     _id,
+    user_id,
     description,
     price,
     date,
@@ -26,7 +28,6 @@ function JobItem(item) {
   } = item;
 
 
-const { loading, data } = useQuery(QUERY_USER);
 
 const [applyJob] = useMutation(APPLY_JOB);
 const [withdrawJob] = useMutation(WITHDRAW_JOB);
@@ -53,7 +54,7 @@ const applyForJob = async () => {
     }
   };
 
-  const withdrawFromJob = async () => {
+const withdrawFromJob = async () => {
   
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -73,7 +74,7 @@ const applyForJob = async () => {
     } catch (e) {
       console.error(e);
     }
-  };
+};
 
   return (
     <div className="card px-1 py-1">

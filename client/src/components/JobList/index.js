@@ -51,6 +51,7 @@ function JobList(props) {
                 <JobItem
                   key= {job._id}
                   _id={job._id}
+                  user_id={job.user_id}
                   description={job.description}
                   price={job.price}
                   date={job.date}
