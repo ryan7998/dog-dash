@@ -16,8 +16,11 @@ const resolvers = {
     users: async (parent) => {
         const users = await User.find().populate({
           path: 'orders.jobs',
-          populate: 'job'
-        });
+          populate: 'job',
+          populate: 'doneRatings',
+        })
+        .populate('doneRatings')
+        .populate('receivedRatings');
         return users;
     },
     jobById: async (parent, { _id }) => {
@@ -185,6 +188,7 @@ const resolvers = {
     },
 
     addUser: async (parent, args) => {
+      console.log("hello");
       const user = await User.create(args);
       const token = signToken(user);
 
@@ -223,7 +227,24 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    }
+    },
+
+    rateUser: async (parent, {rated_id, ratingNb, text,}, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const newrating = await Rating.create(
+          { rater_id: user._id,
+           rated_id: rated_id,
+           ratingNb: ratingNb,
+           text: text
+          }
+        );
+        await User.findByIdAndUpdate(context.user._id, { $push: { doneRatings: newrating._id } });
+        await User.findByIdAndUpdate(rated_id, { $push: { receivedRatings: newrating._id } });
+        return newrating;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   }
 };
 
