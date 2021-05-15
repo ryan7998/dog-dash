@@ -37,7 +37,7 @@ const typeDefs = gql`
     appliedUsers : [ID]
     selectedUser : ID
     comments: [Comment]
-    user: [User]
+    user: User
   }
 
   type Order {
@@ -86,8 +86,9 @@ const typeDefs = gql`
   type Query {
     jobs: [Job]
     users: [User]
-    
-    job(_id: ID!): Job
+    jobById(_id: ID!): Job
+    userById(_id: ID!): User
+
     user: User
     order(_id: ID!): Order
     checkout(jobs: [ID]!): Checkout

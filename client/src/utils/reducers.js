@@ -33,24 +33,24 @@ export function jobReducer(state = initialState, action) {
     case SELECT_WALKER:
       return {
         ...state,
-        selectedwalkerjobs: [...action.walker, action.job],
+        selectedwalkerjobs: [action.walkerjob],
       };
 
     case WITHDRAW_FROM_JOB:
       let newState = state.appliedjobs.filter(job => {
-        return job._id !== action._id;
+        return job._id !== action.job._id;
       });
 
     case APPLY_TO_JOB:
       return {
         ...state,
-        appliedjobs: [action.job], //////////we should add the job to the current list and not erase the list with the job
+        appliedjobs: [...state.appliedjobs, action.job], //////////we should add the job to the current list and not erase the list with the job
       };
     
       case CREATE_JOB:
       return {
         ...state,
-        submittedjobs: [...action.job],
+        submittedjobs: [...state.submittedjobs, action.job],
       };
 
     case UPDATE_USERS:

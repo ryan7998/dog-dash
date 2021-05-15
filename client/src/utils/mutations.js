@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 
+
  export const ADD_JOB = gql`
      mutation addJob($title: String!, $description: String!, $price: Float!, $date: String!, $status: String! ) {
        addJob(description: $description, price: $price, date: $date, status: $status) {
