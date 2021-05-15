@@ -9,7 +9,7 @@ import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
 
 
-function UserList(props) {
+function WalkerJobs(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
@@ -21,16 +21,16 @@ function UserList(props) {
           type: UPDATE_USERS,
           users: data.users
         });
-        data.users.forEach((user) => {
-          idbPromise('users', 'put', user);
-        });
+//        data.users.forEach((user) => {
+//          idbPromise('users', 'put', user);
+//       });
     } else if (!loading) {
-      idbPromise('users', 'get').then((users) => {
-        dispatch({
-          type: UPDATE_USERS,
-          users: users
-       });
-      });
+      // idbPromise('users', 'get').then((users) => {
+      //   dispatch({
+      //     type: UPDATE_USERS,
+      //     users: users
+      //  });
+      // });
     }
   }, [data, loading, dispatch]);
 
@@ -67,4 +67,4 @@ function UserList(props) {
   );
 }
 
-export default UserList;
+export default WalkerJobs;
