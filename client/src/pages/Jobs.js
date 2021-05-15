@@ -16,8 +16,7 @@ import {
 
 function Jobs(){
   return (
-    <Container text>
- 
+    <Container>
       <JobList status="Live"/>
       <UserList type="Dog Walker"/>
 

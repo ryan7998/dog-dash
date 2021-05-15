@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Card, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -79,7 +80,7 @@ const applyForJob = async () => {
       <Link to={`/jobs/${_id}`}>
         <img
           alt={description}
-          src={`/images/${image}`}
+          src={'https://placedog.net/500'}
         />
         <p>{description}</p>
       </Link>
@@ -90,6 +91,7 @@ const applyForJob = async () => {
       <button onClick={applyForJob}>Apply</button>
       <button onClick={withdrawFromJob}>Withdraw</button>
     </div>
+  
   );
 }
 

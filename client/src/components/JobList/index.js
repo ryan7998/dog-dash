@@ -7,6 +7,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
+import { Card, Icon } from 'semantic-ui-react';
+
 
 
 function JobList(props) {
@@ -37,14 +39,14 @@ function JobList(props) {
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
   }
-
+  console.log(parseInt(props.rowItems));
 
   return (
-    <div className="my-2">
+    <div>
       <h2></h2>
       <h2>Our Jobs:</h2>
       {state.jobs.length ? (
-        <div className="flex-row">
+        <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
                 <JobItem
                   key= {job._id}
@@ -56,7 +58,7 @@ function JobList(props) {
                   image={job.image}
                 />
             ))}
-        </div>
+        </Card.Group>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
