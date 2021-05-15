@@ -63,6 +63,7 @@ const typeDefs = gql`
     receivedRatings: [Rating]
     comments: [Comment]
     orders: [Order]
+    ratingAvg: Float
   }
 
   type Rating {

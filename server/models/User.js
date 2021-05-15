@@ -80,7 +80,13 @@ const userSchema = new Schema({
   ],
   comments: [Comment.schema],
   orders: [Order.schema]
-});
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+}
+);
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function(next) {
@@ -96,6 +102,17 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
+
+userSchema.virtual('ratingAvg').get(function() {
+   let ratingsum = 0;
+   this.receivedRatings.map(function(num) { return ratingsum += num.ratingNb});
+   let ratingAvg = ratingsum/this.receivedRatings.length;
+  if (ratingAvg) {
+    return (ratingsum / (this.receivedRatings.length));
+  } else {
+    return 0; 
+  }
+});
 
 const User = model('User', userSchema);
 
