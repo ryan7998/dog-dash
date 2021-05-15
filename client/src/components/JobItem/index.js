@@ -16,15 +16,20 @@ function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
 
+  // console.log(item.jobs);
+
   const {
     _id,
     description,
     price,
     date,
     status,
-    image
+    image,
+    user,
+    title
   } = item;
 
+  console.log(image)
 
 const { loading, data } = useQuery(QUERY_USER);
 
@@ -51,16 +56,17 @@ const applyForJob = async () => {
       console.error(e);
     }
   };
-
+  // console.log(item);
 
   return (
     <>
       <Card
-        image='https://placedog.net/500'
-        header='Elliot Baker'
-        meta='Friend'
+        image={image ? image : 'https://placedog.net/500'}
+        header={title}
+        meta={`${user[0]?.firstName}  ${user[0]?.lastName}`}
         description={description}
-        extra={price}
+        // description={`Wage: $ ${price}`}
+        // extra={`$ ${price}`}
       />
       {/* <button onClick={applyForJob}>Apply</button> */}
     </>

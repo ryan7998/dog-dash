@@ -72,6 +72,7 @@ db.once('open', async () => {
   console.log('dogs seeded');
 
   await Job.create({
+    title: 'title 01',
     user_id: users[0]._id,
     description: 'walk my white dog',
     price: 7.00,
@@ -80,6 +81,7 @@ db.once('open', async () => {
   });
 
   await Job.create({
+    title: 'title02',
     user_id: users[1]._id,
     description: 'walk my brown dog',
     price: 8.00,

@@ -6,13 +6,21 @@ export const QUERY_JOBS = gql`
     jobs {
       _id
       user_id
+      title
       description
       price
       date
       status
       appliedUsers
       selectedUser
-   
+      user{
+        image
+        firstName
+        lastName
+        receivedRatings{
+          text
+        }
+      }
     }
   }
 `;
