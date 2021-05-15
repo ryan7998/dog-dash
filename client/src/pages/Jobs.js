@@ -16,10 +16,17 @@ import {
 
 function Jobs(){
   return (
+<<<<<<< HEAD
     <Container text>
  
       <JobList status="Live"/>
       <UserList type="walker"/>
+=======
+    <Container>
+      <JobList status="Live"/>
+      <UserList type="Dog Walker"/>
+
+>>>>>>> neeko
    
     </Container>
      

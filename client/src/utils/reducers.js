@@ -1,4 +1,11 @@
 import {
+<<<<<<< HEAD
+=======
+  SELECT_WALKER,
+  WITHDRAW_FROM_JOB,
+  APPLY_TO_JOB,
+  CREATE_JOB,
+>>>>>>> neeko
   UPDATE_USERS,
   UPDATE_JOBS,
   ADD_TO_CART,
@@ -13,7 +20,14 @@ const initialState = {
     cart: [],
     cartOpen: false,
     walkers: [] ,
+<<<<<<< HEAD
     users: [] 
+=======
+    users: [] ,
+    submittedjobs: [] ,
+    appliedjobs: [] ,
+    selectedwalkerjobs: [] 
+>>>>>>> neeko
 }
 
 // Create a "reducer" function that determines what the new state
@@ -23,6 +37,32 @@ export function jobReducer(state = initialState, action) {
   // to decide how to update the state
   switch (action.type) {
 
+<<<<<<< HEAD
+=======
+    case SELECT_WALKER:
+      return {
+        ...state,
+        selectedwalkerjobs: [action.walkerjob],
+      };
+
+    case WITHDRAW_FROM_JOB:
+      let newState = state.appliedjobs.filter(job => {
+        return job._id !== action.job._id;
+      });
+
+    case APPLY_TO_JOB:
+      return {
+        ...state,
+        appliedjobs: [...state.appliedjobs, action.job], //////////we should add the job to the current list and not erase the list with the job
+      };
+    
+      case CREATE_JOB:
+      return {
+        ...state,
+        submittedjobs: [...state.submittedjobs, action.job],
+      };
+
+>>>>>>> neeko
     case UPDATE_USERS:
       return {
         ...state,
@@ -44,7 +84,7 @@ export function jobReducer(state = initialState, action) {
 
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter(job => {
+      newState = state.cart.filter(job => {
         return job._id !== action._id;
       });
 

@@ -47,9 +47,24 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  submittedJobs : [Job.schema],
-  appliedJobs : [Job.schema],
-  selectedJobs : [Job.schema],
+  submittedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
+  appliedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
+  selectedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
   dogs: [Dog.schema],
   doneRatings: [Rating.schema],
   receivedRatings: [Rating.schema],

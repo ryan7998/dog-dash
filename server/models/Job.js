@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const User = require('./User');
+// const User = require('./User');
 const Comment = require('./Comment');
 const WalkerJob = require('./Comment');
 
@@ -11,6 +11,11 @@ const jobSchema = new Schema({
     ref: 'User',
     required: true
   },
+  title:{
+    type: String,
+    required: true
+  },
+  
   description: {
     type: String,
     required: true

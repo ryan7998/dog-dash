@@ -13,6 +13,10 @@ export function idbPromise(storeName, method, object) {
       const db = request.result;
       db.createObjectStore('jobs', { keyPath: '_id' });
       db.createObjectStore('users', { keyPath: '_id' });
+<<<<<<< HEAD
+=======
+      db.createObjectStore('walkerjobs', { keyPath: '_id' });
+>>>>>>> neeko
       db.createObjectStore('cart', { keyPath: '_id' });
     };
 

@@ -10,7 +10,7 @@ db.once('open', async () => {
   await Dog.deleteMany();
   await User.deleteMany();
 
-//    category: categories[4]._id,
+
   await User.create({
     firstName: 'Pamela',
     lastName: 'Washington',
@@ -19,7 +19,7 @@ db.once('open', async () => {
     address: '105 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves cats more than dogs!',
     image: './images/user1.JPG',
-    type: 'owner'/*,
+    type: 'wDog Owner'/*,
     orders: [
       {
         jobs: [jobs[0]._id]
@@ -35,7 +35,7 @@ db.once('open', async () => {
     address: '103 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves dogs!',
     image: './images/user1.JPG',
-    type: 'owner'
+    type: 'Dog Owner'
   });
 
   await User.create({
@@ -46,7 +46,7 @@ db.once('open', async () => {
     address: '100 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves wolves!',
     image: './images/user1.JPG',
-    type: 'walker'
+    type: 'Dog Walker'
   });
 
   console.log('users seeded');
@@ -72,21 +72,23 @@ db.once('open', async () => {
   console.log('dogs seeded');
 
   await Job.create({
+    title: 'title 01',
     user_id: users[0]._id,
     description: 'walk my white dog',
     price: 7.00,
     date: '06-06-2021',
-    Status: 'Live'
+    status: 'Live'
   });
 
   await Job.create({
+    title: 'title 02',
     user_id: users[1]._id,
     description: 'walk my brown dog',
     price: 8.00,
     date: '07-06-2021',
-    Status: 'Live'
+    status: 'Live'
   });
-
+ 
   console.log('jobs seeded');
   const jobs = await Job.find();
 

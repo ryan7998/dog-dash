@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
+import { Card, Icon } from 'semantic-ui-react';
 
 
 function JobList(props) {
@@ -21,41 +22,45 @@ function JobList(props) {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        data.jobs.forEach((job) => {
-          idbPromise('jobs', 'put', job);
-        });
+        // data.jobs.forEach((job) => {
+        //   idbPromise('jobs', 'put', job);
+        // });
     } else if (!loading) {
-      idbPromise('jobs', 'get').then((jobs) => {
-        dispatch({
-          type: UPDATE_JOBS,
-          jobs: jobs
-       });
-      });
+      // idbPromise('jobs', 'get').then((jobs) => {
+      //   dispatch({
+      //     type: UPDATE_JOBS,
+      //     jobs: jobs
+      //  });
+      // });
     }
   }, [data, loading, dispatch]);
+  
 
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
   }
 
-
   return (
-    <div className="my-2">
+    <div>
       <h2></h2>
       <h2>Our Jobs:</h2>
       {state.jobs.length ? (
-        <div className="flex-row">
+        <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
                 <JobItem
                   key= {job._id}
                   _id={job._id}
-                  image={job.image}
+                  user_id={job.user_id}
+                  title = {job.title}
                   description={job.description}
                   price={job.price}
                   date={job.date}
+                  status={job.status}
+                  image={job.image}
+                  
                 />
             ))}
-        </div>
+        </Card.Group>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}

@@ -1,11 +1,13 @@
 import gql from 'graphql-tag';
 
 
+
  export const ADD_JOB = gql`
-     mutation addJob($description: String!, $price: Float!, $date: String!, $status: String! ) {
+     mutation addJob($title: String!, $description: String!, $price: Float!, $date: String!, $status: String! ) {
        addJob(description: $description, price: $price, date: $date, status: $status) {
          _id
          user_id
+         title
          description
          price
          date
@@ -23,17 +25,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-           _id
-           firstName
-            lastName
-            email
-            address
-            description
-            image
-            type
-          }
-         selectedUser
+
      }
    }
  `;
@@ -47,16 +39,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-          _id
-          firstName
-           lastName
-           email
-           address
-           description
-           image
-           type
-         }
+         appliedUsers
         selectedUser
 
      }
@@ -72,16 +55,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-          _id
-          firstName
-           lastName
-           email
-           address
-           description
-           image
-           type
-         }
+         appliedUsers
         selectedUser
         
      }
