@@ -49,6 +49,7 @@ const walkerjobitem ={
   apply:1,
   select:0
 }
+let appliedB =0
 
 const applyForJob = async () => {
   
@@ -69,6 +70,11 @@ const applyForJob = async () => {
             
         } catch (e) {
           console.error(e);
+        }
+        appliedB=0
+        for (var i = 0; i < state.appliedjobs.length; i++) {
+          if (state.appliedjobs[i]._id== item._id) 
+          {appliedB=1}
         }
     
   };
@@ -92,14 +98,14 @@ const withdrawFromJob = async () => {
         } catch (e) {
           console.error(e);
         }
-    
+        appliedB =0
+        for (var i = 0; i < state.appliedjobs.length; i++) {
+          if (state.appliedjobs[i]._id== item._id) 
+          {appliedB=1}
+        }
 };
 
-let appliedB =0
-for (var i = 0; i < state.appliedjobs.length; i++) {
-  if (state.appliedjobs[i]._id== item._id) 
-  {appliedB=1}
-}
+
 
 
   return (
