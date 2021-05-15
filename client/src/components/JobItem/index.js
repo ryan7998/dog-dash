@@ -34,10 +34,10 @@ function JobItem(item) {
 let data= useQuery(QUERY_USER)
 const me = data?.user || {};
 
-data = useQuery(QUERY_USER_BYID, {
+let data1 = useQuery(QUERY_USER_BYID, {
     variables: { id: user_id }
 });
-const submitter = data?.userById || {};
+const submitter = data1?.data?.userById || {};
 
 
 const [applyJob] = useMutation(APPLY_JOB);
@@ -95,7 +95,12 @@ const withdrawFromJob = async () => {
     
 };
 
-console.log(state.appliedjobs, item)
+let appliedB =0
+for (var i = 0; i < state.appliedjobs.length; i++) {
+  if (state.appliedjobs[i]._id== item._id) 
+  {appliedB=1}
+}
+
 
   return (
     <>
@@ -108,10 +113,10 @@ console.log(state.appliedjobs, item)
         // extra={`$ ${price}`}     
       />
  
-      { (Auth.loggedIn() && state.appliedjobs.includes(item)) ? 
+      { (Auth.loggedIn() && appliedB) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
-      { (Auth.loggedIn() && !state.appliedjobs.includes(item)) ? 
+      { (Auth.loggedIn() && !appliedB) ? 
         (<button onClick={applyForJob}>Apply</button>):null
       }
     </>
