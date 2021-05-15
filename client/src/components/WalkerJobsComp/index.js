@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import JobItem from "../JobItem";
+import { Link } from 'react-router-dom';
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
 import { UPDATE_JOBS } from "../../utils/actions";
@@ -38,13 +39,19 @@ function WalkerJobs(props) {
     return state.jobs.filter(job => job.status === props.status);
   }
 
+  //It's not executed yet
+  function alertFunction(id){
+    alert("Is this is? : " + id);
+  }
+
   return (
     <div>
-      <h2></h2>
+      <h2 onClick='alertFunction({job._id})'></h2>
       <h2>Our Jobs:</h2>
       {state.jobs.length ? (
         <Card.Group itemsPerRow={3}>
           {filterJobs().map((job) => (
+            <Link to={`/singlewalkerjob/${job._id}`}>
             <JobItem
               key={job._id}
               _id={job._id}
@@ -56,6 +63,7 @@ function WalkerJobs(props) {
               status={job.status}
               image={job.image}
             />
+            </Link>
           ))}
         </Card.Group>
       ) : (
