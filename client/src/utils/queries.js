@@ -1,12 +1,25 @@
 import gql from 'graphql-tag';
 
 
-export const QUERY_JOBS = gql`
-  {
-    jobs {
+export const QUERY_JOB_BYID = gql`
+  query jobById($_id: ID!) {
+    jobById(_id: $_id) {
       _id
-      user {
-        _id: ID
+      user_id
+      description
+      price
+      date
+      status
+      appliedUsers
+      selectedUser
+    }
+  }
+`;
+
+export const QUERY_USER_BYID = gql`
+  query userById($_id: ID!) {
+    userById(_id: $_id) {
+        _id
         firstName
         lastName
         email
@@ -14,19 +27,48 @@ export const QUERY_JOBS = gql`
         description
         image
         type
-        receivedRatings:  {
+        submittedJobs
+        appliedJobs
+        selectedJobs
+        orders {
           _id
-          rater_id
-          ratingNb
-          text
+          purchaseDate
+          jobs {
+            _id
+            user_id
+            description
+            price
+            date
+            status
+            appliedUsers
+            selectedUser
+          }
         }
-      }
+    }
+  }
+`;
+
+
+export const QUERY_JOBS = gql`
+  {
+    jobs {
+      _id
+      user_id
+      title
       description
       price
       date
       status
-      appliedUsers 
-      selectedUser 
+      appliedUsers
+      selectedUser
+      user{
+        image
+        firstName
+        lastName
+        receivedRatings{
+          text
+        }
+      }
     }
   }
 `;
@@ -37,45 +79,26 @@ export const QUERY_USERS = gql`
       _id
       firstName
       lastName
-      submittedJobs{
-          description
-          price
-          date
-          status
-      }
-      submittedJobs{
-        description
-        price
-        date
-        status
-      }
-      appliedJobs{
-        description
-        price
-        date
-        status
-      }
-      selectedJobs{
-        description
-        price
-        date
-        status
-      }
-      receivedRatings:  {
-        _id
-        rater_id
-        ratingNb
-        text
-      }
+      email
+      address
+      description
+      image
+      type
+      submittedJobs
+      appliedJobs
+      selectedJobs
       orders {
         _id
         purchaseDate
         jobs {
           _id
+          user_id
           description
           price
           date
           status
+          appliedUsers
+          selectedUser
         }
       }
     }
@@ -102,14 +125,26 @@ export const QUERY_USER = gql`
     orders {
       _id
       purchaseDate
-      jobs {
-        _id
-        description
-        price
-        date
-        status
-      }
     }
+  }
+}
+`;
+
+export const QUERY_ORDER = gql`
+{
+  order {
+        _id
+        purchaseDate
+        jobs {
+          _id
+          user_id
+          description
+          price
+          date
+          status
+          appliedUsers
+          selectedUser
+        }
   }
 }
 `;

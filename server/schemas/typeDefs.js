@@ -37,6 +37,7 @@ const typeDefs = gql`
   type Job {
     _id: ID
     user_id: ID!
+    title: String!
     description: String!
     price: Float!
     date: String!
@@ -44,6 +45,7 @@ const typeDefs = gql`
     appliedUsers : [ID]
     selectedUser : ID
     comments: [Comment]
+    user: [User]
   }
 
   type Order {
@@ -61,9 +63,9 @@ const typeDefs = gql`
     description: String
     image: String
     type: String!
-    submittedJobs : [Job]
-    appliedJobs : [Job]
-    selectedJobs : [Job]
+    submittedJobs : [ID]
+    appliedJobs : [ID]
+    selectedJobs : [ID]
     dogs: [Dog]
     doneRatings: [Rating]
     receivedRatings: [Rating]
@@ -83,15 +85,16 @@ const typeDefs = gql`
   type Query {
     jobs: [Job]
     users: [User]
+    jobById(_id: ID!): Job
+    userById(_id: ID!): User
 
-    job(_id: ID!): Job
     user: User
     order(_id: ID!): Order
     checkout(jobs: [ID]!): Checkout
   }
 
   type Mutation {
-    addJob(description: String!, price: Float!, date: String!, status: String!): Job
+    addJob(title: String!, description: String!, price: Float!, date: String!, status: String!): Job
     applyJob(job_id: ID!): Job
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
