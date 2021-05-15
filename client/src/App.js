@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 
 // Walker jobs link
-import WalkerJobs from './pages/WalkerJobs';
+import WalkerJobs from './pages/WalkerJobsPage';
 import Home from "./pages/Home";
 // import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";

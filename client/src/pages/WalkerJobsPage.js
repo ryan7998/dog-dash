@@ -3,7 +3,7 @@ import React from "react";
 
 //import { useQuery } from '@apollo/react-hooks';
 //import { QUERY_USER } from "../utils/queries";
-import UserList from "../components/WalkerJobs";
+import WalkerJobs from "../components/WalkerJobsComp";
 //import Cart from "../components/Cart";
 
 import {
@@ -13,7 +13,8 @@ import {
   Icon,
 } from 'semantic-ui-react'
 
-function WalkerJobs(){
+function WalkerJobsFunc(){
+
   return (
     <Container>
       <WalkerJobs type="Dog Walker"/>   
@@ -22,4 +23,4 @@ function WalkerJobs(){
   );
 };
 
-export default WalkerJobs;
+export default WalkerJobsFunc;
