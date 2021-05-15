@@ -46,8 +46,7 @@ const jobSchema = new Schema({
       ref: 'User'
     }
   ,
-  comments: [Comment.schema],
-  user: []
+  comments: [Comment.schema]
 });
 
 const Job = mongoose.model('Job', jobSchema);
