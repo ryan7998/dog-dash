@@ -58,8 +58,7 @@ function JobList(props) {
                   price={job.price}
                   date={job.date}
                   status={job.status}
-                  image={job.image}
-                  
+                  image={job.image}                  
                 />
             ))}
         </Card.Group>
