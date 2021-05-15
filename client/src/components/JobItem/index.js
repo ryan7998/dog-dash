@@ -1,48 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
-import { ADD_TO_CART } from "../../utils/actions";
+//import { ADD_TO_CART } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { QUERY_USER } from '../../utils/queries';
+import { APPLY_JOB } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import { UPDATE_USERS, APPLY_TO_JOB } from "../../utils/actions";
 
 function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
 
   const {
-    image,
-    description,
     _id,
+    description,
     price,
-    date
+    date,
+    status,
+    image
   } = item;
 
-  const { cart } = state
 
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-    if (itemInCart) {
-      
-      dispatch({
-        type: ADD_TO_CART,
-        job: { ...item, purchaseQuantity: 1 }
+const { loading, data } = useQuery(QUERY_USER);
+
+const [applyJob] = useMutation(APPLY_JOB);
+
+const applyForJob = async () => {
+  
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await applyJob({
+        variables: { job_id:_id}
       });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
-    
-  }
-}
+      /*dispatch({
+        type: APPLY_TO_JOB,
+        jobs: item
+      });
+      idbPromise('walkerjobs', 'put', item);*/
+        
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
 
   return (
-    <Card
-      image='https://placedog.net/500'
-      header='Elliot Baker'
-      meta='Friend'
-      description={description}
-      extra={price}
-    />
-
+    <>
+      <Card
+        image='https://placedog.net/500'
+        header='Elliot Baker'
+        meta='Friend'
+        description={description}
+        extra={price}
+      />
+      {/* <button onClick={applyForJob}>Apply</button> */}
+    </>
   );
 }
 

@@ -23,16 +23,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-           _id
-           firstName
-            lastName
-            email
-            address
-            description
-            image
-            type
-          }
+         
          selectedUser
      }
    }

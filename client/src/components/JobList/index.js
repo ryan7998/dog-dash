@@ -51,10 +51,11 @@ function JobList(props) {
                 <JobItem
                   key= {job._id}
                   _id={job._id}
-                  image={job.image}
                   description={job.description}
                   price={job.price}
                   date={job.date}
+                  status={job.status}
+                  image={job.image}
                 />
             ))}
         </Card.Group>

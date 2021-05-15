@@ -29,12 +29,6 @@ export const QUERY_USERS = gql`
       image
       type
       submittedJobs{
-          description
-          price
-          date
-          status
-      }
-      submittedJobs{
         description
         price
         date
@@ -52,7 +46,6 @@ export const QUERY_USERS = gql`
         date
         status
       }
-     
       orders {
         _id
         purchaseDate
@@ -88,13 +81,6 @@ export const QUERY_USER = gql`
     orders {
       _id
       purchaseDate
-      jobs {
-        _id
-        description
-        price
-        date
-        status
-      }
     }
   }
 }

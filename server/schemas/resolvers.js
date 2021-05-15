@@ -109,6 +109,7 @@ const resolvers = {
         let updatedJob = await Job.find({ _id: job_id });
         await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: updatedJob } });
         updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: context.user._id } });
+        console.log("ok")
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
