@@ -87,9 +87,6 @@ const typeDefs = gql`
     jobs: [Job]
     users: [User]
     
-    doneRatings: [Rating]
-    rated_id: User
-
     job(_id: ID!): Job
     user: User
     order(_id: ID!): Order
