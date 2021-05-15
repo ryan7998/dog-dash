@@ -6,11 +6,15 @@ import {
   Container,
   Header,
   Icon,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
+import JobList from "../components/JobList"
 
 const Home = () => {
   return (
+    <>
     <HomepageBanner />
+    <JobList status="Live" rowItems="6"/>
+    </>
   );
 };
 

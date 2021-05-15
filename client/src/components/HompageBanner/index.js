@@ -11,7 +11,6 @@ import {
 const HomepageBanner = () =>{
     return(
         <div className="background-image">
-            {/* <Image src='/images/dogwalk.jpeg' fluid /> */}
             <Container text
                 style={{
                     padding:'10em'
