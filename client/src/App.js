@@ -4,7 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
 import Home from "./pages/Home";
-import Upload from "./utils/Upload";
+import Upload from "./utils/upload";
 // import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
@@ -14,7 +14,7 @@ import Jobs from "./pages/Jobs";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from 'react-redux'
 import { store } from "./utils/store";
-import Upload from "./utils/Upload";
+
 import Success from "./pages/Success";
 // import OrderHistory from "./pages/OrderHistory";
 
