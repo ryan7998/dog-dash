@@ -11,14 +11,6 @@ const typeDefs = gql`
     breed: String
   }
 
-  type Rating {
-    _id: ID
-    rater_id: ID!
-    rated_id: ID!
-    ratingNb: String!
-    text: String
-  }
-
   type Comment {
     _id: ID
     user_id: ID!
@@ -56,13 +48,13 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     email: String!
-    address: String!
+    address: String
     description: String
     image: String
-    type: String!
+    type: String
     submittedJobs : [ID]
     appliedJobs : [ID]
     selectedJobs : [ID]
@@ -73,18 +65,29 @@ const typeDefs = gql`
     orders: [Order]
   }
 
+  type Rating {
+    _id: ID
+    rater_id: ID!
+    rated_id: ID!
+    ratingNb: String!
+    text: String
+  }
+
   type Checkout {
     session: ID
   }
 
   type Auth {
-    token: ID
+    token: ID!
     user: User
   }
 
   type Query {
     jobs: [Job]
     users: [User]
+    
+    doneRatings: [Rating]
+    rated_id: User
 
     job(_id: ID!): Job
     user: User
@@ -98,10 +101,10 @@ const typeDefs = gql`
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
     
-    rateUser(rated_id: ID!, ratingNb:String!, text:String): User
+    rateUser(rated_id: ID!, ratingNb:Float!, text:String): Rating
     commentJob(user_id: ID!, job_id: ID, text:String!): Job
 
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String, description: String, image: String, type: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String!, type: String!): Auth
     addOrder(jobs: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     login(email: String!, password: String!): Auth

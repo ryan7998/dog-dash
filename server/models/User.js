@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+//const mongoose = require('mongoose');
+const { Schema, model, SchemaTypes } = require('mongoose');
+//const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Job = require('./Job');
 const Dog = require('./Dog');
@@ -12,12 +12,12 @@ const WalkerJob = require('./WalkerJob');
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   email: {
@@ -32,7 +32,7 @@ const userSchema = new Schema({
   },
   address: {
     type: String,
-    required: true,
+    required: false,
     minlength: 6
   },
   description: {
@@ -45,7 +45,7 @@ const userSchema = new Schema({
   },
   type: {
     type: String,
-    required: true
+    required: false
   },
   submittedJobs :  [
     {
@@ -66,8 +66,18 @@ const userSchema = new Schema({
     }
   ],
   dogs: [Dog.schema],
-  doneRatings: [Rating.schema],
-  receivedRatings: [Rating.schema],
+  doneRatings: [
+    {
+      type: SchemaTypes.ObjectId,
+      ref: 'Rating'
+    }
+  ],
+  receivedRatings: [
+    {
+      type: SchemaTypes.ObjectId,
+      ref: 'Rating'
+    }
+  ],
   comments: [Comment.schema],
   orders: [Order.schema]
 });
@@ -87,6 +97,6 @@ userSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
