@@ -33,6 +33,14 @@ function Nav() {
               />
             </Link>
 
+            <Link to="/profile">
+                  <Menu.Item
+                    name='profile'
+                    active={activeItem === 'profile'}
+                    onClick={()=>setActiveItem('profile')}
+                  />
+                </Link>
+
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
                   <Menu.Item

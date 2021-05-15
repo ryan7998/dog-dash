@@ -17,6 +17,7 @@ function JobList(props) {
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_JOBS);
 
+
   useEffect(() => {
     if(data) {
       dispatch({
@@ -35,7 +36,7 @@ function JobList(props) {
       // });
     }
   }, [data, loading, dispatch]);
-  console.log(data);
+  
 
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
@@ -51,13 +52,14 @@ function JobList(props) {
                 <JobItem
                   key= {job._id}
                   _id={job._id}
+                  user_id={job.user_id}
                   title = {job.title}
                   description={job.description}
                   price={job.price}
                   date={job.date}
                   status={job.status}
                   image={job.image}
-                  user = {job.user}
+                  
                 />
             ))}
         </Card.Group>
