@@ -107,7 +107,6 @@ const resolvers = {
            price: price,
            date: date,
            status: status,
-           user: user,
            new: true }
         );
 

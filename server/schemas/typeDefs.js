@@ -45,7 +45,7 @@ const typeDefs = gql`
     appliedUsers : [ID]
     selectedUser : ID
     comments: [Comment]
-    user: [User]
+    user: User
   }
 
   type Order {
