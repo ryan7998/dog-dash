@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { QUERY_USER } from '../../utils/queries';
-import { APPLY_JOB } from '../../utils/mutations';
+import { APPLY_JOB, WITHDRAW_JOB } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { UPDATE_USERS, APPLY_TO_JOB } from "../../utils/actions";
+import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
 
 function JobItem(item) {
   const state = useSelector(state => state)
@@ -29,6 +29,7 @@ function JobItem(item) {
 const { loading, data } = useQuery(QUERY_USER);
 
 const [applyJob] = useMutation(APPLY_JOB);
+const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
 const applyForJob = async () => {
   
@@ -52,18 +53,45 @@ const applyForJob = async () => {
     }
   };
 
+  const withdrawFromJob = async () => {
+  
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await withdrawJob({
+        variables: { job_id:_id}
+      });
+      /*dispatch({
+        type: WITHDRAW_FROM_JOB,
+        jobs: item
+      });
+      idbPromise('walkerjobs', 'pull', item);*/
+        
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
-    <>
-      <Card
-        image='https://placedog.net/500'
-        header='Elliot Baker'
-        meta='Friend'
-        description={description}
-        extra={price}
-      />
-      {/* <button onClick={applyForJob}>Apply</button> */}
-    </>
+    <div className="card px-1 py-1">
+      <Link to={`/jobs/${_id}`}>
+        <img
+          alt={description}
+          src={'https://placedog.net/500'}
+        />
+        <p>{description}</p>
+      </Link>
+      <div>
+        <div>{date}</div>
+        <span>${price}</span>
+      </div>
+      <button onClick={applyForJob}>Apply</button>
+      <button onClick={withdrawFromJob}>Withdraw</button>
+    </div>
+  
   );
 }
 

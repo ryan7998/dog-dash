@@ -18,7 +18,9 @@ function Jobs(){
   return (
     <Container>
       <JobList status="Live"/>
-      {/* <UserList type="walker"/> */}
+      <UserList type="Dog Walker"/>
+
+   
     </Container>
      
   );
