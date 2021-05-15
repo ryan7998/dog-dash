@@ -23,23 +23,23 @@ function JobList(props) {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        data.jobs.forEach((job) => {
-          idbPromise('jobs', 'put', job);
-        });
+        // data.jobs.forEach((job) => {
+        //   idbPromise('jobs', 'put', job);
+        // });
     } else if (!loading) {
-      idbPromise('jobs', 'get').then((jobs) => {
-        dispatch({
-          type: UPDATE_JOBS,
-          jobs: jobs
-       });
-      });
+      // idbPromise('jobs', 'get').then((jobs) => {
+      //   dispatch({
+      //     type: UPDATE_JOBS,
+      //     jobs: jobs
+      //  });
+      // });
     }
   }, [data, loading, dispatch]);
+  console.log(data);
 
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
   }
-  console.log(parseInt(props.rowItems));
 
   return (
     <div>
@@ -51,12 +51,13 @@ function JobList(props) {
                 <JobItem
                   key= {job._id}
                   _id={job._id}
-                  user_id={job.user_id}
+                  title = {job.title}
                   description={job.description}
                   price={job.price}
                   date={job.date}
                   status={job.status}
                   image={job.image}
+                  user = {job.user}
                 />
             ))}
         </Card.Group>

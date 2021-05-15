@@ -17,6 +17,8 @@ function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
 
+  // console.log(item.jobs);
+
   const {
     _id,
     user_id,
@@ -24,9 +26,12 @@ function JobItem(item) {
     price,
     date,
     status,
-    image
+    image,
+    user,
+    title
   } = item;
 
+  console.log(image)
 
 
 const [applyJob] = useMutation(APPLY_JOB);
@@ -76,23 +81,23 @@ const withdrawFromJob = async () => {
     }
 };
 
-  return (
-    <div className="card px-1 py-1">
-      <Link to={`/jobs/${_id}`}>
-        <img
-          alt={description}
-          src={'https://placedog.net/500'}
-        />
-        <p>{description}</p>
-      </Link>
-      <div>
-        <div>{date}</div>
-        <span>${price}</span>
-      </div>
-      <button onClick={applyForJob}>Apply</button>
-      <button onClick={withdrawFromJob}>Withdraw</button>
-    </div>
   
+  // console.log(item);
+
+  return (
+    <>
+      <Card
+        image={image ? image : 'https://placedog.net/500'}
+        header={title}
+        meta={`${user[0]?.firstName}  ${user[0]?.lastName}`}
+        description={description}
+        // description={`Wage: $ ${price}`}
+        // extra={`$ ${price}`}
+      />
+      {/* <button onClick={applyForJob}>Apply</button> */}
+      {/* <button onClick={applyForJob}>Apply</button>
+      <button onClick={withdrawFromJob}>Withdraw</button> */}
+    </>
   );
 }
 
