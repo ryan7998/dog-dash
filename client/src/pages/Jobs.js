@@ -19,7 +19,7 @@ function Jobs(){
     <Container text>
  
       <JobList status="Live"/>
-      <UserList type="walker"/>
+      <UserList type="Dog Walker"/>
 
    
     </Container>

@@ -61,9 +61,9 @@ const typeDefs = gql`
     description: String
     image: String
     type: String!
-    submittedJobs : [Job]
-    appliedJobs : [Job]
-    selectedJobs : [Job]
+    submittedJobs : [ID]
+    appliedJobs : [ID]
+    selectedJobs : [ID]
     dogs: [Dog]
     doneRatings: [Rating]
     receivedRatings: [Rating]
