@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Card, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -53,20 +54,16 @@ const applyForJob = async () => {
 
 
   return (
-    <div className="card px-1 py-1">
-      <Link to={`/jobs/${_id}`}>
-        <img
-          alt={description}
-          src={`/images/${image}`}
-        />
-        <p>{description}</p>
-      </Link>
-      <div>
-        <div>{date}</div>
-        <span>${price}</span>
-      </div>
-      <button onClick={applyForJob}>Apply</button>
-    </div>
+    <>
+      <Card
+        image='https://placedog.net/500'
+        header='Elliot Baker'
+        meta='Friend'
+        description={description}
+        extra={price}
+      />
+      {/* <button onClick={applyForJob}>Apply</button> */}
+    </>
   );
 }
 
