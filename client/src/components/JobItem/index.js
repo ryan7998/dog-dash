@@ -95,7 +95,7 @@ const withdrawFromJob = async () => {
     
 };
 
-console.log(state.appliedjobs, item)
+//console.log(state.appliedjobs, item)
 
   return (
     <>
