@@ -36,24 +36,9 @@ export const QUERY_USERS = gql`
       email
       image
       type
-      submittedJobs{
-        description
-        price
-        date
-        status
-      }
-      appliedJobs{
-        description
-        price
-        date
-        status
-      }
-      selectedJobs{
-        description
-        price
-        date
-        status
-      }
+      submittedJobs
+      appliedJobs
+      selectedJobs
       orders {
         _id
         purchaseDate

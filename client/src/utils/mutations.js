@@ -24,8 +24,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         
-         selectedUser
+
      }
    }
  `;
@@ -39,16 +38,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-          _id
-          firstName
-           lastName
-           email
-           address
-           description
-           image
-           type
-         }
+         appliedUsers
         selectedUser
 
      }
@@ -64,16 +54,7 @@ import gql from 'graphql-tag';
          price
          date
          status
-         appliedUsers{
-          _id
-          firstName
-           lastName
-           email
-           address
-           description
-           image
-           type
-         }
+         appliedUsers
         selectedUser
         
      }

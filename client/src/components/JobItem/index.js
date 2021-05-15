@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { QUERY_USER } from '../../utils/queries';
-import { APPLY_JOB } from '../../utils/mutations';
+import { APPLY_JOB, WITHDRAW_JOB } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { UPDATE_USERS, APPLY_TO_JOB } from "../../utils/actions";
+import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
 
 function JobItem(item) {
   const state = useSelector(state => state)
@@ -34,6 +34,7 @@ function JobItem(item) {
 const { loading, data } = useQuery(QUERY_USER);
 
 const [applyJob] = useMutation(APPLY_JOB);
+const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
 const applyForJob = async () => {
   
@@ -56,6 +57,31 @@ const applyForJob = async () => {
       console.error(e);
     }
   };
+
+
+  const withdrawFromJob = async () => {
+  
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await withdrawJob({
+        variables: { job_id:_id}
+      });
+      /*dispatch({
+        type: WITHDRAW_FROM_JOB,
+        jobs: item
+      });
+      idbPromise('walkerjobs', 'pull', item);*/
+        
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  
   // console.log(item);
 
   return (
@@ -69,6 +95,8 @@ const applyForJob = async () => {
         // extra={`$ ${price}`}
       />
       {/* <button onClick={applyForJob}>Apply</button> */}
+      {/* <button onClick={applyForJob}>Apply</button>
+      <button onClick={withdrawFromJob}>Withdraw</button> */}
     </>
   );
 }

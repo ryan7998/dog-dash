@@ -46,7 +46,7 @@ db.once('open', async () => {
     address: '100 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves wolves!',
     image: './images/user1.JPG',
-    type: 'walker'
+    type: 'Dog Walker'
   });
 
   console.log('users seeded');
