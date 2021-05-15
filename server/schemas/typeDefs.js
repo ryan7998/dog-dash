@@ -85,8 +85,9 @@ const typeDefs = gql`
   type Query {
     jobs: [Job]
     users: [User]
+    jobById(_id: ID!): Job
+    userById(_id: ID!): User
 
-    job(_id: ID!): Job
     user: User
     order(_id: ID!): Order
     checkout(jobs: [ID]!): Checkout
