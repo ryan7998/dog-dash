@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { QUERY_USER_BYID } from '../../utils/queries';
-import { useSelector, useDispatch} from 'react-redux'
 import {
     Button,
     Container,
@@ -22,12 +21,12 @@ const ProfilePage = () =>{
 
     const user = data?.user || {};
 
-    // if (
-    //     Auth.loggedIn() &&
-    //     Auth.getProfile().data.firstname === userParam
-    //   ) {
-    //     return <Redirect to="/profile" />;
-    //   }
+    if (
+        Auth.loggedIn() &&
+        Auth.getProfile().data.firstname === userParam
+      ) {
+        return <Redirect to="/profile" />;
+      }
     
 
     if (loading) {
@@ -53,5 +52,4 @@ const ProfilePage = () =>{
 }
 
 export default ProfilePage;
-
 
