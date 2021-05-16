@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
-
+import {
+  Button,
+  Container,
+  Header,
+  Image,
+  Icon,
+  Card
+} from 'semantic-ui-react'
 
 function UserItem(item) {
   const state = useSelector(state => state)
@@ -22,19 +29,30 @@ function UserItem(item) {
 
 
   return (
-    <div className="card px-1 py-1">
-      <Link to={`/users/${_id}`}>
-        <img
-          alt={description}
-          src={`/images/${image}`}
-        />
-        <h1>{type}</h1>
-        <h2>{firstName} {lastName}</h2>
-        <p>{description}</p>
-        <p>{email}</p>
-        <p>{address}</p>
-      </Link>
+    <Container className="card-container">
+    <div>
+        <Card className="profile-card">
+        {/* <Image src={`/images/${image}`} wrapped ui={false} alt={description}/> */}
+        <Image src='images/walker.jpeg' wrapped ui={false} alt={description}/>
+        <Card.Content>
+            <Card.Header>{firstName} {lastName}</Card.Header>
+                <Card.Meta>
+                    {type} 
+                </Card.Meta>
+                <Card.Description>
+                    {description}
+                </Card.Description>
+                {email}
+                </Card.Content>
+
+            <Card.Content extra>
+            
+            {address}
+            </Card.Content>
+        </Card>
     </div>
+    </Container>
+
   );
 }
 

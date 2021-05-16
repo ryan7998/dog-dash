@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
@@ -28,37 +29,22 @@ function ProfileData(item) {
 
 
   return (
-<<<<<<< HEAD
-    <div className="card-container">
-=======
       <Container className="card-container">
-    <div>
->>>>>>> dff75f6194792f7e20db62728f2010617e20d2d9
-        <Card className="profile-card">
-        <Image src={`/images/${image}`} wrapped ui={false} alt={description}/>
-        <Card.Content>
-            <Card.Header>{firstName} {lastName}</Card.Header>
-                <Card.Meta>
-                    {type} 
-                </Card.Meta>
-                <Card.Description>
-                    {description}
-                </Card.Description>
-                {email}
-                </Card.Content>
+    
+    <div className="card px-1 py-1">
+    <Image src='images/walker.jpeg' alt={description} size='medium' circular />
 
-            <Card.Content extra>
-            
-            {address}
-            </Card.Content>
-        </Card>
-<<<<<<< HEAD
-      
-    </div>
-=======
+        {/* <img
+          alt={description}
+          src={`/images/${image}`}
+        /> */}
+        <h1>{type}</h1>
+        <p>{firstName} {lastName}</p>
+        <p>{description}</p>
+        <p>{email}</p>
+        <p>{address}</p>
     </div>
     </Container>
->>>>>>> dff75f6194792f7e20db62728f2010617e20d2d9
   );
 }
 
