@@ -14,7 +14,6 @@ import Jobs from "./pages/Jobs";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from 'react-redux'
 import { store } from "./utils/store";
-// import Upload from "./utils/Upload";
 import Success from "./pages/Success";
 // import OrderHistory from "./pages/OrderHistory";
 
