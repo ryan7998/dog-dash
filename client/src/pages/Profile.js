@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePage from "../components/ProfilePage";
 import background from "../assets/bgwhite.png";
+import JobHistory from "../components/JobHistory";
 
 import {
   Button,
@@ -13,9 +14,10 @@ import {
 function Profile(){
   return (
     <div style={{ backgroundImage: `url(${background})` }}>
-    <Container className="profile-page">
+    <div className="profile-page">
       <ProfilePage type="Dog Walker"/>
-    </Container>
+      <JobHistory type="Dog Walker"/>
+    </div>
      </div>
   );
 };

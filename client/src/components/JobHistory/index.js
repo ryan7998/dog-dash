@@ -1,10 +1,14 @@
 import React from 'react'
+// import JobList from './JobList'
 
- function LiveJob() {
+import {
+    Item,
+    Container
+  } from 'semantic-ui-react'
 
-
-    
+function JobHistory() {
     return (
+    <Container className="jobcss">
     <div>
         <div class="ui items">
         <div class="item">
@@ -24,11 +28,9 @@ import React from 'react'
       </div>
     </div>
   </div>
-  
     </div>
   </div>
+  </Container>
+)}
 
-    )
-}
-
-export default LiveJob
+export default JobHistory;

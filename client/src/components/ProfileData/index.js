@@ -28,7 +28,12 @@ function ProfileData(item) {
 
 
   return (
+<<<<<<< HEAD
     <div className="card-container">
+=======
+      <Container className="card-container">
+    <div>
+>>>>>>> dff75f6194792f7e20db62728f2010617e20d2d9
         <Card className="profile-card">
         <Image src={`/images/${image}`} wrapped ui={false} alt={description}/>
         <Card.Content>
@@ -47,8 +52,13 @@ function ProfileData(item) {
             {address}
             </Card.Content>
         </Card>
+<<<<<<< HEAD
       
     </div>
+=======
+    </div>
+    </Container>
+>>>>>>> dff75f6194792f7e20db62728f2010617e20d2d9
   );
 }
 
