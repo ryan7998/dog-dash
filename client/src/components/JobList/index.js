@@ -51,7 +51,7 @@ function JobList(props) {
       {state.jobs.length ? (
         <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
-                <JobItem apply= {props.apply} select={props.select} selectme={props.selectme}
+                <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
                   _id={job._id}
                   user_id={job.user_id}
