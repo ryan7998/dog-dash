@@ -2,6 +2,7 @@ import {
   UPDATE_USERS,
   UPDATE_JOBS,
   UPDATE_WALKERJOBS,
+  ADD_MULTIPLE_TO_CART,
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
@@ -43,18 +44,23 @@ export function jobReducer(state = initialState, action) {
           walkerjobs: [...action.walkerjobs],
         };
 
+    case ADD_MULTIPLE_TO_CART:
+          return {
+            ...state,
+            cart: [...state.cart, ...action.users],
+          };
 
     case ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.job],
+        cart: [...state.cart, action.user],
       };
 
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter(job => {
-        return job._id !== action._id;
+      let newState = state.cart.filter(user => {
+        return user._id !== action._id;
       });
 
       return {

@@ -1,13 +1,20 @@
 import React, {useState} from "react";
+import { useQuery } from '@apollo/react-hooks';
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react'
+import { QUERY_USER} from '../../utils/queries';
 // import Signup from "./pages/Signup";
 
 function Nav() {
   const [activeItem, setActiveItem] = useState('home');
+    // gets the current user details
+    let data0= useQuery(QUERY_USER)
+    const me = data0?.data?.user || {};
 
   function showNavigation() {
+
+
 
       return(
         <Menu fixed='top' inverted >
@@ -43,6 +50,18 @@ function Nav() {
             </Link>
             : null
             }
+
+            {(Auth.loggedIn() && me.type=="Dog Owner") ? 
+            <Link to="/cart">
+            <Menu.Item
+                name='cart'
+                active={activeItem === 'cart'}
+                onClick={()=>setActiveItem('cart')}
+              />
+            </Link>
+            : null
+            }
+
 
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
