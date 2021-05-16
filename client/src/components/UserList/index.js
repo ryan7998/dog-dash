@@ -41,7 +41,7 @@ function UserList(props) {
 
   return (
     <div className="my-2">
-      <h2>Our Walkers:</h2>
+   
       {state.users.length ? (
         <div className="flex-row">
             {filterUsers().map(user => (

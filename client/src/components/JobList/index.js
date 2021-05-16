@@ -42,14 +42,16 @@ function JobList(props) {
     return state.jobs.filter(job => job.status === props.status);
   }
 
+
+
   return (
     <div>
       <h2></h2>
-      <h2>Our Jobs:</h2>
+      
       {state.jobs.length ? (
         <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
-                <JobItem
+                <JobItem apply= {props.apply} select={props.select} selectme={props.selectme}
                   key= {job._id}
                   _id={job._id}
                   user_id={job.user_id}

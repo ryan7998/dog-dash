@@ -5,21 +5,27 @@ import React from "react";
 //import { QUERY_USER } from "../utils/queries";
 import WalkerJobs from "../components/WalkerJobsComp";
 import JobHistory from "../components/JobHistory";
+import JobList from "../components/JobList";
 //import Cart from "../components/Cart";
 
 import { Button, Container, Header, Icon } from "semantic-ui-react";
 
-function WalkerJobsFunc() {
+function MyJobHistory() {
   return (
     <Container>
       <br />
       <table>
         <tr>
           <td>
-            <WalkerJobs status="Live" />
+          <h2>Active Jobs:</h2>
+          <JobList status="Live" apply= "true" select="false" selectme="false"/>
+          <JobList status="Live" apply= "true" select="true"  selectme="true"/>
+          <JobList status="Live" apply= "true" select="true"  selectme="false"/>
           </td>
           <td>
-            <JobHistory status="Inactive"/>
+          <h2>Previous Jobs:</h2>
+          <JobList status="Done" apply= "true" select="true" selectme="true"/>
+          <JobList status="Done" apply= "true" select="true" selectme="false"/>
           </td>
         </tr>
       </table>
@@ -27,4 +33,4 @@ function WalkerJobsFunc() {
   );
 }
 
-export default WalkerJobsFunc;
+export default MyJobHistory;

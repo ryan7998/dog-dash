@@ -25,21 +25,24 @@ function Nav() {
                 />
             </Link>
 
-            <Link to="/jobs">
+            <Link to="/ourjobs">
             <Menu.Item
-                name='jobs'
-                active={activeItem === 'jobs'}
-                onClick={()=>setActiveItem('jobs')}
+                name='Our jobs'
+                active={activeItem === 'ourjobs'}
+                onClick={()=>setActiveItem('ourjobs')}
               />
             </Link>
 
-            <Link to="/walkerjobs">
+            {Auth.loggedIn() ? 
+            <Link to="/myjobhistory">
             <Menu.Item
-                name='walkerjobs'
-                active={activeItem === 'walkerjobs'}
-                onClick={()=>setActiveItem('walkerjobs')}
+                name='my job history'
+                active={activeItem === 'myjobhistory'}
+                onClick={()=>setActiveItem('myjobhistory')}
               />
             </Link>
+            : null
+            }
 
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
