@@ -39,13 +39,14 @@ function UserList(props) {
   }
 
 
+
   return (
     <div className="my-2">
    
       {state.users.length ? (
-        <div className="flex-row">
+        <div className="flex-row"> 
             {filterUsers().map(user => (
-                <UserItem
+                <UserItem apply={props.apply} job_id={props.job_id}
                   key= {user._id}
                   _id={user._id}
                   firstName={user.firstName}
@@ -55,6 +56,7 @@ function UserList(props) {
                   email={user.email}
                   image={user.image}
                   type={user.type}
+                  appliedJobs={user.appliedJobs}
                 />
             ))}
         </div>

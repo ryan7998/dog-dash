@@ -22,16 +22,12 @@ function OurJobs(){
         <tr>
           <td>
           <h2>Our Jobs:</h2>
-          <JobList status="Live" apply= "true" select="true" selectme="true"/>
-          <JobList status="Live" apply= "true" select="true" selectme="false"/>
-          <JobList status="Live" apply= "true" select="false" selectme="false"/>
-          <JobList status="Live" apply= "false" select="true" selectme="false"/>
-          <JobList status="Live" apply= "false" select="false" selectme="false"/>
+          <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
           </td>
 
           <td>
           <h2>Our Walkers:</h2>
-          <UserList type="Dog Walker"/>
+          <UserList type="Dog Walker" apply="any" job_id="any"/>
           </td>
         </tr>
       </table>

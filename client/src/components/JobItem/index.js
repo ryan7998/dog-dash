@@ -13,6 +13,7 @@ import { APPLY_JOB, WITHDRAW_JOB } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from '@apollo/react-hooks';
+import UserList from "../UserList";
 
 
 function JobItem(item) {
@@ -43,9 +44,11 @@ function JobItem(item) {
 
 
   const {
+    submit,
     apply,
     select,
     selectme,
+    walker,
     _id,
     user_id,
     title,
@@ -69,7 +72,14 @@ let data1 = useQuery(QUERY_USER_BYID, {
 });
 const submitter = data1?.data?.userById || {};
 
-// check if the current user (me) applied to the job
+// check if the current owner (me) created to the job
+function updatecreatedB() {
+  let createdB = false
+  if (me._id==submitter._id){createdB=true}
+  return createdB
+  }
+
+// check if the current walker (me) applied to the job
 function updateappliedB() {
   let appliedB = false
   for (var i = 0; i < state.walkerjobs.length; i++) {
@@ -79,8 +89,27 @@ function updateappliedB() {
   return appliedB
   }
 
-// check if there is another user selected for this job. will be used for filtering and display purposes
+  // check if someone applied to the job
+function updateanyappliedB() {
+  let appliedB = false
+  for (var i = 0; i < state.walkerjobs.length; i++) {
+        if ( state.walkerjobs[i].apply== true && state.walkerjobs[i].job_id== _id  ) 
+            {appliedB= true}
+    }
+  return appliedB
+  }
+// check if there the current user (me) was selected for this job. will be used for filtering and display purposes
 function updateselectedB() {
+  let selectedB = false
+  for (var i = 0; i < state.walkerjobs.length; i++) {
+    if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id && state.walkerjobs[i].walker_id== me._id  ) 
+        {selectedB=state.walkerjobs[i].select}
+  }
+  return selectedB
+  }
+
+// check if there is another user selected for this job. will be used for filtering and display purposes
+function updateanyselectedB() {
     let selectedB = false
     for (var i = 0; i < state.walkerjobs.length; i++) {
       if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id  ) 
@@ -153,22 +182,34 @@ const withdrawFromJob = async () => {
 
 // Display the job if it corresponds to the filter criteria coming from react props item
 function filterJob() {
- if (!initialwalkerjob()) {
-  if (apply == false && (updateselectedB().toString()==select || (!updateselectedB() && select == false)) && selectme == false)
-   {return true}
-  else {return false}
- }
+// Our Jobs Page
+if (status=="Live" && submit=="any" && apply=="any" && select=="any" && selectme=="any") {return true}
+// My Job History Page
+if (me.type == "Dog Walker"){
+    if (!initialwalkerjob()) { // never applied to the job
+      if (apply == false && (updateanyselectedB().toString()==select || (!updateanyselectedB() && select == false)) && (selectme == false ))
+      {return true}
+      else {return false}
+    }
 
- else {
-   let mywalkerjob=initialwalkerjob()
-   if (initialwalkerjob()[0]) {mywalkerjob=initialwalkerjob()[0]} 
-    console.log(mywalkerjob)
-   if ( (mywalkerjob.apply.toString() == apply)
-      && (updateselectedB().toString()==select || (!updateselectedB() && select == false))
-      && (mywalkerjob.select.toString() == selectme )  )
-    {return true}
-    else {return false} 
- }
+    else { // applied to the job
+      let mywalkerjob=initialwalkerjob()
+      if (initialwalkerjob()[0]) {mywalkerjob=initialwalkerjob()[0]} 
+      if ( (mywalkerjob.apply.toString() == apply)
+          && (updateanyselectedB().toString()==select || (!updateanyselectedB() && select == false))
+          && (mywalkerjob.select.toString() == selectme )  )
+        {return true}
+        else {return false} 
+    }
+  }
+else // Dog Owner
+      { if ( (updatecreatedB().toString() ==submit )
+          && (updateanyappliedB().toString()==apply || (!updateanyappliedB() && apply == false)) 
+          && (updateanyselectedB().toString()==select || (!updateanyselectedB() && select == false)) ) 
+          {return true} 
+          else {return false} 
+
+      }
 }
 if (!filterJob()){return null}
 
@@ -184,12 +225,17 @@ if (!filterJob()){return null}
         // extra={`$ ${price}`}     
       />
  
-      { (Auth.loggedIn() && updateappliedB()== true) ? 
+      { (Auth.loggedIn() && updateappliedB()== true && me.type=="Dog Walker") ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
-      { (Auth.loggedIn() && updateappliedB()== false) ? 
+      { (Auth.loggedIn() && updateappliedB()== false && me.type=="Dog Walker") ? 
         (<button onClick={applyForJob}>Apply</button>):null
       }
+
+      {(Auth.loggedIn() && me.type=="Dog Owner" && walker=="true")?
+            <UserList type="Dog Walker" apply ="true" job_id={_id}/>
+            : null
+            }
     </>
   );
 }
