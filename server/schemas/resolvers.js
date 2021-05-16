@@ -5,6 +5,11 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+    walkerjobs: async () => {
+      const walkerjobs= await WalkerJob.find();
+      return walkerjobs;
+    },
+
     jobs: async () => {
       const jobs= await Job.find().populate({
         path:'orders.user',
@@ -23,6 +28,7 @@ const resolvers = {
         .populate('receivedRatings');
         return users;
     },
+    
     jobById: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
     },
@@ -41,7 +47,7 @@ const resolvers = {
           path: 'orders.jobs',
           populate: 'job'
         });
-
+        
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
         return user;
@@ -112,7 +118,7 @@ const resolvers = {
            status: status,
            new: true }
         );
-
+    
         await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob._id } });
         return newJob;
       }
@@ -146,12 +152,11 @@ const resolvers = {
 
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        await WalkerJob.findOneAndUpdate(
+        let test = await WalkerJob.deleteOne(
           { walker_id: context.user._id, 
-            job_id: job_id  , 
-            new: true},
-          { $set: { apply: 0 } }
+            job_id: job_id  }
         );
+        console.log("ok!!!!!!!!!!!", test)
         await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: job_id }  });
         let updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } , new: true });
         return updatedJob;
@@ -188,7 +193,6 @@ const resolvers = {
     },
 
     addUser: async (parent, args) => {
-      console.log("hello");
       const user = await User.create(args);
       const token = signToken(user);
 

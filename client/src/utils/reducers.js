@@ -1,10 +1,7 @@
 import {
-  SELECT_WALKER,
-  WITHDRAW_FROM_JOB,
-  APPLY_TO_JOB,
-  CREATE_JOB,
   UPDATE_USERS,
   UPDATE_JOBS,
+  UPDATE_WALKERJOBS,
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
@@ -13,14 +10,11 @@ import {
 
 // Define an initial state value for the app
 const initialState = {
-    jobs: [],
     cart: [],
     cartOpen: false,
-    walkers: [] ,
     users: [] ,
-    submittedjobs: [] ,
-    appliedjobs: [] ,
-    selectedwalkerjobs: [] 
+    jobs: [],
+    walkerjobs: [] 
 }
 
 // Create a "reducer" function that determines what the new state
@@ -30,40 +24,25 @@ export function jobReducer(state = initialState, action) {
   // to decide how to update the state
   switch (action.type) {
 
-    case SELECT_WALKER:
-      return {
-        ...state,
-        selectedwalkerjobs: [action.walkerjob],
-      };
-
-    case WITHDRAW_FROM_JOB:
-      let newState = state.appliedjobs.filter(job => {
-        return job._id !== action.job._id;
-      });
-
-    case APPLY_TO_JOB:
-      return {
-        ...state,
-        appliedjobs: [...state.appliedjobs, action.job], //////////we should add the job to the current list and not erase the list with the job
-      };
-    
-      case CREATE_JOB:
-      return {
-        ...state,
-        submittedjobs: [...state.submittedjobs, action.job],
-      };
-
     case UPDATE_USERS:
       return {
         ...state,
         users: [...action.users],
       };
-    
+
+ 
     case UPDATE_JOBS:
       return {
         ...state,
         jobs: [...action.jobs],
       };
+
+      case UPDATE_WALKERJOBS:
+        return {
+          ...state,
+          walkerjobs: [...action.walkerjobs],
+        };
+
 
     case ADD_TO_CART:
       return {
@@ -74,7 +53,7 @@ export function jobReducer(state = initialState, action) {
 
 
     case REMOVE_FROM_CART:
-      newState = state.cart.filter(job => {
+      let newState = state.cart.filter(job => {
         return job._id !== action._id;
       });
 
