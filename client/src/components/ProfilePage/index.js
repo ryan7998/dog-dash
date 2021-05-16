@@ -1,55 +1,69 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { QUERY_USER_BYID } from '../../utils/queries';
-import {
-    Button,
-    Container,
-    Header,
-    Icon,
-    Image
-} from 'semantic-ui-react';
-import background from "../assets/bgwhite.png";
-import { useQuery } from "@apollo/react-hooks";
-import Auth from '../../utils/auth';
+import React, { useEffect } from "react";
+import ProfileData from "../ProfileData";
+//import { useStoreContext } from "../../utils/GlobalState";
+import { useSelector, useDispatch } from 'react-redux'
+import { UPDATE_USERS } from "../../utils/actions";
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_USERS } from "../../utils/queries";
+import { idbPromise } from "../../utils/helpers";
+import spinner from "../../assets/spinner.gif"
 
-const ProfilePage = () =>{
-    const { firstname: userParam} = useParams();
 
-    const { loading, data } = useQuery(QUERY_USER_BYID, {
-        variables: { firstname: userParam }
-    });
+function ProfilePage(props) {
 
-    const user = data?.user || {};
+  const state = useSelector(state => state)
+    const dispatch = useDispatch()
+  const { loading, data } = useQuery(QUERY_USERS);
 
-    if (
-        Auth.loggedIn() &&
-        Auth.getProfile().data.firstname === userParam
-      ) {
-        return <Redirect to="/profile" />;
-      }
-    
-
-    if (loading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    if(data) {
+      dispatch({
+          type: UPDATE_USERS,
+          users: data.users
+        });
+        data.users.forEach((user) => {
+          idbPromise('users', 'put', user);
+        });
+    } else if (!loading) {
+      idbPromise('users', 'get').then((users) => {
+        dispatch({
+          type: UPDATE_USERS,
+          users: users
+       });
+      });
     }
+  }, [data, loading, dispatch]);
 
-    if (!user?.firstname) {
-        return (
-          <h4>
-            You need to be logged in to see this. Use the navigation links above to sign up or log in!
-          </h4>
-        );
-      }    
+  function filterUsers() {
+    return state.users.filter(user => user.type === props.type);
+  }
 
-    return(
-        <div style={{ backgroundImage: `url(${background})` }}>
-            {/* <Container text>
-            </Container> */}
-            {user.firstname}
+  return (
+    <div className="my-2">
+      <h2>Our Walkers:</h2>
+      {state.users.length ? (
+        <div className="flex-row">
+            {filterUsers().map(user => (
+                <ProfileData
+                  key= {user._id}
+                  _id={user._id}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  description={user.description}
+                  address={user.address}
+                  email={user.email}
+                  image={user.image}
+                  type={user.type}
+                />
+            ))}
         </div>
-
-    )
+      ) : (
+        <h3>You haven't added any users yet!</h3>
+      )}
+      { loading ? 
+      <img src={spinner} alt="loading" />: null}
+    </div>
+  );
 }
 
 export default ProfilePage;
-

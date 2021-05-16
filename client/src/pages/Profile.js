@@ -1,21 +1,25 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import ProfilePage from "../components/ProfilePage";
+import background from "../assets/bgwhite.png";
+
 import {
   Button,
   Container,
   Header,
   Icon,
-} from 'semantic-ui-react';
-import UserList from "../components/UserList"
+  Card
+} from 'semantic-ui-react'
 
-const Profile = () => {
+function Profile(){
   return (
-    <Container>
-      <ProfilePage />
-      <UserList />
+    <div style={{ backgroundImage: `url(${background})` }}>
+    <Container className="profile-page">
+      <ProfilePage type="Dog Walker"/>
     </Container>
+     </div>
   );
 };
 
 export default Profile;
+
+
