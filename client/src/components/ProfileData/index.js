@@ -28,7 +28,8 @@ function ProfileData(item) {
 
 
   return (
-    <div className="card-container">
+      <Container className="card-container">
+    <div>
         <Card className="profile-card">
         <Image src={`/images/${image}`} wrapped ui={false} alt={description}/>
         <Card.Content>
@@ -47,8 +48,8 @@ function ProfileData(item) {
             {address}
             </Card.Content>
         </Card>
-      
     </div>
+    </Container>
   );
 }
 
