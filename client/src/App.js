@@ -49,17 +49,11 @@ function App() {
             {/* <Route exact path="/success" component={Success} />
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} /> */}
-<<<<<<< HEAD
-            <Route component={NoMatch} />
-          </Switch>
-        </Provider>
-=======
               <Route component={NoMatch} />
             </Switch>
             <Upload />
           </Provider>
       
->>>>>>> 06bbb4305fbd408e73f1887020c7e674e04f9611
       </Router>
     </ApolloProvider>
   );
