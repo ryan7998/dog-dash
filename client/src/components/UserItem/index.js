@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { QUERY_WALKERJOBS} from '../../utils/queries';
 import { SELECT_WALKER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { UPDATE_WALKERJOBS } from "../../utils/actions";
+import { ADD_TO_CART,  UPDATE_WALKERJOBS } from "../../utils/actions";
+
 
 function UserItem(item) {
   const state = useSelector(state => state)
@@ -39,6 +40,7 @@ function UserItem(item) {
   const {
       apply,
       job_id,
+      job_price,
       selectedUser,
       _id,
       firstName,
@@ -164,6 +166,39 @@ function filterUser() {
   else {return false}
 }
 
+// Add items to cart
+
+let newcartitem ={
+  image: image,
+    name: firstName + " " + lastName,
+    _id: _id,
+    price: job_price,
+    quantity: 1
+}
+const { cart } = state
+
+const addToCart = () => {
+  /*const itemInCart = cart.find((cartItem) => cartItem._id === _id)
+  if (itemInCart) {
+    dispatch({
+      type: UPDATE_CART_QUANTITY,
+      _id: _id,
+      purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+    });
+    idbPromise('cart', 'put', {
+      ...itemInCart,
+      purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+    });
+  } else {*/
+    dispatch({
+      type: ADD_TO_CART,
+      user: { ...newcartitem }
+    });
+    idbPromise('cart', 'put', { ...newcartitem });
+  //}
+}
+
+
 if (!filterUser()){return null}
 
   return (
@@ -177,7 +212,12 @@ if (!filterUser()){return null}
         
       />
       { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
-          (<button>Selected</button>):null
+          (<button>Selected</button>)
+          :null
+      }
+      { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
+          (<button onClick={addToCart}>Add to cart</button>)
+          :null
       }
       { (Auth.loggedIn() && userSelected()== false && (apply=="true")) ? 
         (<button onClick={selectWalkerForJob}>Select</button>):null

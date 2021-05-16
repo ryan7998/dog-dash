@@ -40,7 +40,7 @@ if (me.type=="Dog Walker"){
   );
 
 }
-else {
+else { // Dog Owner
   return (
     <Container>
       <br />

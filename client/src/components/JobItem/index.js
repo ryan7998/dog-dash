@@ -233,7 +233,7 @@ if (!filterJob()){return null}
       }
 
       {(Auth.loggedIn() && me.type=="Dog Owner" && walker=="true")?
-            <UserList type="Dog Walker" apply ="true" job_id={_id}/>
+            <UserList type="Dog Walker" apply ="true" job_id={_id} job_price={price}/>
             : null
             }
     </>
