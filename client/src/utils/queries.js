@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 
+
 export const QUERY_JOB_BYID = gql`
   query jobById($id: ID!) {
     jobById(_id: $id) {
@@ -48,6 +49,17 @@ export const QUERY_USER_BYID = gql`
   }
 `;
 
+export const QUERY_WALKERJOBS = gql`
+  {
+    walkerjobs {
+      _id
+      walker_id
+      job_id
+      apply
+      select
+    }
+  }
+`;
 
 export const QUERY_JOBS = gql`
   {
@@ -112,6 +124,7 @@ export const QUERY_CHECKOUT = gql`
 export const QUERY_USER = gql`
 {
   user {
+    _id
     firstName
     lastName
     orders {
