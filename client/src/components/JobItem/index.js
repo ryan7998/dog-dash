@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useState } from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
@@ -7,18 +8,39 @@ import { useSelector, useDispatch } from 'react-redux'
 //import { ADD_TO_CART } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { QUERY_USER, QUERY_USER_BYID } from '../../utils/queries';
+import { QUERY_USER, QUERY_USER_BYID , QUERY_WALKERJOBS} from '../../utils/queries';
 import { APPLY_JOB, WITHDRAW_JOB } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
+import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from '@apollo/react-hooks';
 
 
 function JobItem(item) {
+  
   const state = useSelector(state => state)
   const dispatch = useDispatch()
+  const { loading, data } = useQuery(QUERY_WALKERJOBS);
 
-  // console.log(item.jobs);
+
+  useEffect(() => {
+    if(data) {
+      dispatch({
+          type: UPDATE_WALKERJOBS,
+          walkerjobs: data.walkerjobs
+        });
+        data.walkerjobs.forEach((walkerjob) => {
+         idbPromise('walkerjobs', 'put', walkerjob);
+         });
+    } else if (!loading) {
+       idbPromise('walkerjobs', 'get').then((walkerjobs) => {
+         dispatch({
+           type: UPDATE_WALKERJOBS,
+           walkerjobs: walkerjobs
+        });
+       });
+    }
+  }, [data, loading, dispatch]);
+
 
   const {
     _id,
@@ -31,24 +53,46 @@ function JobItem(item) {
     image
   } = item;
 
-let data= useQuery(QUERY_USER)
-const me = data?.user || {};
 
-data = useQuery(QUERY_USER_BYID, {
+
+let data0= useQuery(QUERY_USER)
+const me = data0?.data?.user || {};
+
+let data1 = useQuery(QUERY_USER_BYID, {
     variables: { id: user_id }
 });
-const submitter = data?.userById || {};
-
+const submitter = data1?.data?.userById || {};
 
 const [applyJob] = useMutation(APPLY_JOB);
 const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
-const walkerjobitem ={
-  walker_id: me._id,
-  _id: _id,
-  apply:1,
-  select:0
+
+function updateappliedB() {
+  let appliedB = false
+  for (var i = 0; i < state.walkerjobs.length; i++) {
+        if (state.walkerjobs[i].walker_id== me._id && state.walkerjobs[i].job_id== _id  ) 
+            {appliedB=state.walkerjobs[i].apply}
+    }
+  return appliedB
+  }
+
+function walkerjob() {
+      let walkerjob = {
+        _id:"new"+me._id+_id,
+        walker_id: me._id,
+        job_id:_id,
+        apply:true,
+        select:false
+      }
+
+    if (updateappliedB() ==true) {
+            walkerjob= state.walkerjobs.filter(walkerjob => {
+                  return (walkerjob.job_id == _id && walkerjob.walker_id == me._id );
+                  }
+    )};
+return walkerjob
 }
+
 
 const applyForJob = async () => {
   
@@ -62,14 +106,14 @@ const applyForJob = async () => {
             variables: { job_id:_id}
           });
           dispatch({
-            type: APPLY_TO_JOB,
-            job: item
+            type: UPDATE_WALKERJOBS,
+            walkerjobs:  [...state.walkerjobs, walkerjob()]
           });
-          idbPromise('walkerjobs', 'put', walkerjobitem);
-            
+           idbPromise('walkerjobs', 'put', walkerjob());
         } catch (e) {
           console.error(e);
         }
+       
     
   };
 const withdrawFromJob = async () => {
@@ -84,18 +128,25 @@ const withdrawFromJob = async () => {
             variables: { job_id:_id}
           });
           dispatch({
-            type: WITHDRAW_FROM_JOB,
-            job: item
+            type: UPDATE_WALKERJOBS,
+            walkerjobs:  state.walkerjobs.filter(walkerjob => {
+                            return (walkerjob.job_id !== _id && walkerjob.walker_id !== me._id );
+                          })
           });
-          idbPromise('walkerjobs', 'pull', walkerjobitem);
-            
+   
+          idbPromise('walkerjobs', 'delete', walkerjob()[0] );
+          
         } catch (e) {
           console.error(e);
         }
-    
+        
 };
 
-//console.log(state.appliedjobs, item)
+
+
+
+
+
 
   return (
     <>
@@ -108,10 +159,10 @@ const withdrawFromJob = async () => {
         // extra={`$ ${price}`}     
       />
  
-      { (Auth.loggedIn() && state.appliedjobs.includes(item)) ? 
+      { (Auth.loggedIn() && updateappliedB()== true) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
-      { (Auth.loggedIn() && !state.appliedjobs.includes(item)) ? 
+      { (Auth.loggedIn() && updateappliedB()== false) ? 
         (<button onClick={applyForJob}>Apply</button>):null
       }
     </>

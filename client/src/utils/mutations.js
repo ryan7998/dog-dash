@@ -88,18 +88,18 @@ export const LOGIN = gql`
      }
    }
  `;
-
+ 
 export const ADD_USER = gql`
-mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $address: String, $description: String, $image: String $type: String!) {
+mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $address: String!, $description: String, $image: String, $type: String!) {
   addUser(
     firstName: $firstName, 
     lastName: $lastName, 
     email: $email, 
     password: $password, 
-    type: $type,
     address: $address, 
     description: $description, 
-    image: $image
+    image: $image,
+    type: $type
   ){
     token
     user {
