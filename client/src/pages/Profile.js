@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import ProfilePage from "../components/ProfilePage";
 import {
   Button,
@@ -11,10 +11,10 @@ import UserList from "../components/UserList"
 
 const Profile = () => {
   return (
-    <>
-    <ProfilePage />
-    <UserList />
-    </>
+    <Container>
+      <ProfilePage />
+      <UserList />
+    </Container>
   );
 };
 

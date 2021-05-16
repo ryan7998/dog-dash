@@ -1,11 +1,8 @@
 import {
-<<<<<<< HEAD
-=======
   SELECT_WALKER,
   WITHDRAW_FROM_JOB,
   APPLY_TO_JOB,
   CREATE_JOB,
->>>>>>> neeko
   UPDATE_USERS,
   UPDATE_JOBS,
   ADD_TO_CART,
@@ -20,14 +17,10 @@ const initialState = {
     cart: [],
     cartOpen: false,
     walkers: [] ,
-<<<<<<< HEAD
-    users: [] 
-=======
     users: [] ,
     submittedjobs: [] ,
     appliedjobs: [] ,
     selectedwalkerjobs: [] 
->>>>>>> neeko
 }
 
 // Create a "reducer" function that determines what the new state
@@ -37,8 +30,6 @@ export function jobReducer(state = initialState, action) {
   // to decide how to update the state
   switch (action.type) {
 
-<<<<<<< HEAD
-=======
     case SELECT_WALKER:
       return {
         ...state,
@@ -62,7 +53,6 @@ export function jobReducer(state = initialState, action) {
         submittedjobs: [...state.submittedjobs, action.job],
       };
 
->>>>>>> neeko
     case UPDATE_USERS:
       return {
         ...state,

@@ -6,8 +6,6 @@ export const QUERY_JOB_BYID = gql`
     jobById(_id: $id) {
       _id
       user_id
-<<<<<<< HEAD
-=======
       description
       price
       date
@@ -57,17 +55,12 @@ export const QUERY_JOBS = gql`
       _id
       user_id
       title
->>>>>>> neeko
       description
       price
       date
       status
       appliedUsers
       selectedUser
-<<<<<<< HEAD
-   
-=======
->>>>>>> neeko
     }
   }
 `;
@@ -78,38 +71,6 @@ export const QUERY_USERS = gql`
       _id
       firstName
       lastName
-<<<<<<< HEAD
-      description
-      address
-      email
-      image
-      type
-      submittedJobs{
-          description
-          price
-          date
-          status
-      }
-      submittedJobs{
-        description
-        price
-        date
-        status
-      }
-      appliedJobs{
-        description
-        price
-        date
-        status
-      }
-      selectedJobs{
-        description
-        price
-        date
-        status
-      }
-     
-=======
       email
       address
       description
@@ -118,7 +79,6 @@ export const QUERY_USERS = gql`
       submittedJobs
       appliedJobs
       selectedJobs
->>>>>>> neeko
       orders {
         _id
         purchaseDate
