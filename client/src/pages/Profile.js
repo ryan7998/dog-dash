@@ -1,5 +1,5 @@
 import React from "react";
-import UserList from "../components/UserList";
+import ProfilePage from "../components/ProfilePage";
 import background from "../assets/bgwhite.png";
 
 import {
@@ -7,16 +7,19 @@ import {
   Container,
   Header,
   Icon,
+  Card
 } from 'semantic-ui-react'
 
-function Jobs(){
+function Profile(){
   return (
     <div style={{ backgroundImage: `url(${background})` }}>
-    <Container>
-      <UserList type="Dog Walker"/>
+    <Container className="profile-page">
+      <ProfilePage type="Dog Walker"/>
     </Container>
      </div>
   );
 };
 
-export default Jobs;
+export default Profile;
+
+

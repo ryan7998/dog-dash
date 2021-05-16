@@ -28,9 +28,8 @@ function UserItem(item) {
           alt={description}
           src={`/images/${image}`}
         />
-        <p>{type}</p>
-        <p>{firstName}</p>
-        <p>{lastName}</p>
+        <h1>{type}</h1>
+        <h2>{firstName} {lastName}</h2>
         <p>{description}</p>
         <p>{email}</p>
         <p>{address}</p>

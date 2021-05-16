@@ -3,3 +3,12 @@
     background-position: center;
     background-size: cover;
 }
+
+.profile-page {
+  min-height: 100vh;
+}
+
+.card-container {
+  margin-top: 8rem;
+  margin-left: 1rem;
+}
