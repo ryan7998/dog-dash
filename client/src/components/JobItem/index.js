@@ -21,7 +21,7 @@ function JobItem(item) {
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
 
-
+// Gets from DB and updates the jobwalkers info in the global state and indexed db
   useEffect(() => {
     if(data) {
       dispatch({
@@ -43,6 +43,9 @@ function JobItem(item) {
 
 
   const {
+    apply,
+    select,
+    selectme,
     _id,
     user_id,
     title,
@@ -53,20 +56,20 @@ function JobItem(item) {
     image
   } = item;
 
+const [applyJob] = useMutation(APPLY_JOB);
+const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
-
+// gets the current user details
 let data0= useQuery(QUERY_USER)
 const me = data0?.data?.user || {};
 
+// gets the job submitter/creator details
 let data1 = useQuery(QUERY_USER_BYID, {
     variables: { id: user_id }
 });
 const submitter = data1?.data?.userById || {};
 
-const [applyJob] = useMutation(APPLY_JOB);
-const [withdrawJob] = useMutation(WITHDRAW_JOB);
-
-
+// check if the current user (me) applied to the job
 function updateappliedB() {
   let appliedB = false
   for (var i = 0; i < state.walkerjobs.length; i++) {
@@ -76,15 +79,25 @@ function updateappliedB() {
   return appliedB
   }
 
-function walkerjob() {
+// check if there is another user selected for this job. will be used for filtering and display purposes
+function updateselectedB() {
+    let selectedB = false
+    for (var i = 0; i < state.walkerjobs.length; i++) {
+      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id  ) 
+          {selectedB=state.walkerjobs[i].select}
+    }
+    return selectedB
+    }
+
+// creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
+function initialwalkerjob() {
       let walkerjob = {
         _id:"new"+me._id+_id,
         walker_id: me._id,
         job_id:_id,
-        apply:true,
+        apply:false,
         select:false
       }
-
     if (updateappliedB() ==true) {
             walkerjob= state.walkerjobs.filter(walkerjob => {
                   return (walkerjob.job_id == _id && walkerjob.walker_id == me._id );
@@ -93,11 +106,12 @@ function walkerjob() {
 return walkerjob
 }
 
+function newwalkerjob() {
+  return {...initialwalkerjob(),apply:true }
+}
 
 const applyForJob = async () => {
-  
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-   
         if (!token) {
           return false;
         }
@@ -107,19 +121,16 @@ const applyForJob = async () => {
           });
           dispatch({
             type: UPDATE_WALKERJOBS,
-            walkerjobs:  [...state.walkerjobs, walkerjob()]
+            walkerjobs:  [...state.walkerjobs, newwalkerjob()]
           });
-           idbPromise('walkerjobs', 'put', walkerjob());
+           idbPromise('walkerjobs', 'put', newwalkerjob());
         } catch (e) {
           console.error(e);
         }
-       
-    
   };
+
 const withdrawFromJob = async () => {
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
         if (!token) {
           return false;
         }
@@ -134,18 +145,32 @@ const withdrawFromJob = async () => {
                           })
           });
    
-          idbPromise('walkerjobs', 'delete', walkerjob()[0] );
-          
+          idbPromise('walkerjobs', 'delete', newwalkerjob()[0] );
         } catch (e) {
           console.error(e);
-        }
-        
+        }  
 };
 
+// Display the job if it corresponds to the filter criteria coming from react props item
+function filterJob() {
+ if (!initialwalkerjob()) {
+  if (apply == false && (updateselectedB().toString()==select || (!updateselectedB() && select == false)) && selectme == false)
+   {return true}
+  else {return false}
+ }
 
-
-
-
+ else {
+   let mywalkerjob=initialwalkerjob()
+   if (initialwalkerjob()[0]) {mywalkerjob=initialwalkerjob()[0]} 
+    console.log(mywalkerjob)
+   if ( (mywalkerjob.apply.toString() == apply)
+      && (updateselectedB().toString()==select || (!updateselectedB() && select == false))
+      && (mywalkerjob.select.toString() == selectme )  )
+    {return true}
+    else {return false} 
+ }
+}
+if (!filterJob()){return null}
 
 
   return (

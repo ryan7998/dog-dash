@@ -5,7 +5,7 @@ import ApolloClient from "apollo-boost";
 
 // Walker jobs link
 import SingleWalkerJob from './pages/SingleWalkerJob';
-import WalkerJobs from './pages/WalkerJobsPage';
+import MyJobHistory from './pages/MyJobHistory';
 import Home from "./pages/Home";
 import Upload from "./utils/upload";
 // import Detail from "./pages/Detail";
@@ -13,7 +13,7 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
-import Jobs from "./pages/Jobs";
+import OurJobs from "./pages/OurJobs";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
@@ -43,8 +43,8 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/jobs" component={Jobs} />
-            <Route exact path="/walkerjobs" component={WalkerJobs} />
+            <Route exact path="/ourjobs" component={OurJobs} />
+            <Route exact path="/myjobhistory" component={MyJobHistory} />
             <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
             {/* <Route exact path="/success" component={Success} />
               <Route exact path="/orderHistory" component={OrderHistory} />
