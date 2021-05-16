@@ -53,7 +53,7 @@ function App() {
               <Route exact path="/products/:id" component={Detail} /> */}
               <Route component={NoMatch} />
             </Switch>
-            <Upload />
+            
           </Provider>
       
       </Router>
