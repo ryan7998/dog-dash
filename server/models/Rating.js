@@ -16,13 +16,12 @@ const jobSchema = new Schema({
   ratingNb: {
     type: Number,
     required: true,
-    default :0
+    default : 0
   },
   text: {
     type: String,
     required: false
   }
-  
 });
 
 const Rating = mongoose.model('Rating', jobSchema);

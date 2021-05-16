@@ -24,16 +24,16 @@ function JobList(props) {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        // data.jobs.forEach((job) => {
-        //   idbPromise('jobs', 'put', job);
-        // });
+        data.jobs.forEach((job) => {
+         idbPromise('jobs', 'put', job);
+         });
     } else if (!loading) {
-      // idbPromise('jobs', 'get').then((jobs) => {
-      //   dispatch({
-      //     type: UPDATE_JOBS,
-      //     jobs: jobs
-      //  });
-      // });
+       idbPromise('jobs', 'get').then((jobs) => {
+         dispatch({
+           type: UPDATE_JOBS,
+           jobs: jobs
+        });
+       });
     }
   }, [data, loading, dispatch]);
   
@@ -58,7 +58,7 @@ function JobList(props) {
                   price={job.price}
                   date={job.date}
                   status={job.status}
-                  image={job.image}                  
+                  image={job.image}
                 />
             ))}
         </Card.Group>
