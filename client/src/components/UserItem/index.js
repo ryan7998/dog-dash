@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { idbPromise } from "../../utils/helpers";
 import { useSelector, useDispatch } from 'react-redux'
+import { QUERY_WALKERJOBS} from '../../utils/queries';
 import { SELECT_WALKER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
@@ -13,6 +14,27 @@ import { UPDATE_WALKERJOBS } from "../../utils/actions";
 function UserItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
+  const { loading, data } = useQuery(QUERY_WALKERJOBS);
+
+  // Gets from DB and updates the jobwalkers info in the global state and indexed db
+  useEffect(() => {
+    if(data) {
+      dispatch({
+          type: UPDATE_WALKERJOBS,
+          walkerjobs: data.walkerjobs
+        });
+        data.walkerjobs.forEach((walkerjob) => {
+         idbPromise('walkerjobs', 'put', walkerjob);
+         });
+    } else if (!loading) {
+       idbPromise('walkerjobs', 'get').then((walkerjobs) => {
+         dispatch({
+           type: UPDATE_WALKERJOBS,
+           walkerjobs: walkerjobs
+        });
+       });
+    }
+  }, [data, loading, dispatch]);
 
   const {
       apply,
@@ -45,8 +67,13 @@ function updateappliedB() {
 
 //check if the user was selected for the job
 function userSelected() {
-  return selectedUser == _id
-}
+  let walkerjob= state.walkerjobs.filter(walkerjob => {
+    return (walkerjob.job_id == job_id && walkerjob.walker_id == _id );
+    })
+  if (walkerjob) 
+  {return walkerjob[0]?.select || false} 
+  else {return false}
+} 
 
 
 // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
@@ -93,15 +120,16 @@ const selectWalkerForJob = async () => {
         await selectWalker({
           variables: { walker_id:_id, job_id:job_id}
         });
-      
-        if(initialpreviouslyselected()){
+
+        // change the previously selected walker to being not selected
+        if(initialpreviouslyselected().length){
             dispatch({
               type: UPDATE_WALKERJOBS,
               walkerjobs:  state.walkerjobs.filter(walkerjob => {
                               return (walkerjob._id !== initialpreviouslyselected()._id );
                             })
             });
-            idbPromise('walkerjobs', 'delete', initialpreviouslyselected()[0] );
+            idbPromise('walkerjobs', 'delete', initialpreviouslyselected() );
             
             dispatch({
               type: UPDATE_WALKERJOBS,
@@ -109,20 +137,21 @@ const selectWalkerForJob = async () => {
             });
             idbPromise('walkerjobs', 'put', newpreviouslyselected());
         }
-
+    
+        // change the currently selected walker to become selected
         dispatch({
           type: UPDATE_WALKERJOBS,
           walkerjobs:  state.walkerjobs.filter(walkerjob => {
                           return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
                         })
         });
+ 
         idbPromise('walkerjobs', 'delete', initialwalkerjob()[0] );
-
         dispatch({
           type: UPDATE_WALKERJOBS,
           walkerjobs:  [...state.walkerjobs, newwalkerjob()]
         });
-         idbPromise('walkerjobs', 'put', newwalkerjob());
+         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
       } catch (e) {
         console.error(e);
       }
