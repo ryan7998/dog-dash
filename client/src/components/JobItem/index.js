@@ -13,7 +13,6 @@ import Auth from '../../utils/auth';
 import { UPDATE_USERS, APPLY_TO_JOB, WITHDRAW_FROM_JOB } from "../../utils/actions";
 import { useLazyQuery } from '@apollo/react-hooks';
 
-
 function JobItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()

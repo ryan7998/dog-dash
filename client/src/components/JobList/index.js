@@ -10,13 +10,11 @@ import spinner from "../../assets/spinner.gif"
 import { Card, Icon } from 'semantic-ui-react';
 
 
-
 function JobList(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_JOBS);
-
 
   useEffect(() => {
     if(data) {

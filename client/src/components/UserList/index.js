@@ -38,7 +38,6 @@ function UserList(props) {
     return state.users.filter(user => user.type === props.type);
   }
 
-
   return (
     <div className="my-2">
       <h2>Our Walkers:</h2>

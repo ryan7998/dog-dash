@@ -1,21 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import ProfilePage from "../components/ProfilePage";
+import UserList from "../components/UserList";
+import background from "../assets/bgwhite.png";
+
 import {
   Button,
   Container,
   Header,
   Icon,
-} from 'semantic-ui-react';
-import UserList from "../components/UserList"
+} from 'semantic-ui-react'
 
-const Profile = () => {
+function Jobs(){
   return (
-    <>
-    <ProfilePage />
-    <UserList />
-    </>
+    <div style={{ backgroundImage: `url(${background})` }}>
+    <Container>
+      <UserList type="Dog Walker"/>
+    </Container>
+     </div>
   );
 };
 
-export default Profile;
+export default Jobs;
