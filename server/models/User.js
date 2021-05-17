@@ -12,12 +12,12 @@ const WalkerJob = require('./WalkerJob');
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: false,
+    required: true,
     trim: true
   },
   lastName: {
     type: String,
-    required: false,
+    required: true,
     trim: true
   },
   email: {
@@ -32,7 +32,7 @@ const userSchema = new Schema({
   },
   address: {
     type: String,
-    required: false,
+    required: true,
     minlength: 6
   },
   description: {
@@ -45,7 +45,7 @@ const userSchema = new Schema({
   },
   type: {
     type: String,
-    required: false
+    required: true
   },
   submittedJobs :  [
     {
