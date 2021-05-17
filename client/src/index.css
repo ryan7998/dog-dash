@@ -3,23 +3,25 @@
     background-position: center;
     background-size: cover;
 }
-
-.profile-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 80%;
-  margin: 0 auto;
+.jobcardcss {
+  display: grid;
+  padding-top: 5rem;
+  padding-bottom: 50rem;
+  justify-content:space-evenly;
 }
 
-.card-container {
-  margin-top: 8rem;
-  padding-left: 9rem;
-
+table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
 }
 
-.jobcss{
-  margin-top: 10rem;
+td {
+  width: 600px;
+  text-align: center;
+  /* border: 1px solid black; */
+  padding: 50px;
+}
 
+h2 {
+  color: #4287f5;
 }

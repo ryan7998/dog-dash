@@ -10,11 +10,13 @@ import spinner from "../../assets/spinner.gif"
 import { Card, Icon } from 'semantic-ui-react';
 
 
+
 function JobList(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_JOBS);
+
 
   useEffect(() => {
     if(data) {
@@ -22,16 +24,16 @@ function JobList(props) {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        // data.jobs.forEach((job) => {
-        //   idbPromise('jobs', 'put', job);
-        // });
+        data.jobs.forEach((job) => {
+         idbPromise('jobs', 'put', job);
+         });
     } else if (!loading) {
-      // idbPromise('jobs', 'get').then((jobs) => {
-      //   dispatch({
-      //     type: UPDATE_JOBS,
-      //     jobs: jobs
-      //  });
-      // });
+       idbPromise('jobs', 'get').then((jobs) => {
+         dispatch({
+           type: UPDATE_JOBS,
+           jobs: jobs
+        });
+       });
     }
   }, [data, loading, dispatch]);
   
@@ -40,14 +42,16 @@ function JobList(props) {
     return state.jobs.filter(job => job.status === props.status);
   }
 
+
+
   return (
     <div>
       <h2></h2>
-      <h2>Our Jobs:</h2>
+      
       {state.jobs.length ? (
         <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
-                <JobItem
+                <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
                   _id={job._id}
                   user_id={job.user_id}
@@ -57,7 +61,6 @@ function JobList(props) {
                   date={job.date}
                   status={job.status}
                   image={job.image}
-                  
                 />
             ))}
         </Card.Group>

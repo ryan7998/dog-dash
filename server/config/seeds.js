@@ -89,6 +89,15 @@ db.once('open', async () => {
     status: 'Live'
   });
  
+  await Job.create({
+    title: 'title 03',
+    user_id: users[1]._id,
+    description: 'walk my black dog',
+    price: 5.00,
+    date: '07-02-2021',
+    status: 'Inactive'
+  });
+
   console.log('jobs seeded');
   const jobs = await Job.find();
 
@@ -106,7 +115,54 @@ db.once('open', async () => {
     select: 1
   });
 
-  console.log('walker-jobs seeded');
+  console.log('WalkerJob seeded');
+
+  
+  let newrating = await Rating.create(
+    { rater_id: users[0]._id,
+      rated_id: users[1]._id,
+      ratingNb: 4,
+      text: "Great Job"
+    }
+  );
+  await User.findByIdAndUpdate(newrating.rater_id, { $push: { doneRatings: newrating._id } });
+  await User.findByIdAndUpdate(newrating.rated_id, { $push: { receivedRatings: newrating._id } });
+
+   newrating = await Rating.create(
+    { rater_id: users[1]._id,
+      rated_id: users[2]._id,
+      ratingNb: 5,
+      text: "Excellent"
+    }
+  );
+  await User.findByIdAndUpdate(newrating.rater_id, { $push: { doneRatings: newrating._id } });
+  await User.findByIdAndUpdate(newrating.rated_id, { $push: { receivedRatings: newrating._id } });
+
+   newrating = await Rating.create(
+    { rater_id: users[1]._id,
+      rated_id: users[0]._id,
+      ratingNb: 3,
+      text: "was really nice"
+    }
+  );
+  await User.findByIdAndUpdate(newrating.rater_id, { $push: { doneRatings: newrating._id } });
+  await User.findByIdAndUpdate(newrating.rated_id, { $push: { receivedRatings: newrating._id } });
+
+   newrating = await Rating.create(
+    { rater_id: users[2]._id,
+      rated_id: users[0]._id,
+      ratingNb: 5,
+      text: "Hope to see them again"
+    }
+  );
+  await User.findByIdAndUpdate(newrating.rater_id, { $push: { doneRatings: newrating._id } });
+  await User.findByIdAndUpdate(newrating.rated_id, { $push: { receivedRatings: newrating._id } });
+
+
+
+
+  console.log('Rating seeded');
+
 
   process.exit();
 });
