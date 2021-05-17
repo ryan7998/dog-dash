@@ -40,6 +40,7 @@ function Nav() {
               />
             </Link>
 
+
             {Auth.loggedIn() ? 
             <Link to="/myjobhistory">
             <Menu.Item
@@ -64,13 +65,14 @@ function Nav() {
 
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
-            <Link to="/profile">
+
+                  <Link to="/profile">
                   <Menu.Item
                     name='profile'
                     active={activeItem === 'profile'}
                     onClick={()=>setActiveItem('profile')}
                   />
-            </Link>
+                </Link>
                   <Menu.Item
                     name='logout'
                     onClick={() => Auth.logout()}
@@ -86,6 +88,8 @@ function Nav() {
                     onClick={()=>setActiveItem('login')}
                   />
                 </Link>
+
+                
 
                 <Link to="/signup">
                   <Menu.Item

@@ -1,69 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileData from "../ProfileData";
 //import { useStoreContext } from "../../utils/GlobalState";
-import { useSelector, useDispatch } from 'react-redux'
-import { UPDATE_USERS } from "../../utils/actions";
-import { useQuery } from '@apollo/react-hooks';
-import { QUERY_USERS } from "../../utils/queries";
-import { idbPromise } from "../../utils/helpers";
-import spinner from "../../assets/spinner.gif"
+import { useQuery } from "@apollo/react-hooks";
+import { QUERY_USER } from "../../utils/queries";
+function ProfilePage() {
+  //  GET LOGGED IN USER INFO
+  let [me, setMe] = useState({});
+  let data0 = useQuery(QUERY_USER);
 
+  useEffect(() => {
+    console.log("This is me: ", me);
+    setMe(data0?.data?.user || {});
+  }, [data0]);
 
-function ProfilePage(props) {
+  // const me = data0?.data?.user || {};
 
-  const state = useSelector(state => state)
-    const dispatch = useDispatch()
-  const { loading, data } = useQuery(QUERY_USERS);
-
-  useEffect(() => {
-    if(data) {
-      dispatch({
-          type: UPDATE_USERS,
-          users: data.users
-        });
-        data.users.forEach((user) => {
-          idbPromise('users', 'put', user);
-        });
-    } else if (!loading) {
-      idbPromise('users', 'get').then((users) => {
-        dispatch({
-          type: UPDATE_USERS,
-          users: users
-       });
-      });
-    }
-  }, [data, loading, dispatch]);
-
-  function filterUsers() {
-    return state.users.filter(user => user.type === props.type);
-  }
-
-  return (
-    <div className="my-2">
-      <h2>Our Walkers:</h2>
-      {state.users.length ? (
-        <div className="flex-row">
-            {filterUsers().map(user => (
-                <ProfileData
-                  key= {user._id}
-                  _id={user._id}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                  description={user.description}
-                  address={user.address}
-                  email={user.email}
-                  image={user.image}
-                  type={user.type}
-                />
-            ))}
-        </div>
-      ) : (
-        <h3>You haven't added any users yet!</h3>
-      )}
-      { loading ? 
-      <img src={spinner} alt="loading" />: null}
-    </div>
-  );
+  return (
+    <div className="flex-row">
+      <ProfileData
+        key={me._id}
+        _id={me._id}
+        firstName={me.firstName}
+        lastName={me.lastName}
+        description={me.description}
+        address={me.address}
+        email={me.email}
+        image={me.image}
+        type={me.type}
+      />
+    </div>
+  );
 }
-
 export default ProfilePage;
