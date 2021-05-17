@@ -16,7 +16,6 @@ function Profile(){
     <div>
     <div className="profile-page">
       <ProfilePage type="Dog Walker"/>
-      <JobHistory type="Dog Walker"/>
     </div>
      </div>
   );
