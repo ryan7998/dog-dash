@@ -42,8 +42,6 @@ function JobList(props) {
     return state.jobs.filter(job => job.status === props.status);
   }
 
-
-
   return (
     <div>
       <h2></h2>

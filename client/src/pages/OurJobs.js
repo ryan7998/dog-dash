@@ -1,12 +1,12 @@
 import React from "react";
 //import { Link } from "react-router-dom";
 
-//import { useQuery } from '@apollo/react-hooks';
-//import { QUERY_USER } from "../utils/queries";
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_USER } from "../utils/queries";
 import JobList from "../components/JobList";
 import UserList from "../components/UserList";
 //import Cart from "../components/Cart";
-
+import CreateJob from '../components/CreateJob';
 import {
   Button,
   Container,
@@ -15,6 +15,13 @@ import {
 } from 'semantic-ui-react'
 
 function OurJobs(){
+  // gets the current user details
+let user= useQuery(QUERY_USER)
+const me = user?.data?.user || {};
+
+const dogOwner = (me.type === 'Dog Owner');
+console.log(dogOwner);
+
   return (
     <Container>
       <br />
@@ -31,6 +38,9 @@ function OurJobs(){
           </td>
         </tr>
       </table>
+      
+      {dogOwner && <CreateJob />}
+
     </Container>
      
   );
