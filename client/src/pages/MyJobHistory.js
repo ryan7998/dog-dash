@@ -9,6 +9,7 @@ import JobList from "../components/JobList";
 //import Cart from "../components/Cart";
 import { QUERY_USER} from '../utils/queries';
 import { Button, Container, Header, Icon } from "semantic-ui-react";
+import background from "../assets/bgwhite.png";
 
 function MyJobHistory() {
 
@@ -19,6 +20,7 @@ const me = data0?.data?.user || {};
 if (me.type=="Dog Walker"){
 
   return (
+    <div style={{ backgroundImage: `url(${background})` }}>
     <Container>
       <br />
       <table>
@@ -37,8 +39,8 @@ if (me.type=="Dog Walker"){
         </tr>
       </table>
     </Container>
+    </div>
   );
-
 }
 else { // Dog Owner
   return (
@@ -60,7 +62,7 @@ else { // Dog Owner
           </td>
         </tr>
       </table>
-    </Container>
+      </Container>
   );
 
 }

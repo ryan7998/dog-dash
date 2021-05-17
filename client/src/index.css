@@ -3,3 +3,25 @@
     background-position: center;
     background-size: cover;
 }
+.jobcardcss {
+  display: grid;
+  padding-top: 5rem;
+  padding-bottom: 50rem;
+  justify-content:space-evenly;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+td {
+  width: 600px;
+  text-align: center;
+  /* border: 1px solid black; */
+  padding: 50px;
+}
+
+h2 {
+  color: #4287f5;
+}

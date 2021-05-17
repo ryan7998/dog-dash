@@ -6,7 +6,7 @@ import React from "react";
 import JobList from "../components/JobList";
 import UserList from "../components/UserList";
 //import Cart from "../components/Cart";
-
+import background from "../assets/bgwhite.png";
 import {
   Button,
   Container,
@@ -16,6 +16,8 @@ import {
 
 function OurJobs(){
   return (
+    <div style={{ backgroundImage: `url(${background})` }}>
+    <div className="jobcardcss">
     <Container>
       <br />
       <table>
@@ -24,7 +26,6 @@ function OurJobs(){
           <h2>Our Jobs:</h2>
           <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
           </td>
-
           <td>
           <h2>Our Walkers:</h2>
           <UserList type="Dog Walker" apply="any" job_id="any"/>
@@ -32,7 +33,8 @@ function OurJobs(){
         </tr>
       </table>
     </Container>
-     
+    </div>
+    </div>
   );
 };
 
