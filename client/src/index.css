@@ -27,8 +27,14 @@ h2 {
   color: #4287f5;
 }
 
-.card-container {
+/* .card-container {
   margin-top: 85px;
   display: flex;
+  align-items: center;
+} */
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
