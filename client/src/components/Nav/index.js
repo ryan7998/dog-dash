@@ -40,7 +40,6 @@ function Nav() {
               />
             </Link>
 
-
             {Auth.loggedIn() ? 
             <Link to="/myjobhistory">
             <Menu.Item
@@ -51,6 +50,18 @@ function Nav() {
             </Link>
             : null
             }
+
+            {(Auth.loggedIn() && me.type=="Dog Owner") ? 
+            <Link to="/cart">
+            <Menu.Item
+                name='cart'
+                active={activeItem === 'cart'}
+                onClick={()=>setActiveItem('cart')}
+              />
+            </Link>
+            : null
+            }
+
 
             {(Auth.loggedIn() && me.type=="Dog Owner") ? 
             <Link to="/cart">
