@@ -15,6 +15,7 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 import OurJobs from "./pages/OurJobs";
 import Cart from "./components/Cart";
+import Profile from "./pages/Profile";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
@@ -45,6 +46,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/ourjobs" component={OurJobs} />
+            <Route exact path="/profile" component={Profile} />
             <Route exact path="/myjobhistory" component={MyJobHistory} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
