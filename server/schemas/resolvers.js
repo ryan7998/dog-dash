@@ -5,6 +5,11 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+    walkerjobs: async () => {
+      const walkerjobs= await WalkerJob.find();
+      return walkerjobs;
+    },
+
     jobs: async () => {
       const jobs= await Job.find().populate({
         path:'orders.user',
@@ -16,10 +21,14 @@ const resolvers = {
     users: async (parent) => {
         const users = await User.find().populate({
           path: 'orders.jobs',
-          populate: 'job'
-        });
+          populate: 'job',
+          populate: 'doneRatings',
+        })
+        .populate('doneRatings')
+        .populate('receivedRatings');
         return users;
     },
+    
     jobById: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
     },
@@ -38,7 +47,7 @@ const resolvers = {
           path: 'orders.jobs',
           populate: 'job'
         });
-
+        
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
         return user;
@@ -109,7 +118,7 @@ const resolvers = {
            status: status,
            new: true }
         );
-
+    
         await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob._id } });
         return newJob;
       }
@@ -143,12 +152,11 @@ const resolvers = {
 
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        await WalkerJob.findOneAndUpdate(
+       await WalkerJob.deleteOne(
           { walker_id: context.user._id, 
-            job_id: job_id  , 
-            new: true},
-          { $set: { apply: 0 } }
+            job_id: job_id  }
         );
+       
         await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: job_id }  });
         let updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } , new: true });
         return updatedJob;
@@ -223,7 +231,24 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    }
+    },
+
+    rateUser: async (parent, {rated_id, ratingNb, text,}, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const newrating = await Rating.create(
+          { rater_id: user._id,
+           rated_id: rated_id,
+           ratingNb: ratingNb,
+           text: text
+          }
+        );
+        await User.findByIdAndUpdate(context.user._id, { $push: { doneRatings: newrating._id } });
+        await User.findByIdAndUpdate(rated_id, { $push: { receivedRatings: newrating._id } });
+        return newrating;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   }
 };
 

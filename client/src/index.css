@@ -3,23 +3,3 @@
     background-position: center;
     background-size: cover;
 }
-
-.profile-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.card-container {
-  margin-top: 8rem;
-  padding-left: 9rem;
-  background-color: #fff;
-}
-
-.jobcss{
-  margin-top: 10rem;
-  background-color: #fff;
-}
