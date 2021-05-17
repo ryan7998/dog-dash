@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -213,7 +213,6 @@ else // Dog Owner
 }
 if (!filterJob()){return null}
 
-
   return (
     <>
       <Card
@@ -233,9 +232,9 @@ if (!filterJob()){return null}
       }
 
       {(Auth.loggedIn() && me.type=="Dog Owner" && walker=="true")?
-            <UserList type="Dog Walker" apply ="true" job_id={_id} job_price={price}/>
-            : null
-            }
+        <UserList type="Dog Walker" apply ="true" job_id={_id} job_price={price}/>
+        : null
+      }
     </>
   );
 }
