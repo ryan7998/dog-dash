@@ -89,6 +89,15 @@ db.once('open', async () => {
     status: 'Live'
   });
  
+  await Job.create({
+    title: 'title 03',
+    user_id: users[1]._id,
+    description: 'walk my black dog',
+    price: 5.00,
+    date: '07-02-2021',
+    status: 'Inactive'
+  });
+
   console.log('jobs seeded');
   const jobs = await Job.find();
 

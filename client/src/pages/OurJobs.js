@@ -14,16 +14,26 @@ import {
   Icon,
 } from 'semantic-ui-react'
 
-function Jobs(){
+function OurJobs(){
   return (
     <Container>
-      <JobList status="Live"/>
-      <UserList type="Dog Walker"/>
+      <br />
+      <table>
+        <tr>
+          <td>
+          <h2>Our Jobs:</h2>
+          <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
+          </td>
 
-   
+          <td>
+          <h2>Our Walkers:</h2>
+          <UserList type="Dog Walker" apply="any" job_id="any"/>
+          </td>
+        </tr>
+      </table>
     </Container>
      
   );
 };
 
-export default Jobs;
+export default OurJobs;

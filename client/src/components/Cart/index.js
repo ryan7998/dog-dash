@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+//import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from '@apollo/react-hooks';
 import { QUERY_CHECKOUT } from "../../utils/queries"
 import { idbPromise } from "../../utils/helpers"
-//import CartItem from "../CartItem";
+import CartItem from "../CartItem";
 import Auth from "../../utils/auth";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
-import { TOGGLE_CART } from "../../utils/actions";
+import { TOGGLE_CART , ADD_MULTIPLE_TO_CART  } from "../../utils/actions";
 import "./style.css";
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+//const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
 
 const Cart = () => {
   const state = useSelector(state => state)
@@ -26,16 +27,16 @@ const Cart = () => {
     }
   }, [data]);
 
-  /*useEffect(() => {
-   async function getCart() {
+  useEffect(() => {
+    async function getCart() {
       const cart = await idbPromise('cart', 'get');
-      dispatch({ type: ADD_MULTIPLE_TO_CART, jobs: [...cart] });
+      dispatch({ type: ADD_MULTIPLE_TO_CART, users: [...cart] });
     };
 
     if (!state.cart.length) {
       getCart();
     }
-  }, [state.cart.length, dispatch]);*/
+  }, [state.cart.length, dispatch]);
 
   function toggleCart() {
     dispatch({ type: TOGGLE_CART });
@@ -44,22 +45,22 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach(item => {
-      sum += item.price * item.purchaseQuantity;
+      sum += item.price //* item.purchaseQuantity;
     });
     return sum.toFixed(2);
   }
 
   function submitCheckout() {
-    const jobIds = [];
+    const productIds = [];
 
     state.cart.forEach((item) => {
-      for (let i = 0; i < item.purchaseQuantity; i++) {
-        jobIds.push(item._id);
-      }
+      //for (let i = 0; i < item.purchaseQuantity; i++) {
+        productIds.push(item._id);
+      //}
     });
 
     getCheckout({
-      variables: { jobs: jobIds }
+      variables: { products: productIds }
     });
   }
 
@@ -80,8 +81,7 @@ const Cart = () => {
       {state.cart.length ? (
         <div>
           {state.cart.map(item => (
-            //<CartItem key={item._id} item={item} />
-            <h1>cartitem</h1>
+            <CartItem key={item._id} item={item} />
           ))}
 
           <div className="flex-row space-between">
