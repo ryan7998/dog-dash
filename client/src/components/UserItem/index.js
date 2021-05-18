@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -221,14 +221,51 @@ if (!filterUser()){return null}
   return (
     //<Link to={`/users/${_id}`}></Link>
     <>
-    <Card
-        image={image ? image : 'https://placedog.net/500'}
+    {/* <Card
+        image='https://placeimg.com/50/50/people/grayscale'
         header = {email} 
         meta={`${firstName}  ${lastName}`}
         description={description}
         
-      />
-      { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
+    /> */}
+
+    <Card>
+      <Card.Content>
+        <Image
+          floated='right'
+          size='mini'
+          src='https://placeimg.com/50/50/people/grayscale'
+        />
+        <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
+        <Card.Meta>{email}</Card.Meta>
+        <Card.Description>{description}</Card.Description>
+      </Card.Content>
+
+      <Card.Content extra>
+        {Auth.loggedIn() && <div className='ui two buttons'>
+          { 
+            userSelected() && apply &&(
+            <Button basic color='green' disabled> Selected</Button>)
+          }
+          {
+            userSelected() && apply && !inCart() && (
+              <Button color='green' onClick={addToCart}> Add to Cart</Button>)
+          }
+          {
+            userSelected && apply && inCart() && (
+              <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
+            )
+          }
+          {
+            !userSelected() && apply && (
+              <Button color='red' onClick={selectWalkerForJob}> Select Walker</Button>
+            )
+          }
+          </div>}
+      </Card.Content>
+    </Card>
+
+      {/* { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
           (<button>Selected</button>)
           :null
       }
@@ -242,7 +279,7 @@ if (!filterUser()){return null}
       }
       { (Auth.loggedIn() && userSelected()== false && (apply=="true")) ? 
         (<button onClick={selectWalkerForJob}>Select</button>):null
-      }
+      } */}
     </>
     
   );

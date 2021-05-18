@@ -16,11 +16,9 @@ import {
 import CreateJob from '../CreateJob';
 import Upload from "../../utils/upload";
 
-
 function ProfileData(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-
   const {
       _id,
       firstName,
@@ -32,6 +30,7 @@ function ProfileData(item) {
       ratingAvg,
       type
   } = item;
+
 
 
   return (
