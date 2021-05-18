@@ -108,11 +108,11 @@ function updateselectedB() {
   return selectedB
   }
 
-// check if there is another user selected for this job. will be used for filtering and display purposes
+// check if there is another user selected for this job . will be used for filtering and display purposes
 function updateanyselectedB() {
     let selectedB = false
     for (var i = 0; i < state.walkerjobs.length; i++) {
-      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id  ) 
+      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id   ) 
           {selectedB=state.walkerjobs[i].select}
     }
     return selectedB
@@ -213,6 +213,8 @@ else // Dog Owner
 }
 if (!filterJob()){return null}
 
+console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB())
+
   return (
     <>
       <Card
@@ -224,11 +226,17 @@ if (!filterJob()){return null}
         // extra={`$ ${price}`}     
       />
  
-      { (Auth.loggedIn() && updateappliedB()== true && me.type=="Dog Walker") ? 
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
-      { (Auth.loggedIn() && updateappliedB()== false && me.type=="Dog Walker") ? 
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
         (<button onClick={applyForJob}>Apply</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateselectedB()==true) ? 
+        (<button>You were selected</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
+        (<button>Walker selected</button>):null
       }
 
       {(Auth.loggedIn() && me.type=="Dog Owner" && walker=="true")?
