@@ -92,3 +92,14 @@ input[type="file"] {
 .postjobbtn{
   padding-top: 50px;
 }
+.ui.buttons {
+  display: inline-flex;
+  flex-direction: row;
+  margin: 0 .25em 0 0;
+  padding-top: 1rem;
+}
+
+.prejobtitle{
+  padding-top: 5rem;
+  padding-bottom: 50rem;
+}

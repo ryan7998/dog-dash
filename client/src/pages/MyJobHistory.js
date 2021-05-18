@@ -62,10 +62,12 @@ function MyJobHistory() {
               </Grid.Column>
 
               <Grid.Column width={16}>
+                  <div className="prejobtitle">
                   <h2>Previous Jobs:</h2>
                      <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true" itemsPerRow = {4}/>
                     <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
                     <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
+                </div>
               </Grid.Column>
           </Grid.Row>
       </Grid>  
