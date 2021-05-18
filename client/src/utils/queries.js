@@ -52,7 +52,6 @@ export const QUERY_USER_BYID = gql`
 export const QUERY_WALKERJOBS = gql`
   {
     walkerjobs {
-      image
       _id
       walker_id
       job_id
