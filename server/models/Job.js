@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
+// const dateFormat = require('../utils/');
+
 
 const { Schema } = mongoose;
 // const User = require('./User');
@@ -15,7 +18,10 @@ const jobSchema = new Schema({
     type: String,
     required: true
   },
-  
+  image: {
+    type: String,
+    required: false
+  },
   description: {
     type: String,
     required: true
@@ -29,6 +35,8 @@ const jobSchema = new Schema({
     type: Date,
     default: Date.now,
     required: true,
+    get: createdAtVal => dateFormat(createdAtVal)
+
   },
   status: {
     type: String,
@@ -47,6 +55,11 @@ const jobSchema = new Schema({
     }
   ,
   comments: [Comment.schema]
+},
+{
+    toJSON:{
+        getters: true
+    }
 });
 
 const Job = mongoose.model('Job', jobSchema);

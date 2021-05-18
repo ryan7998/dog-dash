@@ -5,6 +5,12 @@ export function pluralize(name, count) {
   return name + 's';
 }
 
+export function getDateFromUnix(timeInStamp){
+  const timestamp = timeInStamp*1000;
+  const date = new Date(timestamp);
+  // console.log('helper:', date);
+  return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+}
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
     const request = window.indexedDB.open('walkmydog', 1);

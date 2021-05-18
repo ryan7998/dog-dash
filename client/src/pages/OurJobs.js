@@ -1,27 +1,26 @@
 import React from "react";
-//import { Link } from "react-router-dom";
-
-//import { useQuery } from '@apollo/react-hooks';
-//import { QUERY_USER } from "../utils/queries";
 import JobList from "../components/JobList";
 import UserList from "../components/UserList";
-//import Cart from "../components/Cart";
 
-import { Button, Container, Header, Icon } from "semantic-ui-react";
+import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
 
 function OurJobs() {
   return (
-    <div className="jobpagecss">
-      <div>
-        <h2>Our Jobs:</h2>
-        <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
-      </div>
+    <Container>
+        <Grid stackable>
+            <Grid.Row>
+                <Grid.Column width={12}>
+                    <h2>Our Jobs:</h2>
+                    <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
+                </Grid.Column>
 
-      <div>
-        <h2>Our Walkers:</h2>
-        <UserList type="Dog Walker" apply="any" job_id="any"/>
-      </div>
-    </div>
+                <Grid.Column width={4}>
+                    <h2>Our Walkers:</h2>
+                    <UserList type="Dog Walker" apply="any" job_id="any"/>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
+    </Container>
   );
 }
 

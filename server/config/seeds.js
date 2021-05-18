@@ -18,7 +18,7 @@ db.once('open', async () => {
     password: 'password12345',
     address: '105 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves cats more than dogs!',
-    image: './images/user1.JPG',
+    image: './images/user2.JPG',
     type: 'wDog Owner'/*,
     orders: [
       {
@@ -34,7 +34,7 @@ db.once('open', async () => {
     password: 'password12345',
     address: '103 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves dogs!',
-    image: './images/user1.JPG',
+    image: './images/user2.JPG',
     type: 'Dog Owner'
   });
 
