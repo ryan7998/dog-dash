@@ -57,7 +57,7 @@ function App() {
                 <Route exact path="/myjobhistory" component={MyJobHistory} />
                 <Route exact path="/cart" component={Cart} />
                 <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
-                <Route exact path="/walker/:id" component={UserProfile} />
+                <Route exact path="/profile/:id" component={UserProfile} />
                 {/* <Route exact path="/success" component={Success} />
                   <Route exact path="/orderHistory" component={OrderHistory} />
                   <Route exact path="/products/:id" component={Detail} /> */}
