@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import WalkerJobs from "../components/WalkerJobsComp";
 import JobHistory from "../components/JobHistory";
 import JobList from "../components/JobList";
+import CreateJob from '../components/CreateJob';
 //import Cart from "../components/Cart";
 import { QUERY_USER } from "../utils/queries";
 import { Button, Container, Header, Icon } from "semantic-ui-react";
@@ -37,6 +38,7 @@ function MyJobHistory() {
     // Dog Owner
     return (
       <div className="jobpagecss">
+         <CreateJob />
         <div>
           <h2>Active Jobs:</h2>
           <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true"/>
