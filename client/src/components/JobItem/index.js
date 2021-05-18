@@ -25,25 +25,7 @@ function JobItem(item) {
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
 
-  // Gets from DB and updates the jobwalkers info in the global state and indexed db
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_WALKERJOBS,
-        walkerjobs: data.walkerjobs,
-      });
-      data.walkerjobs.forEach((walkerjob) => {
-        idbPromise("walkerjobs", "put", walkerjob);
-      });
-    } else if (!loading) {
-      idbPromise("walkerjobs", "get").then((walkerjobs) => {
-        dispatch({
-          type: UPDATE_WALKERJOBS,
-          walkerjobs: walkerjobs,
-        });
-      });
-    }
-  }, [data, loading, dispatch]);
+
 
   const {
     submit,
@@ -66,6 +48,26 @@ function JobItem(item) {
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
   const [updateJob] = useMutation(UPDATE_JOB);
   const [deleteJob] = useMutation(DELETE_JOB);
+
+    // Gets from DB and updates the jobwalkers info in the global state and indexed db
+    useEffect(() => {
+      if (data) {
+        dispatch({
+          type: UPDATE_WALKERJOBS,
+          walkerjobs: data.walkerjobs,
+        });
+        data.walkerjobs.forEach((walkerjob) => {
+          idbPromise("walkerjobs", "put", walkerjob);
+        });
+      } else if (!loading) {
+        idbPromise("walkerjobs", "get").then((walkerjobs) => {
+          dispatch({
+            type: UPDATE_WALKERJOBS,
+            walkerjobs: walkerjobs,
+          });
+        });
+      }
+    }, [data, loading, dispatch, applyJob, withdrawJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -166,7 +168,7 @@ function updateanyselectedB() {
   }
 
   const applyForJob = async () => {
-    refresh();
+    // refresh();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -186,7 +188,7 @@ function updateanyselectedB() {
   };
 
   const withdrawFromJob = async () => {
-    refresh();
+    // refresh();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
