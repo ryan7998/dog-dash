@@ -292,27 +292,28 @@ console.log(submitter)
         <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
         <Card.Description>{description}</Card.Description>
       </Card.Content>
-      <Card.Content extra>
-        <div className='ui buttons'>
-          {(Auth.loggedIn() && me.type=="Dog Walker" &&
-            (updateappliedB()== true  && updateanyselectedB()==false && (
-              <Button basic color='green' onClick={withdrawFromJob}>
-                Withdraw
-              </Button>
-              // <button onClick={withdrawFromJob}>Withdraw</button>
-            )) || (
-              updateappliedB()== false  && updateanyselectedB()==false && (
-                <Button basic color='green' onClick={applyForJob}>
-                  Apply
+      {Auth.loggedIn() && me.type=="Dog Walker" && (
+        <Card.Content extra>
+          <div className='ui buttons'>{
+              (updateappliedB()== true  && updateanyselectedB()==false && (
+                <Button basic color='green' onClick={withdrawFromJob}>
+                  Withdraw
                 </Button>
+                // <button onClick={withdrawFromJob}>Withdraw</button>
+              )) || (
+                updateappliedB()== false  && updateanyselectedB()==false && (
+                  <Button basic color='green' onClick={applyForJob}>
+                    Apply
+                  </Button>
+                )
+              ) || (
+                updateselectedB()==true && 'You are selected!') ||(
+                  updateanyselectedB()==true && updateselectedB()==false && 'Walker selected'
               )
-            ) || (
-              updateselectedB()==true && 'You are selected!') ||(
-                updateanyselectedB()==true && updateselectedB()==false && 'Walker selected'
-            )
-          )}
-        </div>
-      </Card.Content>
+          }
+          </div>
+        </Card.Content>
+      )}
     </Card>
  
       {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
