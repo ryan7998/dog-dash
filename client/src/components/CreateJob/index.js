@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import { Button, Header, Icon, Modal, Checkbox, Form, Container, Grid, Segment, Message, Input, Label } from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+// import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+import DateTimePicker from 'react-datetime-picker'
+// import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle'
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_JOB } from "../../utils/mutations";
 import { useQuery } from "@apollo/react-hooks";
@@ -12,8 +14,9 @@ const CreateJob = () =>{
     const [open, setOpen] = React.useState(false);
     const [addJob, { error }] = useMutation(ADD_JOB);
     const [currentDate, setNewDate] = useState(null);
-    const onChange = (event, data) => setNewDate(data.value);
-  
+    const [value, onChange] = useState(new Date());
+    // const onChange = (event, data) => setNewDate(data.value);
+  console.log(value);
     // check if loggedin user is a walker
     const userIsWalker = useQuery(QUERY_USER)?.data?.user.type === 'Dog Walker';
 
@@ -24,7 +27,7 @@ const CreateJob = () =>{
                     title: formState.title,
                     description: formState.description,
                     price: parseFloat(formState.price),
-                    date: currentDate,
+                    date: value,
                     status: "Live"
                 }
             })
@@ -68,7 +71,7 @@ const CreateJob = () =>{
                             <Label>.00</Label>
                             
                         </Input>
-                        <SemanticDatepicker name="datePicker" onChange={onChange} label="Select Date"/>
+                        <DateTimePicker name="datePicker" onChange={onChange} value={value} label="Select Date"/>
                     </Segment>
                     
                     <Button color='teal' fluid size='large'>+ Create</Button>

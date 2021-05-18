@@ -252,6 +252,11 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
+    updateJob: async (parent, {job_id, newStatus}) => {
+      const jobsDone = await Job.findByIdAndUpdate(job_id, {$set:{status: newStatus}}, { new: true })
+      return jobsDone;
+    }
   }
 };
 

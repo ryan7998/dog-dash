@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
 import Success from "./pages/Success";
+import Footer from "./components/Footer";
 // import OrderHistory from "./pages/OrderHistory";
 
 const client = new ApolloClient({
@@ -54,7 +55,7 @@ function App() {
               <Route exact path="/products/:id" component={Detail} /> */}
               <Route component={NoMatch} />
             </Switch>
-            
+            <Footer />
           </Provider>
       
       </Router>

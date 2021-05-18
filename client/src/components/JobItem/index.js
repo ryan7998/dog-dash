@@ -13,11 +13,12 @@ import {
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
 } from "../../utils/queries";
-import { APPLY_JOB, WITHDRAW_JOB } from "../../utils/mutations";
+import { APPLY_JOB, WITHDRAW_JOB, UPDATE_JOB } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
+
 
 function JobItem(item) {
   const state = useSelector((state) => state);
@@ -59,9 +60,10 @@ function JobItem(item) {
     status,
     image,
   } = item;
-
+  // console.log(getDateFromUnix(date));
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
+  const [updateJob] = useMutation(UPDATE_JOB);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -266,73 +268,77 @@ function updateanyselectedB() {
     return null;
   }
 
-console.log(submitter)
+// When Owner presses Complete Job the status updates to 'Done'
+  const completeJob = async() =>{
+    try {
+      const getVal = await updateJob({
+        variables: { job_id: _id, newStatus: 'Done' },
+      });
 
+      dispatch({
+
+      });
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <>
-      {/* <Card
-        image={image ? image : "https://placedog.net/500"}
-        header={title}
-        meta={`by ${submitter?.firstName}  ${submitter?.lastName}`}
-        description={description}
-        extra={price}
-        <button onClick={withdrawFromJob}>Withdraw</button>
-      /> */}
-
-    <Card>
-      <Card.Content>
-        <Image
-          // floated='right'
-          // size='mini'
-          src= {image ? image : "https://placedog.net/500"}
-        />
-        <Card.Header>{title}</Card.Header>
-        <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
-        <Card.Description>{description}</Card.Description>
-      </Card.Content>
-      
-      {Auth.loggedIn() && me.type=="Dog Walker" && (
-        <Card.Content extra>
-          <div className='ui buttons'>{
-            (updateappliedB()== true  && updateanyselectedB()==false && (
-              <Button color='red' onClick={withdrawFromJob}>
-                Withdraw
-              </Button>
-              // <button onClick={withdrawFromJob}>Withdraw</button>
-            )) || (
-              updateappliedB()== false  && updateanyselectedB()==false && (
-                <Button color='green' onClick={applyForJob}>
-                  Apply
-                </Button>
-              )
-            ) || (
-              updateselectedB()==true && (
-                <Button basic color='green' disabled>
-                  You are selected!!
-                </Button>
-              )) ||(
-                updateanyselectedB()==true && updateselectedB()==false && (
-                <Button basic color='green' disabled>
-                  Walker selected!!
-                </Button>
-              )
-            )
-          }
-          </div>
-        </Card.Content>
-      )}
-      {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
-        <Card.Content extra>
-          <UserList
-            type="Dog Walker"
-            apply="true"
-            job_id={_id}
-            job_price={price}
+      <Card>
+        <Card.Content>
+          <Image
+            src= {submitter.image ? submitter.image : "https://placedog.net/500"}
           />
+          <Card.Header>{title}</Card.Header>
+          <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          <Card.Description>{description}</Card.Description>
+          <Card.Meta>{date}</Card.Meta>
         </Card.Content>
-      )}
-    </Card>
+        
+        {Auth.loggedIn() && me.type=="Dog Walker" && (
+          <Card.Content extra>
+            <div className='ui buttons'>{
+              (updateappliedB()== true  && updateanyselectedB()==false && (
+                <Button color='red' onClick={withdrawFromJob}>
+                  Withdraw
+                </Button>
+                // <button onClick={withdrawFromJob}>Withdraw</button>
+              )) || (
+                updateappliedB()== false  && updateanyselectedB()==false && (
+                  <Button color='green' onClick={applyForJob}>
+                    Apply
+                  </Button>
+                )
+              ) || (
+                updateselectedB()==true && (
+                  <Button basic color='green' disabled>
+                    You are selected!!
+                  </Button>
+                )) ||(
+                  updateanyselectedB()==true && updateselectedB()==false && (
+                  <Button basic color='green' disabled>
+                    Walker selected!!
+                  </Button>
+                )
+              )
+            }
+            </div>
+          </Card.Content>
+        )}
+        {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
+          <Card.Content extra>
+            <UserList
+              type="Dog Walker"
+              apply="true"
+              job_id={_id}
+              job_price={price}
+            />
+            <Button color="orange" onClick={completeJob}>Job Completed</Button>
+          </Card.Content>
+        )}
+      </Card>
  
       {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
@@ -345,17 +351,17 @@ console.log(submitter)
       }
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
         (<button>Walker selected</button>):null
-      } */}
+      }
 
-      {/* {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
+      {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
           type="Dog Walker"
           apply="true"
           job_id={_id}
           job_price={price}
         />
-        ) : null */}
-      {/* } */}
+        ) : null
+      } */}
     </>
   );
 }
