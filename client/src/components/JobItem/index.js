@@ -307,7 +307,11 @@ console.log(submitter)
                   </Button>
                 )
               ) || (
-                updateselectedB()==true && 'You are selected!') ||(
+                updateselectedB()==true && (
+                  <Button basic color='green' onClick={applyForJob}>
+                    You are selected!!
+                  </Button>
+                )) ||(
                   updateanyselectedB()==true && updateselectedB()==false && 'Walker selected'
               )
           }
