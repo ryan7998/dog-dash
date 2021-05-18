@@ -280,7 +280,6 @@ console.log(submitter)
         <button onClick={withdrawFromJob}>Withdraw</button>
       /> */}
 
-<Card.Group>
     <Card>
       <Card.Content>
         <Image
@@ -292,30 +291,45 @@ console.log(submitter)
         <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
         <Card.Description>{description}</Card.Description>
       </Card.Content>
+      
       {Auth.loggedIn() && me.type=="Dog Walker" && (
         <Card.Content extra>
           <div className='ui buttons'>{
-              (updateappliedB()== true  && updateanyselectedB()==false && (
-                <Button basic color='green' onClick={withdrawFromJob}>
-                  Withdraw
+            (updateappliedB()== true  && updateanyselectedB()==false && (
+              <Button color='red' onClick={withdrawFromJob}>
+                Withdraw
+              </Button>
+              // <button onClick={withdrawFromJob}>Withdraw</button>
+            )) || (
+              updateappliedB()== false  && updateanyselectedB()==false && (
+                <Button color='green' onClick={applyForJob}>
+                  Apply
                 </Button>
-                // <button onClick={withdrawFromJob}>Withdraw</button>
-              )) || (
-                updateappliedB()== false  && updateanyselectedB()==false && (
-                  <Button basic color='green' onClick={applyForJob}>
-                    Apply
-                  </Button>
-                )
-              ) || (
-                updateselectedB()==true && (
-                  <Button basic color='green' onClick={applyForJob}>
-                    You are selected!!
-                  </Button>
-                )) ||(
-                  updateanyselectedB()==true && updateselectedB()==false && 'Walker selected'
               )
+            ) || (
+              updateselectedB()==true && (
+                <Button basic color='green' disabled>
+                  You are selected!!
+                </Button>
+              )) ||(
+                updateanyselectedB()==true && updateselectedB()==false && (
+                <Button basic color='green' disabled>
+                  Walker selected!!
+                </Button>
+              )
+            )
           }
           </div>
+        </Card.Content>
+      )}
+      {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
+        <Card.Content extra>
+          <UserList
+            type="Dog Walker"
+            apply="true"
+            job_id={_id}
+            job_price={price}
+          />
         </Card.Content>
       )}
     </Card>
@@ -333,16 +347,15 @@ console.log(submitter)
         (<button>Walker selected</button>):null
       } */}
 
-      {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
+      {/* {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
           type="Dog Walker"
           apply="true"
           job_id={_id}
           job_price={price}
         />
-        ) : null
-      }
-      </Card.Group>
+        ) : null */}
+      {/* } */}
     </>
   );
 }
