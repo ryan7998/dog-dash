@@ -18,7 +18,7 @@ function MyJobHistory() {
 
   if (me.type == "Dog Walker") {
     return (
-      <div className="jobpagecss">s
+      <div className="jobpagecss">
         <div>
           <h2>Active Jobs:</h2>
           <JobList
