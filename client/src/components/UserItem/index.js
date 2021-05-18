@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { QUERY_WALKERJOBS} from '../../utils/queries';
 import { SELECT_WALKER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { ADD_TO_CART,  UPDATE_WALKERJOBS } from "../../utils/actions";
+import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_WALKERJOBS } from "../../utils/actions";
 
 
 function UserItem(item) {
@@ -111,6 +111,14 @@ function newpreviouslyselected() {
   return {...initialpreviouslyselected(),select:false }
   }
   
+//selected user in cart
+function inCart(){
+  if (state.cart.length){
+    for (var i=0; i<state.cart.length; i++){
+    if (state.cart[i]._id==_id) {return true} else return false
+  }}
+  else return false
+}
 
 // Select a walker for a job
 const selectWalkerForJob = async () => {
@@ -198,6 +206,15 @@ const addToCart = () => {
   //}
 }
 
+const removeFromCart = item => {
+  dispatch({
+    type: REMOVE_FROM_CART,
+    _id: item._id
+  });
+  idbPromise('cart', 'delete', { ...item });
+
+};
+
 
 if (!filterUser()){return null}
 
@@ -215,8 +232,12 @@ if (!filterUser()){return null}
           (<button>Selected</button>)
           :null
       }
-      { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
+      { (Auth.loggedIn() && userSelected()== true && (apply=="true") && inCart()==false) ? 
           (<button onClick={addToCart}>Add to cart</button>)
+          :null
+      }
+      { (Auth.loggedIn() && userSelected()== true && (apply=="true") && inCart()==true ) ? 
+          (<button onClick={() => removeFromCart(newcartitem)}>Remove From Cart</button>)
           :null
       }
       { (Auth.loggedIn() && userSelected()== false && (apply=="true")) ? 
