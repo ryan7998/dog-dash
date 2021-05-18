@@ -129,16 +129,14 @@ function JobItem(item) {
     return selectedB;
   }
 
-  // check if there is another user selected for this job. will be used for filtering and display purposes
-  function updateanyselectedB() {
-    let selectedB = false;
+// check if there is another user selected for this job . will be used for filtering and display purposes
+function updateanyselectedB() {
+    let selectedB = false
     for (var i = 0; i < state.walkerjobs.length; i++) {
-      if (
-        state.walkerjobs[i].select == true &&
-        state.walkerjobs[i].job_id == _id
-      ) {
-        selectedB = state.walkerjobs[i].select;
-      }
+      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id   ) 
+          {selectedB=state.walkerjobs[i].select}
+    }
+    return selectedB
     }
     return selectedB;
   }
@@ -269,6 +267,8 @@ function JobItem(item) {
     return null;
   }
 
+console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB())
+
   return (
     <>
       <Card
@@ -279,6 +279,22 @@ function JobItem(item) {
         // description={`Wage: $ ${price}`}
         // extra={`$ ${price}`}
       />
+<<<<<<< HEAD
+ 
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
+          (<button onClick={withdrawFromJob}>Withdraw</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
+        (<button onClick={applyForJob}>Apply</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateselectedB()==true) ? 
+        (<button>You were selected</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
+        (<button>Walker selected</button>):null
+      }
+=======
+>>>>>>> b4b84cd8ea515e986f4185b6fc551d46bfa60bde
 
       {Auth.loggedIn() &&
       updateappliedB() == true &&
