@@ -47,10 +47,6 @@ h2 {
   padding-top: 10rem;
 }
 
-<<<<<<< HEAD
-.cartclosed{
-  margin-top: 10rem;
-=======
 .profilePicContainer {
   position:relative;
   max-width: 30%; 
@@ -70,5 +66,4 @@ input[type="file"] {
   opacity: 0; /* make transparent */
   z-index: -1; /* move under anything else */
   position: absolute; /* don't let it take up space */
->>>>>>> 62c852b6fc88c9679a5a1f7ff1302b68fd633636
 }
