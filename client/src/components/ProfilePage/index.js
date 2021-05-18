@@ -3,6 +3,8 @@ import ProfileData from "../ProfileData";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
+import CreateJob from '../CreateJob';
+
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});

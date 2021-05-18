@@ -10,7 +10,9 @@ import {
     Image,
     Icon,
     Card
-  } from 'semantic-ui-react'
+  } from 'semantic-ui-react';
+import CreateJob from '../CreateJob';
+
 
 function ProfileData(item) {
   const state = useSelector(state => state)
@@ -46,7 +48,8 @@ function ProfileData(item) {
         <p>{address}</p>
   
         <div>
-        <button class="ui inverted orange button">Post Job</button>
+          <CreateJob />
+          {/* <button class="ui inverted orange button">Post Job</button> */}
         </div>
     </Container>
     </div>
