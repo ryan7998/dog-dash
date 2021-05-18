@@ -3,6 +3,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import {
+  Icon,
+  Button,
+} from 'semantic-ui-react';
 
 const CartItem = ({ item }) => {
 
@@ -39,27 +43,46 @@ const CartItem = ({ item }) => {
   */
 
   return (
-    <div className="flex-row">
-      <div>
-        <img
-          src={`/images/${item.image}`}
+
+    <div class="ui items">
+  <div class="item">
+
+    <div class="image">
+      <img  src={`/images/${item.image}`}
           alt=""
         />
-      </div>
+    </div>
+
+    <div class="content">
       <div>
-        <div>{item.name}, ${item.price}</div>
+      {item.name} 
+      </div>
+      <div className="cartprice">
+      ${item.price}
+      </div>
+      <div class="meta">
+        <span>Description</span>
+      </div>
+      <div class="extra">
+        Additional Details
         <div>
-          
-          <span
+     </div>
+      </div>
+  </div>
+  </div>
+
+  <div className="trashicon">
+    <span
             role="img"
             aria-label="trash"
             onClick={() => removeFromCart(item)}
           >
-            🗑️
+            <Icon className="trashicon" name="trash" size="large" color="red"/>
           </span>
-        </div>
-      </div>
     </div>
+
+  </div>
+  
   );
 }
 
