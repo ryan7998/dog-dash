@@ -1,8 +1,8 @@
 
 .background-image{
-  background-image: url(/images/dogwalk.jpeg);
+  /* background-image: url(/images/dogwalk.jpeg);
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
 }
 .jobcardcss {
   display: grid;
