@@ -74,6 +74,7 @@ function Nav() {
                     onClick={()=>setActiveItem('profile')}
                   />
                 </Link>
+
                   <Menu.Item
                     name='logout'
                     onClick={() => Auth.logout()}
