@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Modal from "react-modal";
 import { Card, Icon, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
@@ -23,6 +24,8 @@ function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  //open up the modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // Gets from DB and updates the jobwalkers info in the global state and indexed db
   useEffect(() => {
@@ -129,16 +132,19 @@ function JobItem(item) {
     return selectedB;
   }
 
-// check if there is another user selected for this job . will be used for filtering and display purposes
-function updateanyselectedB() {
-    let selectedB = false
+  // check if there is another user selected for this job . will be used for filtering and display purposes
+  function updateanyselectedB() {
+    let selectedB = false;
     for (var i = 0; i < state.walkerjobs.length; i++) {
-      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id   ) 
-          {selectedB=state.walkerjobs[i].select}
+      if (
+        state.walkerjobs[i].select == true &&
+        state.walkerjobs[i].job_id == _id
+      ) {
+        selectedB = state.walkerjobs[i].select;
+      }
     }
-    return selectedB
-    };
-    
+    return selectedB;
+  }
 
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
@@ -266,7 +272,7 @@ function updateanyselectedB() {
     return null;
   }
 
-console.log(submitter)
+  console.log("Submitter details: ", submitter);
 
   return (
     <>
@@ -275,20 +281,35 @@ console.log(submitter)
         header={title}
         meta={`${submitter?.firstName}  ${submitter?.lastName}`}
         description={description}
+        onClick={() => {
+          setModalIsOpen(true);
+          console.log("clicked");
+        }}
       />
- 
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
-          (<button onClick={withdrawFromJob}>Withdraw</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
-        (<button onClick={applyForJob}>Apply</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateselectedB()==true) ? 
-        (<button>You were selected</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
-        (<button>Walker selected</button>):null
-      }
+
+      {Auth.loggedIn() &&
+      me.type == "Dog Walker" &&
+      updateappliedB() == true &&
+      updateanyselectedB() == false ? (
+        <button onClick={withdrawFromJob}>Withdraw</button>
+      ) : null}
+      {Auth.loggedIn() &&
+      me.type == "Dog Walker" &&
+      updateappliedB() == false &&
+      updateanyselectedB() == false ? (
+        <button onClick={applyForJob}>Apply</button>
+      ) : null}
+      {Auth.loggedIn() &&
+      me.type == "Dog Walker" &&
+      updateselectedB() == true ? (
+        <button>You were selected</button>
+      ) : null}
+      {Auth.loggedIn() &&
+      me.type == "Dog Walker" &&
+      updateanyselectedB() == true &&
+      updateselectedB() == false ? (
+        <button>Walker selected</button>
+      ) : null}
 
       {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
@@ -297,8 +318,37 @@ console.log(submitter)
           job_id={_id}
           job_price={price}
         />
-        ) : null
-      }
+      ) : null}
+
+      <Modal isOpen={modalIsOpen}>
+        <h4> Modal body INFO</h4>
+        <table>
+          <tr>
+            <th>
+              <Card
+                image={image ? image : "https://placedog.net/500"}
+                header={title}
+                //meta={`${submitter?.firstName}  ${submitter?.lastName}`}
+                description={description}
+              />
+            </th>
+            <th>
+              <h1>Submitter Information</h1>
+              <p>Profile Image: {submitter?.image}</p>
+              <p>First Name: {submitter?.firstName}</p>
+              <p>Last Name: {submitter?.lastName}</p>
+              <p>Description: {submitter?.description}</p>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <button onClick={() => setModalIsOpen(false)}>Close</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </Modal>
     </>
   );
 }
