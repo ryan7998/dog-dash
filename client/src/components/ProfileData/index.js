@@ -46,7 +46,6 @@ function ProfileData(item) {
         <p>{description}</p>
         <p>{email}</p>
         <p>{address}</p>
-  
         <div>
           <CreateJob />
           {/* <button class="ui inverted orange button">Post Job</button> */}
