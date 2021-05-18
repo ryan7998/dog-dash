@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Card, Icon, Button, Image, Dropdown } from "semantic-ui-react";
+import { UPDATE_JOBS } from "../../utils/actions";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -25,8 +26,7 @@ function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
-  const [withdrawnJob, setWithdrawnJob] = useState();
-  const [deletedJob, setDeletedJob] = useState();
+
 
 
   const {
@@ -69,14 +69,11 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob, updateJob, deletedJob, withdrawnJob]);
+    }, [data, loading, dispatch, applyJob, withdrawJob, updateJob, deleteJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
-
-
-   const [appliedB, setappliedB] = useState({})
 
 
   //refresh page
@@ -113,11 +110,6 @@ function JobItem(item) {
     return appliedB;
   }
 
-  useEffect(() => {
- 
-      setappliedB(updateappliedB()) ;
-    
-  }, [appliedB]);
 
   // check if someone applied to the job
   function updateanyappliedB() {
@@ -181,6 +173,25 @@ function updateanyselectedB() {
     return { ...initialwalkerjob(), apply: true };
   }
 
+  function initialjob() {
+    let job = {
+      _id: _id,
+      user_id:user_id,
+      title: title,
+      description: description,
+      price: price,
+      date: date,
+      status:status,
+      image: image,
+    };
+    
+    return job;
+  }
+
+  function newjobstatus() {
+    return { ...initialjob(), status: "Done" };
+  }
+
   const applyForJob = async () => {
     // refresh();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -208,18 +219,17 @@ function updateanyselectedB() {
       return false;
     }
     try {
-      const withdrawnJob = await withdrawJob({
+      await withdrawJob({
         variables: { job_id: _id },
       });
-      setWithdrawnJob(withdrawnJob);
-      // dispatch({
-      //   type: UPDATE_WALKERJOBS,
-      //   walkerjobs: state.walkerjobs.filter((walkerjob) => {
-      //     return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
-      //   }),
-      // });
+      dispatch({
+         type: UPDATE_WALKERJOBS,
+         walkerjobs: state.walkerjobs.filter((walkerjob) => {
+           return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
+        }),
+       });
 
-      // idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
+       idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
     } catch (e) {
       console.error(e);
     }
@@ -287,31 +297,38 @@ function updateanyselectedB() {
     return null;
   }
 
-// When Owner presses Complete Job the status updates to 'Done'
+// When Owner presses Complete Job the status updates to 'Done' ///////////
   const completeJob = async() =>{
     try {
-      const getVal = await updateJob({
+      await updateJob({
         variables: { job_id: _id, newStatus: 'Done' },
       });
 
       dispatch({
-
+        type: UPDATE_JOBS,
+        jobs: [...state.jobs.filter((job) => {return job.id !== _id }), newjobstatus()],
       });
-
+      
+      idbPromise("jobs", "delete", initialjob());
+      idbPromise("jobs", "put", newjobstatus());
     } catch (e) {
       console.error(e);
     }
   }
   // When Owner clicks Delete Job:
   const deleteJobById = async() =>{
-    // await console.log('delete pressed', _id);
     try{
-      const deletedJobData = await deleteJob({
+      await deleteJob({
         variables:{job_id: _id}
       });
-      setDeletedJob(deletedJobData);
-      // console.log(deletedJob);
-      // return deletedJob;
+      
+      
+      dispatch({
+        type: UPDATE_JOBS,
+        jobs: [...state.jobs.filter((job) => {return job.id !== _id })],
+      });
+      
+      idbPromise("jobs", "delete", initialjob());
     }catch(e){
       console.error(e);
     }
@@ -326,8 +343,7 @@ function updateanyselectedB() {
     else if(value === 'delete'){deleteJobById()}
   }
 
-  console.log(appliedB)
-
+ 
   return (
     <>
       <Card>
