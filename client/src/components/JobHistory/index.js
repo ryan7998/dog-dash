@@ -11,7 +11,7 @@ import { Card, Icon } from 'semantic-ui-react';
 
 
 
-function JobList(props) {
+function JobHistory(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
@@ -24,16 +24,16 @@ function JobList(props) {
           type: UPDATE_JOBS,
           jobs: data.jobs
         });
-        data.jobs.forEach((job) => {
-         idbPromise('jobs', 'put', job);
-         });
+        // data.jobs.forEach((job) => {
+        //   idbPromise('jobs', 'put', job);
+        // });
     } else if (!loading) {
-       idbPromise('jobs', 'get').then((jobs) => {
-         dispatch({
-           type: UPDATE_JOBS,
-           jobs: jobs
-        });
-       });
+      // idbPromise('jobs', 'get').then((jobs) => {
+      //   dispatch({
+      //     type: UPDATE_JOBS,
+      //     jobs: jobs
+      //  });
+      // });
     }
   }, [data, loading, dispatch]);
   
@@ -41,17 +41,15 @@ function JobList(props) {
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
   }
-console.log(state.jobs, props)
-
 
   return (
     <div>
       <h2></h2>
-      
+      <h2>Jobs History</h2>
       {state.jobs.length ? (
         <Card.Group itemsPerRow={3}>
             {filterJobs().map(job => (
-                <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
+                <JobItem
                   key= {job._id}
                   _id={job._id}
                   user_id={job.user_id}
@@ -60,7 +58,7 @@ console.log(state.jobs, props)
                   price={job.price}
                   date={job.date}
                   status={job.status}
-                  image={job.image}
+                  image={job.image}                  
                 />
             ))}
         </Card.Group>
@@ -73,4 +71,4 @@ console.log(state.jobs, props)
   );
 }
 
-export default JobList;
+export default JobHistory;

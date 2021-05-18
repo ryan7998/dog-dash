@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
  export const ADD_JOB = gql`
      mutation addJob($title: String!, $description: String!, $price: Float!, $date: String!, $status: String! ) {
-       addJob(description: $description, price: $price, date: $date, status: $status) {
+       addJob(title: $title, description: $description, price: $price, date: $date, status: $status) {
          _id
          user_id
          title
@@ -88,18 +88,18 @@ export const LOGIN = gql`
      }
    }
  `;
-
+ 
 export const ADD_USER = gql`
-mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $address: String, $description: String, $image: String $type: String!) {
+mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $address: String!, $description: String, $image: String, $type: String!) {
   addUser(
     firstName: $firstName, 
     lastName: $lastName, 
     email: $email, 
     password: $password, 
-    type: $type,
     address: $address, 
     description: $description, 
-    image: $image
+    image: $image,
+    type: $type
   ){
     token
     user {

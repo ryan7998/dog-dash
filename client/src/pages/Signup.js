@@ -50,7 +50,6 @@ function Signup(props) {
       }else{
         setOwnerType(false);
       }
-      console.log(ownerType);
     }else{
       const { name, value } = event.target;
       setFormState({

@@ -1,5 +1,48 @@
+
 .background-image{
   background-image: url(/images/dogwalk.jpeg);
     background-position: center;
     background-size: cover;
+}
+.jobcardcss {
+  display: grid;
+  padding-top: 5rem;
+  padding-bottom: 50rem;
+  justify-content:space-evenly;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+td {
+  width: 600px;
+  text-align: center;
+  /* border: 1px solid black; */
+  padding: 50px;
+}
+
+h2 {
+  color: #4287f5;
+}
+
+.profileimg{
+  padding-top: 150px;
+  text-align: center;
+}
+.centerprofileimg{
+  Display: flex;
+  height:100%;
+  display:flex; 
+  align-items:center;
+  justify-content:center;
+  padding-bottom: 50px;
+}
+
+.jobpagecss {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 10rem;
 }

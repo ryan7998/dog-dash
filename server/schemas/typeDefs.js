@@ -86,8 +86,10 @@ const typeDefs = gql`
   type Query {
     jobs: [Job]
     users: [User]
+    walkerjobs: [WalkerJob]
     jobById(_id: ID!): Job
     userById(_id: ID!): User
+    
 
     user: User
     order(_id: ID!): Order
@@ -103,7 +105,7 @@ const typeDefs = gql`
     rateUser(rated_id: ID!, ratingNb:Float!, text:String): Rating
     commentJob(user_id: ID!, job_id: ID, text:String!): Job
 
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String!, type: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String!, description: String, image: String, type: String!): Auth
     addOrder(jobs: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String, image: String ): User
     login(email: String!, password: String!): Auth
