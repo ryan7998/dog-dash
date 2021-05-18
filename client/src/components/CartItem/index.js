@@ -5,7 +5,7 @@ import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 import {
   Icon,
-  Button
+  Button,
 } from 'semantic-ui-react';
 
 const CartItem = ({ item }) => {
@@ -43,7 +43,7 @@ const CartItem = ({ item }) => {
   */
 
   return (
-  
+
     <div class="ui items">
   <div class="item">
 
@@ -82,8 +82,6 @@ const CartItem = ({ item }) => {
     </div>
 
   </div>
-
-  
   
   );
 }
