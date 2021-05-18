@@ -66,7 +66,7 @@ function Upload() {
       <form className='upload-steps'>
         <label>
         ✏
-          <input type='file' ref={fileInput} onChange={handleClick}/>
+          <input type='file' ref={fileInput} onChange={handleClick} hidden/>
         </label>     
       </form>
     </>
