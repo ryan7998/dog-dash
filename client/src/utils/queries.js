@@ -52,7 +52,6 @@ export const QUERY_USER_BYID = gql`
 export const QUERY_WALKERJOBS = gql`
   {
     walkerjobs {
-      image
       _id
       walker_id
       job_id
@@ -68,7 +67,6 @@ export const QUERY_JOBS = gql`
       _id
       user_id
       title
-      image
       description
       price
       date
