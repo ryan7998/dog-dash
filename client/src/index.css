@@ -66,3 +66,47 @@ input[type="file"] {
   z-index: -1; /* move under anything else */
   position: absolute; /* don't let it take up space */
 }
+
+.ourjobcontainer{
+  padding-top: 50px;
+}
+
+.header{
+  padding-top: 20px;
+}
+
+.meta{
+  padding-top: 5px;
+}
+
+.walkercard{
+  padding-top: 12px;
+  padding-bottom: 50vh;
+}
+
+.ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
+  width: auto; 
+  height: auto; 
+}
+.postjobbtn{
+  padding-top: 50px;
+}
+.ui.buttons {
+  display: inline-flex;
+  flex-direction: row;
+  margin: 0 .25em 0 0;
+  padding-top: 1rem;
+}
+
+.actjobtitle{
+  padding-top: 5rem;
+}
+
+.prejobtitle{
+  padding-top: 5rem;
+  padding-bottom: 50rem;
+}
+
+.card-container{
+  padding-bottom: 10rem;
+}
