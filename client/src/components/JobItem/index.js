@@ -266,7 +266,7 @@ function updateanyselectedB() {
     return null;
   }
 
-console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB())
+
 
   return (
     <>
