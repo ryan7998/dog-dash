@@ -137,9 +137,8 @@ function updateanyselectedB() {
           {selectedB=state.walkerjobs[i].select}
     }
     return selectedB
-    }
-    return selectedB;
-  }
+    };
+    
 
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
@@ -276,8 +275,6 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
         header={title}
         meta={`${submitter?.firstName}  ${submitter?.lastName}`}
         description={description}
-        // description={`Wage: $ ${price}`}
-        // extra={`$ ${price}`}
       />
  
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
@@ -292,6 +289,8 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
         (<button>Walker selected</button>):null
       }
+<<<<<<< HEAD
+=======
 
       {Auth.loggedIn() &&
       updateappliedB() == true &&
@@ -303,6 +302,7 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
       me.type == "Dog Walker" ? (
         <button onClick={applyForJob}>Apply</button>
       ) : null}
+>>>>>>> 811e2081927194dfd71050acb3e0547294fc8591
 
       {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
@@ -311,7 +311,8 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
           job_id={_id}
           job_price={price}
         />
-      ) : null}
+        ) : null
+      }
     </>
   );
 
