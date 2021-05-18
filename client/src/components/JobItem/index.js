@@ -13,12 +13,12 @@ import {
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
 } from "../../utils/queries";
-import { APPLY_JOB, WITHDRAW_JOB } from "../../utils/mutations";
+import { APPLY_JOB, WITHDRAW_JOB, UPDATE_JOB } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
-// import {getDateFromUnix} from '../../utils/helpers';
+
 
 function JobItem(item) {
   const state = useSelector((state) => state);
@@ -63,6 +63,7 @@ function JobItem(item) {
   // console.log(getDateFromUnix(date));
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
+  const [updateJob] = useMutation(UPDATE_JOB);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -267,8 +268,21 @@ function updateanyselectedB() {
     return null;
   }
 
-// console.log(submitter)
+// When Owner presses Complete Job the status updates to 'Done'
+  const completeJob = async() =>{
+    try {
+      const getVal = await updateJob({
+        variables: { job_id: _id, newStatus: 'Done' },
+      });
 
+      dispatch({
+
+      });
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <>
@@ -321,6 +335,7 @@ function updateanyselectedB() {
               job_id={_id}
               job_price={price}
             />
+            <Button color="orange" onClick={completeJob}>Job Completed</Button>
           </Card.Content>
         )}
       </Card>

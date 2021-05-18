@@ -237,7 +237,9 @@ if (!filterUser()){return null}
         {Auth.loggedIn() && <div className='ui two buttons'>
           { 
             userSelected() && apply &&(
-            <Button basic color='green' disabled> Selected</Button>)
+              <Button basic color='green' disabled> Selected</Button>
+              // <Button basic color='green' disabled> Selected</Button>
+            )
           }
           {
             userSelected() && apply && !inCart() && (
