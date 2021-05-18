@@ -8,7 +8,11 @@ import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
 import { Card, Icon } from 'semantic-ui-react';
-
+import {
+  Button,
+  Container,
+  Header,
+} from 'semantic-ui-react';
 
 
 function JobList(props) {
@@ -25,8 +29,8 @@ function JobList(props) {
           jobs: data.jobs
         });
         data.jobs.forEach((job) => {
-         idbPromise('jobs', 'put', job);
-         });
+          idbPromise('jobs', 'put', job);
+        });
     } else if (!loading) {
        idbPromise('jobs', 'get').then((jobs) => {
          dispatch({
@@ -43,13 +47,12 @@ function JobList(props) {
   }
 
 
-
   return (
-    <div>
+    <Container>
       <h2></h2>
       
       {state.jobs.length ? (
-        <Card.Group itemsPerRow={3}>
+        <Card.Group itemsPerRow={props.itemsPerRow}>
             {filterJobs().map(job => (
                 <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
@@ -60,7 +63,7 @@ function JobList(props) {
                   price={job.price}
                   date={job.date}
                   status={job.status}
-                  image={job.image}
+                  // image={job.image}
                 />
             ))}
         </Card.Group>
@@ -69,7 +72,7 @@ function JobList(props) {
       )}
       { loading ? 
       <img src={spinner} alt="loading" />: null}
-    </div>
+    </Container>
   );
 }
 
