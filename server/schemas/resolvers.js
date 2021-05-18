@@ -5,27 +5,51 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
-    jobs: async (parent) => {
-      return await Job.find().populate('user');
+    walkerjobs: async () => {
+      const walkerjobs= await WalkerJob.find();
+      return walkerjobs;
     },
+
+    jobs: async () => {
+      const jobs= await Job.find().populate({
+        path:'orders.user',
+        populate:'user'
+      });
+      return jobs;
+    },
+    
     users: async (parent) => {
         const users = await User.find().populate({
           path: 'orders.jobs',
+          populate: 'job',
+          populate: 'doneRatings',
+        })
+        .populate('doneRatings')
+        .populate('receivedRatings');
+        return users;
+    },
+    
+    jobById: async (parent, { _id }) => {
+      return await Job.findById(_id).populate('user');
+    },
+    userById: async (parent, { _id }) => {
+        const users = await User.findById(_id).populate({
+          path: 'orders.jobs',
           populate: 'job'
-        });
+        })
+        .populate('receivedRatings');
         return users;
     },
 
-    job: async (parent, { _id }) => {
-      return await Job.findById(_id).populate('user');
-    },
+    
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
           path: 'orders.jobs',
           populate: 'job'
-        });
-
+        })
+        .populate('receivedRatings');
+        
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
         return user;
@@ -33,6 +57,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
@@ -44,6 +69,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ jobs: args.jobs });
@@ -82,78 +108,88 @@ const resolvers = {
 
   Mutation: {
 
-    addJob: async (parent, {description, price, date, status}, context) => {
+    addJob: async (parent, {title, description, price, date, status,}, context) => {
       if (context.user) {
+        const user = await User.findById(context.user._id);
         const newJob = await Job.create(
-          { user_id: context.user._id },
-          { description: description},
-          { price: price},
-          { date: date},
-          { status: status}, 
-          { new: true }
+          { user_id: user._id,
+           image: user.image,
+           title: title,
+           description: description,
+           price: price,
+           date: date,
+           status: status,
+           new: true }
         );
-        await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob } });
+    
+        await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob._id } });
         return newJob;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    
     applyJob: async (parent, {job_id}, context) => {
-      if (context.user) {
-        const updatedWalkerJob = await WalkerJob.create(
-          { walker_id: context.user._id },
-          { job_id: job_id },
-          { apply: 1 }, 
-          { new: true }
-        );
-        const updatedJob = await Job.find({ _id: job_id });
-        const user = await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: updatedWalkerJob } });
-        return updatedJob;
-      }
-      throw new AuthenticationError('You need to be logged in!');
+      let currentWalkerJob = await WalkerJob.find(
+        { walker_id: context.user._id ,
+          job_id: job_id ,
+          apply: 1 
+        }
+      )
+     
+        if (context.user) {
+      
+              await WalkerJob.create(
+                  { walker_id: context.user._id ,
+                  job_id: job_id ,
+                  apply: 1 , 
+                  new: true }
+                );
+                await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: job_id } });
+                let updatedJob = await Job.findByIdAndUpdate(job_id, { $push: { appliedUsers: context.user._id } , new: true});
+            
+          return updatedJob;
+        }
+        throw new AuthenticationError('You need to be logged in!');
+      
     },
+
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
-        const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
-          { walker_id: context.user._id },
-          { job_id: job_id },
-          { $set: { apply: 0 } }, 
-          { new: true }
+       await WalkerJob.deleteOne(
+          { walker_id: context.user._id, 
+            job_id: job_id  }
         );
-        const updatedJob = await Job.find({ _id: job_id });
-        const user = await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: updatedWalkerJob } });
+       
+        await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: job_id }  });
+        let updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } , new: true });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
     selectWalker: async (parent, {walker_id, job_id}, context) => {
       if (context.user) {
-
-        const selectedWalkerJobs = await WalkerJob.updateMany({
-          where: {
-            job_id: job_id ,
-            select: 1 
-          },
-          $set: { select: 0 } 
-         }); 
-         const updatedWalkerJob = await WalkerJob.findOneAndUpdate(
-          { walker_id: walker_id },
-          { job_id: job_id },
-          { $set: { select: 1 } }, 
-          { new: true }
-        )
-        ;
-        const updatedJob = await Job.find({ _id: job_id });
-
-        await User.updateMany({
-          /*where: {
-            id: selectedWalkerJobs[i].walker_id
-          },*/
-          $pull: { selectedJobs: updatedJob }
-         }); 
-        const user = await User.findByIdAndUpdate(context.user._id, { $push: { selectedJobs: updatedJob } });
-        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: updatedWalkerJob } });
+        const previouslySelected = await WalkerJob.updateMany(
+          {job_id: job_id },
+          {$set: { select: 0 } }
+         ); 
+       
+        await WalkerJob.findOneAndUpdate(
+          { walker_id: walker_id ,job_id: job_id },
+          { $set: { select: 1 } }
+        );
+        let updatedJob = await Job.find({ _id: job_id });
+        
+        for (i = 0; i < previouslySelected.length; i++) {
+        await User.updateMany(
+          { user_id: previouslySelected[i].walker_id },
+          {$pull: { selectedJobs: ujob_idpdatedJob }} 
+         ); 
+        }
+   
+        await User.findByIdAndUpdate(walker_id, { $push: { selectedJobs: job_id } });
+        
+        updatedJob = await Job.findByIdAndUpdate(job_id, { $set: { selectedUser: walker_id } });
         return updatedJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -165,6 +201,7 @@ const resolvers = {
 
       return { token, user };
     },
+
     addOrder: async (parent, { jobs }, context) => {
       console.log(context);
       if (context.user) {
@@ -177,6 +214,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
@@ -184,22 +222,45 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError('Incorrect credentials');
       }
-
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }
-
       const token = signToken(user);
-
       return { token, user };
+    },
+
+    rateUser: async (parent, {rated_id, ratingNb, text,}, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        const newrating = await Rating.create(
+          { rater_id: user._id,
+           rated_id: rated_id,
+           ratingNb: ratingNb,
+           text: text
+          }
+        );
+        await User.findByIdAndUpdate(context.user._id, { $push: { doneRatings: newrating._id } });
+        await User.findByIdAndUpdate(rated_id, { $push: { receivedRatings: newrating._id } });
+        return newrating;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    updateJob: async (parent, {job_id, newStatus}) => {
+      const jobsDone = await Job.findByIdAndUpdate(job_id, {$set:{status: newStatus}}, { new: true })
+      return jobsDone;
+    },
+
+    deleteJob: async(parent, {job_id}) =>{
+      const jobDeleted = await Job.findByIdAndDelete(job_id);
+      return jobDeleted;
     }
   }
 };

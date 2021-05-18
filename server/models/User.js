@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+//const mongoose = require('mongoose');
+const { Schema, model, SchemaTypes } = require('mongoose');
+//const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Job = require('./Job');
 const Dog = require('./Dog');
@@ -47,15 +47,46 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  submittedJobs : [Job.schema],
-  appliedJobs : [Job.schema],
-  selectedJobs : [Job.schema],
+  submittedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
+  appliedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
+  selectedJobs :  [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    }
+  ],
   dogs: [Dog.schema],
-  doneRatings: [Rating.schema],
-  receivedRatings: [Rating.schema],
+  doneRatings: [
+    {
+      type: SchemaTypes.ObjectId,
+      ref: 'Rating'
+    }
+  ],
+  receivedRatings: [
+    {
+      type: SchemaTypes.ObjectId,
+      ref: 'Rating'
+    }
+  ],
   comments: [Comment.schema],
   orders: [Order.schema]
-});
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+}
+);
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function(next) {
@@ -72,6 +103,17 @@ userSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+userSchema.virtual('ratingAvg').get(function() {
+   let ratingsum = 0;
+   this.receivedRatings.map(function(num) { return ratingsum += num.ratingNb});
+   let ratingAvg = ratingsum/this.receivedRatings.length;
+  if (ratingAvg) {
+    return (ratingsum / (this.receivedRatings.length));
+  } else {
+    return 0; 
+  }
+});
+
+const User = model('User', userSchema);
 
 module.exports = User;

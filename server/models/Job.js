@@ -1,15 +1,26 @@
 const mongoose = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
+// const dateFormat = require('../utils/');
+
 
 const { Schema } = mongoose;
-const User = require('./User');
+// const User = require('./User');
 const Comment = require('./Comment');
-const WalkerJob = require('./WalkerJob');
+const WalkerJob = require('./Comment');
 
 const jobSchema = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  title:{
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: false
   },
   description: {
     type: String,
@@ -22,15 +33,33 @@ const jobSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true,
+    get: createdAtVal => dateFormat(createdAtVal)
+
   },
   status: {
     type: String,
-    default: 'Live'
+    default: 'Live',
+    required: true
   },
-  appliedUsers: [WalkerJob.schema],
-  selectedUser: WalkerJob.schema,
+  appliedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  selectedUser: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ,
   comments: [Comment.schema]
+},
+{
+    toJSON:{
+        getters: true
+    }
 });
 
 const Job = mongoose.model('Job', jobSchema);

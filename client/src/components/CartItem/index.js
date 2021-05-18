@@ -3,6 +3,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import {
+  Icon,
+  Button,
+} from 'semantic-ui-react';
 
 const CartItem = ({ item }) => {
 
@@ -17,7 +21,7 @@ const CartItem = ({ item }) => {
     idbPromise('cart', 'delete', { ...item });
 
   };
-
+/*
   const onChange = (e) => {
     const value = e.target.value;
     if (value === '0') {
@@ -30,29 +34,55 @@ const CartItem = ({ item }) => {
     } else {
       dispatch({
         type: UPDATE_CART_QUANTITY,
-        _id: item._id,
-        purchaseQuantity: parseInt(value)
-      });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
+        _id: item._id 
+      });//purchaseQuantity: parseInt(value)
+      idbPromise('cart', 'put', { ...item}); //, purchaseQuantity: parseInt(value) 
 
     }
   }
+  */
 
   return (
-    <div className="flex-row">
+
+    <div class="ui items">
+  <div class="item">
+
+    <div class="image">
+      <img  src={`/images/${item.image}`}
+          alt=""
+        />
+    </div>
+
+    <div class="content">
       <div>
-        <div>{item.description}, ${item.price}</div>
+      {item.name} 
+      </div>
+      <div className="cartprice">
+      ${item.price}
+      </div>
+      <div class="meta">
+        <span>Description</span>
+      </div>
+      <div class="extra">
+        Additional Details
         <div>
-          <span
+     </div>
+      </div>
+  </div>
+  </div>
+
+  <div className="trashicon">
+    <span
             role="img"
             aria-label="trash"
             onClick={() => removeFromCart(item)}
           >
-            🗑️
+            <Icon className="trashicon" name="trash" size="large" color="red"/>
           </span>
-        </div>
-      </div>
     </div>
+
+  </div>
+  
   );
 }
 

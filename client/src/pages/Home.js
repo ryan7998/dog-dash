@@ -1,13 +1,20 @@
 import React from "react";
-import JobList from "../components/JobList";
-import Cart from "../components/Cart";
+import { Link } from "react-router-dom";
+import HomepageBanner from "../components/HompageBanner";
+import {
+  Button,
+  Container,
+  Header,
+  Icon,
+} from 'semantic-ui-react';
+import JobList from "../components/JobList"
 
 const Home = () => {
   return (
-    <div className="container">
-      <JobList />
-      <Cart />
-    </div>
+    <>
+    <HomepageBanner />
+    <JobList status="Live" rowItems="6"/>
+    </>
   );
 };
 

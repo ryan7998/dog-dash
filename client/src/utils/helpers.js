@@ -5,14 +5,21 @@ export function pluralize(name, count) {
   return name + 's';
 }
 
+export function getDateFromUnix(timeInStamp){
+  const timestamp = timeInStamp*1000;
+  const date = new Date(timestamp);
+  // console.log('helper:', date);
+  return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+}
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
     const request = window.indexedDB.open('walkmydog', 1);
     let db, tx, store;
     request.onupgradeneeded = function(e) {
       const db = request.result;
-      db.createObjectStore('products', { keyPath: '_id' });
-      db.createObjectStore('categories', { keyPath: '_id' });
+      db.createObjectStore('jobs', { keyPath: '_id' });
+      db.createObjectStore('users', { keyPath: '_id' });
+      db.createObjectStore('walkerjobs', { keyPath: '_id'});
       db.createObjectStore('cart', { keyPath: '_id' });
     };
 
@@ -54,3 +61,4 @@ export function idbPromise(storeName, method, object) {
     };
   });
 }
+

@@ -11,14 +11,6 @@ const typeDefs = gql`
     breed: String
   }
 
-  type Rating {
-    _id: ID
-    rater_id: ID!
-    rated_id: ID!
-    ratingNb: String!
-    text: String
-  }
-
   type Comment {
     _id: ID
     user_id: ID!
@@ -37,13 +29,16 @@ const typeDefs = gql`
   type Job {
     _id: ID
     user_id: ID!
+    title: String!
+    image: String
     description: String!
     price: Float!
-    date: String
-    status: String
-    appliedUsers : [WalkerJob]
-    selectedUser : WalkerJob
+    date: String!
+    status: String!
+    appliedUsers : [ID]
+    selectedUser : ID
     comments: [Comment]
+    user: User
   }
 
   type Order {
@@ -54,21 +49,30 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     email: String!
-    address: String!
+    address: String
     description: String
     image: String
-    type: String!
-    submittedJobs : [Job]
-    appliedJobs : [Job]
-    selectedJobs : [Job]
+    type: String
+    submittedJobs : [ID]
+    appliedJobs : [ID]
+    selectedJobs : [ID]
     dogs: [Dog]
     doneRatings: [Rating]
     receivedRatings: [Rating]
     comments: [Comment]
     orders: [Order]
+    ratingAvg: Float
+  }
+
+  type Rating {
+    _id: ID
+    rater_id: ID!
+    rated_id: ID!
+    ratingNb: String!
+    text: String
   }
 
   type Checkout {
@@ -76,32 +80,37 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: ID
+    token: ID!
     user: User
   }
 
   type Query {
     jobs: [Job]
     users: [User]
+    walkerjobs: [WalkerJob]
+    jobById(_id: ID!): Job
+    userById(_id: ID!): User
+    
 
-    job(_id: ID!): Job
     user: User
     order(_id: ID!): Order
     checkout(jobs: [ID]!): Checkout
   }
 
   type Mutation {
-    addJob(description: String!, price: Float!, date: String, status: String): Job
+    addJob(title: String!, description: String!, price: Float!, date: String!, status: String!): Job
     applyJob(job_id: ID!): Job
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
+    updateJob(job_id: ID!, newStatus: String!): Job
+    deleteJob(job_id: ID!): Job
     
-    rateUser(rated_id: ID!, ratingNb:String!, text:String): User
+    rateUser(rated_id: ID!, ratingNb:Float!, text:String): Rating
     commentJob(user_id: ID!, job_id: ID, text:String!): Job
 
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!, address: String!, description: String, image: String, type: String!): Auth
     addOrder(jobs: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    updateUser(firstName: String, lastName: String, email: String, password: String, image: String ): User
     login(email: String!, password: String!): Auth
   }
 `;

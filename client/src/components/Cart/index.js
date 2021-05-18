@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+//import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from '@apollo/react-hooks';
 import { QUERY_CHECKOUT } from "../../utils/queries"
 import { idbPromise } from "../../utils/helpers"
@@ -7,10 +7,16 @@ import CartItem from "../CartItem";
 import Auth from "../../utils/auth";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
+import { TOGGLE_CART , ADD_MULTIPLE_TO_CART  } from "../../utils/actions";
 import "./style.css";
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+import {
+  Icon,
+  Button
+} from 'semantic-ui-react';
+
+//const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
 
 const Cart = () => {
   const state = useSelector(state => state)
@@ -29,7 +35,7 @@ const Cart = () => {
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise('cart', 'get');
-      dispatch({ type: ADD_MULTIPLE_TO_CART, jobs: [...cart] });
+      dispatch({ type: ADD_MULTIPLE_TO_CART, users: [...cart] });
     };
 
     if (!state.cart.length) {
@@ -44,53 +50,68 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach(item => {
-      sum += item.price * item.purchaseQuantity;
+      sum += item.price //* item.purchaseQuantity;
     });
     return sum.toFixed(2);
   }
 
   function submitCheckout() {
-    const jobIds = [];
+    const productIds = [];
 
     state.cart.forEach((item) => {
-      for (let i = 0; i < item.purchaseQuantity; i++) {
-        jobIds.push(item._id);
-      }
+      //for (let i = 0; i < item.purchaseQuantity; i++) {
+        productIds.push(item._id);
+      //}
     });
 
     getCheckout({
-      variables: { jobs: jobIds }
+      variables: { products: productIds }
     });
   }
 
   if (!state.cartOpen) {
     return (
+
       <div className="cart-closed" onClick={toggleCart}>
-        <span
+        {/* <span
           role="img"
-          aria-label="trash">🛒</span>
+          aria-label="trash">🛒</span> */}
+          <Icon className="carticon" name="shopping cart" size="small" color="teal"/>
       </div>
+  //   <ShoppingCartRounded
+  //   fontSize="inherit"
+  //   style={{ fontSize: "200px", color: 'blue'}}
+  // />
     );
   }
 
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>[close]</div>
+    <div className="cartcontainer">
+    <div className="cartinfo">
+      <div className="closebtn">
+      <Button className="closebtn" color='teal' size='tiny' onClick={toggleCart}>Close</Button>
+      </div>
+      {/* <Button color='teal' fluid size='large'>+ Create</Button> */}
       <h2>Shopping Cart</h2>
+      <div className="cartinfodisplay">
       {state.cart.length ? (
         <div>
           {state.cart.map(item => (
             <CartItem key={item._id} item={item} />
           ))}
+          <div>
 
           <div className="flex-row space-between">
+          <div className="cartprice">
             <strong>Total: ${calculateTotal()}</strong>
+            </div>
+            </div>
 
             {
               Auth.loggedIn() ?
-                <button onClick={submitCheckout}>
-                  Checkout
-              </button>
+              <div className="checkoutbtn">
+              <Button color='teal' size='large' onClick={submitCheckout}>Checkout</Button>
+              </div>
                 :
                 <span>(log in to check out)</span>
             }
@@ -105,6 +126,9 @@ const Cart = () => {
           </h3>
         )}
     </div>
+    </div>
+    </div>
+    
   );
 };
 

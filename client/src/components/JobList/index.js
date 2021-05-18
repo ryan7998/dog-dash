@@ -1,70 +1,81 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import JobItem from "../JobItem";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
+import { UPDATE_JOBS } from "../../utils/actions";
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
+import { Card, Icon } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Header,
+} from 'semantic-ui-react';
 
-function JobList() {
+
+function JobList(props) {
 
   const state = useSelector(state => state)
   const dispatch = useDispatch()
 
-  const { currentCategory } = state;
-
+ 
   const { loading, data } = useQuery(QUERY_JOBS);
+
 
   useEffect(() => {
     if(data) {
       dispatch({
-           type: UPDATE_JOBS,
+          type: UPDATE_JOBS,
           jobs: data.jobs
         });
         data.jobs.forEach((job) => {
           idbPromise('jobs', 'put', job);
         });
     } else if (!loading) {
-      idbPromise('jobs', 'get').then((jobs) => {
-        dispatch({
-          type: UPDATE_JOBS,
-         jobs: jobs
+       idbPromise('jobs', 'get').then((jobs) => {
+         dispatch({
+           type: UPDATE_JOBS,
+           jobs: jobs
+        });
        });
-      });
     }
   }, [data, loading, dispatch]);
+  
+ 
 
   function filterJobs() {
-    if (!currentCategory) {
-      return state.jobs;
-    }
-
-    return state.jobs.filter(job => job.category._id === currentCategory);
+    return state.jobs.filter(job => job.status === props.status);
   }
 
+
   return (
-    <div className="my-2">
-      <h2>Our Jobs:</h2>
+    <Container>
+      <h2></h2>
+      
       {state.jobs.length ? (
-        <div className="flex-row">
+        <Card.Group itemsPerRow={props.itemsPerRow}>
             {filterJobs().map(job => (
-                <JobItem
+                <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
                   _id={job._id}
+                  user_id={job.user_id}
+                  title = {job.title}
                   description={job.description}
                   price={job.price}
                   date={job.date}
                   status={job.status}
+                  // image={job.image}
                 />
             ))}
-        </div>
+        </Card.Group>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
       { loading ? 
       <img src={spinner} alt="loading" />: null}
-    </div>
+    </Container>
   );
 }
 
