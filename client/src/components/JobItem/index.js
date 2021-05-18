@@ -216,15 +216,11 @@ function updateanyselectedB() {
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-    if (
-      status === "Live" &&
-      submit === "any" &&
-      apply === "any" &&
-      select === "any" &&
-      selectme === "any"
-    ) {
+    if ( status === "Live" ) {
       return true;
     }
+
+
     // My Job History Page
     if (me.type == "Dog Walker") {
       if (!initialwalkerjob()) {
@@ -236,7 +232,7 @@ function updateanyselectedB() {
           selectme == false
         ) {
           return true;
-        } else {
+        } else { 
           return false;
         }
       } else {
@@ -327,6 +323,7 @@ function updateanyselectedB() {
           <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
+          <Card.Meta>{`Price: $${price}`}</Card.Meta>
         </Card.Content>
         
         {Auth.loggedIn() && me.type=="Dog Walker" && (
