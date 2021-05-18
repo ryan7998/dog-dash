@@ -289,20 +289,6 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
         (<button>Walker selected</button>):null
       }
-<<<<<<< HEAD
-=======
-
-      {Auth.loggedIn() &&
-      updateappliedB() == true &&
-      me.type == "Dog Walker" ? (
-        <button onClick={withdrawFromJob}>Withdraw</button>
-      ) : null}
-      {Auth.loggedIn() &&
-      updateappliedB() == false &&
-      me.type == "Dog Walker" ? (
-        <button onClick={applyForJob}>Apply</button>
-      ) : null}
->>>>>>> 811e2081927194dfd71050acb3e0547294fc8591
 
       {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
