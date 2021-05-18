@@ -5,6 +5,12 @@ export function pluralize(name, count) {
   return name + 's';
 }
 
+export function format_date(date){
+  return `${new Date(date).getMonth() + 1}/${new Date(
+    date
+  ).getDate()}/${new Date(date).getFullYear()}`;
+}
+
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
     const request = window.indexedDB.open('walkmydog', 1);
