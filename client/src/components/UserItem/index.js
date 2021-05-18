@@ -220,7 +220,6 @@ const removeFromCart = item => {
 if (!filterUser()){return null}
 
   return (
-    //<Link to={`/users/${_id}`}></Link>
     <>
     <Card>
       <Card.Content>
@@ -229,7 +228,9 @@ if (!filterUser()){return null}
           size='mini'
           src={image?image:'https://placeimg.com/50/50/people/grayscale'}
         />
-        <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
+        <Link to={`/walker/${_id}`}>
+          <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
+        </Link>
         <Card.Meta>{email}</Card.Meta>
         <Card.Description>{description}</Card.Description>
       </Card.Content>

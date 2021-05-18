@@ -23,8 +23,6 @@ const SingleWalkerJob = props => {
 
   return (
     <div>
-        <br />
-        <br />
         <h2> Made it to the singe user page</h2>
       <div className="card mb-3">
         <p className="card-header">

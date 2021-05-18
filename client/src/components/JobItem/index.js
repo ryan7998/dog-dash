@@ -310,6 +310,8 @@ function updateanyselectedB() {
     { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
   ]
   function userMenu(event, {value}){
+    event.preventDefault();
+    console.log(value);
     if(value === 'completed'){completeJob()}
     else if(value === 'delete'){deleteJobById()}
   }
