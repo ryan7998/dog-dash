@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button } from "semantic-ui-react";
+import { Card, Icon, Button, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -208,11 +208,11 @@ function updateanyselectedB() {
   function filterJob() {
     // Our Jobs Page
     if (
-      status == "Live" &&
-      submit == "any" &&
-      apply == "any" &&
-      select == "any" &&
-      selectme == "any"
+      status === "Live" &&
+      submit === "any" &&
+      apply === "any" &&
+      select === "any" &&
+      selectme === "any"
     ) {
       return true;
     }
@@ -222,8 +222,8 @@ function updateanyselectedB() {
         // never applied to the job
         if (
           apply == false &&
-          (updateanyselectedB().toString() == select ||
-            (!updateanyselectedB() && select == false)) &&
+          (updateanyselectedB().toString() === select ||
+            (!updateanyselectedB() && select === false)) &&
           selectme == false
         ) {
           return true;
@@ -268,16 +268,54 @@ function updateanyselectedB() {
 
 console.log(submitter)
 
+
   return (
     <>
-      <Card
+      {/* <Card
         image={image ? image : "https://placedog.net/500"}
         header={title}
-        meta={`${submitter?.firstName}  ${submitter?.lastName}`}
+        meta={`by ${submitter?.firstName}  ${submitter?.lastName}`}
         description={description}
-      />
+        extra={price}
+        <button onClick={withdrawFromJob}>Withdraw</button>
+      /> */}
+
+<Card.Group>
+    <Card>
+      <Card.Content>
+        <Image
+          // floated='right'
+          // size='mini'
+          src= {image ? image : "https://placedog.net/500"}
+        />
+        <Card.Header>{title}</Card.Header>
+        <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+        <Card.Description>{description}</Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <div className='ui buttons'>
+          {(Auth.loggedIn() && me.type=="Dog Walker" &&
+            (updateappliedB()== true  && updateanyselectedB()==false && (
+              <Button basic color='green' onClick={withdrawFromJob}>
+                Withdraw
+              </Button>
+              // <button onClick={withdrawFromJob}>Withdraw</button>
+            )) || (
+              updateappliedB()== false  && updateanyselectedB()==false && (
+                <Button basic color='green' onClick={applyForJob}>
+                  Apply
+                </Button>
+              )
+            ) || (
+              updateselectedB()==true && 'You are selected!') ||(
+                updateanyselectedB()==true && updateselectedB()==false && 'Walker selected'
+            )
+          )}
+        </div>
+      </Card.Content>
+    </Card>
  
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
+      {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
@@ -288,7 +326,7 @@ console.log(submitter)
       }
       { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
         (<button>Walker selected</button>):null
-      }
+      } */}
 
       {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
@@ -299,6 +337,7 @@ console.log(submitter)
         />
         ) : null
       }
+      </Card.Group>
     </>
   );
 }
