@@ -4,6 +4,8 @@ import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_JOB } from "../../utils/mutations";
+import { useQuery } from "@apollo/react-hooks";
+import { QUERY_USER } from "../../utils/queries";
 
 const CreateJob = () =>{
     const [formState, setFormState] = useState();
@@ -12,6 +14,9 @@ const CreateJob = () =>{
     const [currentDate, setNewDate] = useState(null);
     const onChange = (event, data) => setNewDate(data.value);
   
+    // check if loggedin user is a walker
+    const userIsWalker = useQuery(QUERY_USER)?.data?.user.type === 'Dog Walker';
+
     const createJob = async event =>{
         try{
             const mutResp = await addJob({
@@ -38,7 +43,9 @@ const CreateJob = () =>{
     };
 
     return(
-        <Modal
+        // if user is not a walker show post a job button:
+        !userIsWalker && 
+            <Modal
             closeIcon
             open={open}
             trigger={<Button className="ui inverted orange button">+ Post Job</Button>}
@@ -71,6 +78,7 @@ const CreateJob = () =>{
             </Grid>
             </Container>
         </Modal>
+    
     );
 }
 

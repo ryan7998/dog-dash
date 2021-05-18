@@ -13,11 +13,9 @@ import {
   } from 'semantic-ui-react';
 import CreateJob from '../CreateJob';
 
-
 function ProfileData(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-
   const {
       _id,
       firstName,
@@ -28,6 +26,7 @@ function ProfileData(item) {
       image,
       type
   } = item;
+
 
 
   return (

@@ -68,7 +68,6 @@ export const QUERY_JOBS = gql`
       _id
       user_id
       title
-      image
       description
       price
       date

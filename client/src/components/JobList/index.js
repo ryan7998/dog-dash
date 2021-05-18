@@ -25,8 +25,8 @@ function JobList(props) {
           jobs: data.jobs
         });
         data.jobs.forEach((job) => {
-         idbPromise('jobs', 'put', job);
-         });
+          idbPromise('jobs', 'put', job);
+        });
     } else if (!loading) {
        idbPromise('jobs', 'get').then((jobs) => {
          dispatch({
