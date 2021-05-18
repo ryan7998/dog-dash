@@ -221,20 +221,12 @@ if (!filterUser()){return null}
   return (
     //<Link to={`/users/${_id}`}></Link>
     <>
-    {/* <Card
-        image='https://placeimg.com/50/50/people/grayscale'
-        header = {email} 
-        meta={`${firstName}  ${lastName}`}
-        description={description}
-        
-    /> */}
-
     <Card>
       <Card.Content>
         <Image
           floated='right'
           size='mini'
-          src='https://placeimg.com/50/50/people/grayscale'
+          src={image?image:'https://placeimg.com/50/50/people/grayscale'}
         />
         <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
         <Card.Meta>{email}</Card.Meta>
@@ -258,7 +250,7 @@ if (!filterUser()){return null}
           }
           {
             !userSelected() && apply && (
-              <Button color='red' onClick={selectWalkerForJob}> Select Walker</Button>
+              <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
             )
           }
           </div>}

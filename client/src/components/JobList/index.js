@@ -49,7 +49,7 @@ function JobList(props) {
       <h2></h2>
       
       {state.jobs.length ? (
-        <Card.Group itemsPerRow={3}>
+        <Card.Group itemsPerRow={props.itemsPerRow}>
             {filterJobs().map(job => (
                 <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
@@ -60,7 +60,7 @@ function JobList(props) {
                   price={job.price}
                   date={job.date}
                   status={job.status}
-                  image={job.image}
+                  // image={job.image}
                 />
             ))}
         </Card.Group>
