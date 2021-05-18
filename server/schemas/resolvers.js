@@ -256,6 +256,11 @@ const resolvers = {
     updateJob: async (parent, {job_id, newStatus}) => {
       const jobsDone = await Job.findByIdAndUpdate(job_id, {$set:{status: newStatus}}, { new: true })
       return jobsDone;
+    },
+
+    deleteJob: async(parent, {job_id}) =>{
+      const jobDeleted = await Job.findByIdAndDelete(job_id);
+      return jobDeleted;
     }
   }
 };
