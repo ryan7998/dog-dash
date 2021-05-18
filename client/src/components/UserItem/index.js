@@ -228,5 +228,3 @@ if (!filterUser()){return null}
 }
 
 export default UserItem;
-
-
