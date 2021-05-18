@@ -7,6 +7,7 @@ export const QUERY_JOB_BYID = gql`
     jobById(_id: $id) {
       _id
       user_id
+      image
       description
       price
       date
@@ -27,6 +28,7 @@ export const QUERY_USER_BYID = gql`
         address
         description
         image
+        ratingAvg
         type
         submittedJobs
         appliedJobs
@@ -67,6 +69,7 @@ export const QUERY_JOBS = gql`
       _id
       user_id
       title
+      image
       description
       price
       date
@@ -87,6 +90,7 @@ export const QUERY_USERS = gql`
       address
       description
       image
+      ratingAvg
       type
       submittedJobs
       appliedJobs
@@ -132,6 +136,7 @@ export const QUERY_USER = gql`
     address
     email
     image
+    ratingAvg
     orders {
       _id
       purchaseDate
