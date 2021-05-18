@@ -18,6 +18,7 @@ import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
+// import {getDateFromUnix} from '../../utils/helpers';
 
 function JobItem(item) {
   const state = useSelector((state) => state);
@@ -59,7 +60,7 @@ function JobItem(item) {
     status,
     image,
   } = item;
-
+  // console.log(getDateFromUnix(date));
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
 
@@ -274,13 +275,12 @@ function updateanyselectedB() {
       <Card>
         <Card.Content>
           <Image
-            // floated='right'
-            // size='mini'
             src= {submitter.image ? submitter.image : "https://placedog.net/500"}
           />
           <Card.Header>{title}</Card.Header>
           <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
           <Card.Description>{description}</Card.Description>
+          <Card.Meta>{date}</Card.Meta>
         </Card.Content>
         
         {Auth.loggedIn() && me.type=="Dog Walker" && (
