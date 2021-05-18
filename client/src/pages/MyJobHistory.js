@@ -9,7 +9,7 @@ import JobList from "../components/JobList";
 import CreateJob from '../components/CreateJob';
 //import Cart from "../components/Cart";
 import { QUERY_USER } from "../utils/queries";
-import { Button, Container, Header, Icon } from "semantic-ui-react";
+import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
 import background from "../assets/bgwhite.png";
 
 function MyJobHistory() {
@@ -19,41 +19,55 @@ function MyJobHistory() {
 
   if (me.type == "Dog Walker") {
     return (
-    <Container>
-      <div className="jobpagecss">
-        <div>
-          <h2>Active Jobs:</h2>
-          <JobList status="Live" submit="any" apply= "true" select="false" selectme="false" walker="false" itemsPerRow = {4}/>
-          <JobList status="Live" submit="any" apply= "true" select="true"  selectme="true" walker="false" itemsPerRow = {4}/>
-          <JobList status="Live" submit="any" apply= "true" select="true"  selectme="false" walker="false" itemsPerRow = {4}/>
-        </div>
 
-        <div>
-          <h2>Previous Jobs:</h2>
-          <JobList status="Done" submit="any" apply= "true" select="true" selectme="true" walker="false" itemsPerRow = {4}/>
-          <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"itemsPerRow = {4}/>
-        </div>
-      </div>
+      <Container>
+      <Grid stackable>
+          <Grid.Row>
+              <Grid.Column width={16}>
+                  <h2>Active Jobs:</h2>
+                  <JobList status="Live" submit="any" apply= "true" select="false" selectme="false" walker="false" itemsPerRow = {4}/>
+                  <JobList status="Live" submit="any" apply= "true" select="true"  selectme="true" walker="false" itemsPerRow = {4}/>
+                  <JobList status="Live" submit="any" apply= "true" select="true"  selectme="false" walker="false" itemsPerRow = {4}/>
+              </Grid.Column>
+
+              <Grid.Column width={16}>
+                  <h2>Previous Jobs:</h2>
+                  <JobList status="Done" submit="any" apply= "true" select="true" selectme="true" walker="false" itemsPerRow = {4}/>
+                  <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"itemsPerRow = {4}/>
+              </Grid.Column>
+          </Grid.Row>
+      </Grid>
     </Container>
     );
   } else {
     // Dog Owner
     return (
-    <Container>
-        <div>
-          <h2>Active Jobs:</h2>
-          <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true" itemsPerRow = {4} />
-          <JobList status="Live" submit="true" apply= "true" select="true"  selectme="any" walker="true" itemsPerRow = {4}/>
-          <JobList status="Live" submit="true" apply= "false" select="false"  selectme="any" walker="true" itemsPerRow = {4}/>
-        </div>
 
-        <div>
-            <h2>Previous Jobs:</h2>
-            <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true" itemsPerRow = {4}/>
-            <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
-            <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
-        </div>
-        <CreateJob />
+   <Container>
+      <Grid stackable>
+          <Grid.Row>
+              <Grid.Column width={16}>
+              <h2></h2>
+              <CreateJob />
+              </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+              <Grid.Column width={16}>
+                  <h2>Active Jobs:</h2>
+                  <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true" itemsPerRow = {4} />
+                  <JobList status="Live" submit="true" apply= "true" select="true"  selectme="any" walker="true" itemsPerRow = {4}/>
+                  <JobList status="Live" submit="true" apply= "false" select="false"  selectme="any" walker="true" itemsPerRow = {4}/>
+              </Grid.Column>
+
+              <Grid.Column width={16}>
+                  <h2>Previous Jobs:</h2>
+                     <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true" itemsPerRow = {4}/>
+                    <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
+                    <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
+              </Grid.Column>
+          </Grid.Row>
+      </Grid>  
     </Container>
 
     );

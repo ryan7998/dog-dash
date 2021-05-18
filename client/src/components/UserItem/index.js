@@ -237,22 +237,22 @@ if (!filterUser()){return null}
       <Card.Content extra>
         {Auth.loggedIn() && <div className='ui two buttons'>
           { 
-            userSelected() && apply &&(
+            userSelected()==true && apply== "true" &&(
               <Button basic color='green' disabled> Selected</Button>
               // <Button basic color='green' disabled> Selected</Button>
             )
           }
           {
-            userSelected() && apply && !inCart() && (
+            userSelected()==true && apply=="true" && inCart()==false && (
               <Button color='green' onClick={addToCart}> Add to Cart</Button>)
           }
           {
-            userSelected && apply && inCart() && (
+            userSelected()==true  && apply=="true" && inCart()==true && (
               <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
             )
           }
           {
-            !userSelected() && apply && (
+            userSelected()==false  && apply=="true" && (
               <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
             )
           }
