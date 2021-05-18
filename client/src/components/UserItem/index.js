@@ -115,7 +115,7 @@ function newpreviouslyselected() {
 function inCart(){
   if (state.cart.length){
     for (var i=0; i<state.cart.length; i++){
-    if (state.cart[i]._id==_id) {return true} else return false
+    if (state.cart[i]._id==_id, state.cart[i].job_id==job_id) {return true} else return false
   }}
   else return false
 }
@@ -177,9 +177,10 @@ function filterUser() {
 // Add items to cart
 
 let newcartitem ={
-  image: image,
+    image: image,
     name: firstName + " " + lastName,
     _id: _id,
+    job_id: job_id,
     price: job_price,
     quantity: 1
 }

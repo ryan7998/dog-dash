@@ -138,7 +138,7 @@ function updateanyselectedB() {
     }
     return selectedB
     };
-    
+
 
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
