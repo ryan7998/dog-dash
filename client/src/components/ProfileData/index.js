@@ -6,12 +6,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     Button,
     Container,
+    Popup,
+    Rating,
     Header,
     Image,
     Icon,
     Card
   } from 'semantic-ui-react';
 import CreateJob from '../CreateJob';
+import Upload from "../../utils/upload";
 
 function ProfileData(item) {
   const state = useSelector(state => state)
@@ -24,6 +27,7 @@ function ProfileData(item) {
       address,
       email,
       image,
+      ratingAvg,
       type
   } = item;
 
@@ -32,8 +36,11 @@ function ProfileData(item) {
   return (
       
     <div className="profileimg">
-      <div className="centerprofileimg">
-    <Image src='images/walker.jpeg' alt={description} size='medium' circular />
+      <div className="profilePicContainer">
+        <div className="centerprofileimg">
+          <Image src={image} alt={description} size='medium' circular />
+        </div>
+        <div className="editPic"><Popup content='Upload new profile image' trigger={<a>< Upload /></a>} /></div>
     </div>
     <Container className="card-container">
         {/* <img
@@ -42,6 +49,7 @@ function ProfileData(item) {
         /> */}
         <h1>{type}</h1>
         <p>{firstName} {lastName}</p>
+        <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
         <p>{description}</p>
         <p>{email}</p>
         <p>{address}</p>
@@ -49,6 +57,7 @@ function ProfileData(item) {
           <CreateJob />
           {/* <button class="ui inverted orange button">Post Job</button> */}
         </div>
+        
     </Container>
     </div>
   );

@@ -28,6 +28,7 @@ function ProfilePage() {
         address={me.address}
         email={me.email}
         image={me.image}
+        ratingAvg={me.ratingAvg}
         type={me.type}
       />
     </div>
