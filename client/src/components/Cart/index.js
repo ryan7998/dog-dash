@@ -85,26 +85,32 @@ const Cart = () => {
   }
 
   return (
+    <div className="cartcontainer">
     <div className="cartinfo">
       <div className="closebtn">
-      <Button className="closebtn" color='teal' size='small' onClick={toggleCart}>Close</Button>
+      <Button className="closebtn" color='teal' size='tiny' onClick={toggleCart}>Close</Button>
       </div>
       {/* <Button color='teal' fluid size='large'>+ Create</Button> */}
       <h2>Shopping Cart</h2>
+      <div className="cartinfodisplay">
       {state.cart.length ? (
         <div>
           {state.cart.map(item => (
             <CartItem key={item._id} item={item} />
           ))}
+          <div>
 
           <div className="flex-row space-between">
+          <div className="cartprice">
             <strong>Total: ${calculateTotal()}</strong>
+            </div>
+            </div>
 
             {
               Auth.loggedIn() ?
-                <button onClick={submitCheckout}>
-                  Checkout
-              </button>
+              <div className="checkoutbtn">
+              <Button color='teal' size='large' onClick={submitCheckout}>Checkout</Button>
+              </div>
                 :
                 <span>(log in to check out)</span>
             }
@@ -118,6 +124,8 @@ const Cart = () => {
           You haven't added anything to your cart yet!
           </h3>
         )}
+    </div>
+    </div>
     </div>
   );
 };

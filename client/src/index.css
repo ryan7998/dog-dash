@@ -111,3 +111,7 @@ input[type="file"] {
 .card-container{
   padding-bottom: 10rem;
 }
+
+.checkoutbtn{
+  padding-top: 2rem;
+}

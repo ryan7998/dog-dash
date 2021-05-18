@@ -1,7 +1,7 @@
 .cart {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  margin-left: 25rem;
+  margin-left: 15rem;
   justify-content: center;
   flex-direction: column;
   text-align: center;
@@ -88,6 +88,33 @@
 
 }
 
+.cartinfodisplay{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 2rem;
+  padding-top: 5rem;
+}
+
+.flex-row{
+  padding-top: 5rem;
+}
+
+.cartcontainer{
+  padding-bottom: 15rem;
+}
+
+.trashicon{
+  display: grid;
+  padding-top: 20px;
+}
+.cartprice{
+  color: orange;
+  font-size: 1.50vw;
+  padding: 20px 5px 20px 5px;
+  
+}
+
 @media screen and (max-width: 768px) {
   .cart {
     position: relative;
@@ -102,3 +129,4 @@
     margin: 0 auto;
   }
 }
+
