@@ -324,7 +324,9 @@ function updateanyselectedB() {
             src= {submitter.image ? submitter.image : "https://placedog.net/500"}
           />
           <Card.Header>{title}</Card.Header>
-          <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          <Link to={`/profile/${submitter._id}`}>
+            <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          </Link>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
         </Card.Content>
