@@ -12,7 +12,9 @@ import {
   Container,
   Header,
   Icon,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
+import CreateJob from '../components/CreateJob';
+
 
 function OurJobs(){
   return (
@@ -32,6 +34,7 @@ function OurJobs(){
           </td>
         </tr>
       </table>
+      <CreateJob />
     </Container>
     </div>
     </div>
