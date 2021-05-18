@@ -29,11 +29,12 @@ function ProfileData(item) {
 
 
   return (
-      <Container className="card-container">
-    
-    <div className="card px-1 py-1">
+      
+    <div className="profileimg">
+      <div className="centerprofileimg">
     <Image src='images/walker.jpeg' alt={description} size='medium' circular />
-
+    </div>
+    <Container className="card-container">
         {/* <img
           alt={description}
           src={`/images/${image}`}
@@ -43,8 +44,12 @@ function ProfileData(item) {
         <p>{description}</p>
         <p>{email}</p>
         <p>{address}</p>
-    </div>
+  
+        <div>
+        <button class="ui inverted orange button">Post Job</button>
+        </div>
     </Container>
+    </div>
   );
 }
 
