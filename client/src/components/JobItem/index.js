@@ -129,7 +129,6 @@ function JobItem(item) {
     return selectedB;
   }
 
-<<<<<<< HEAD
 // check if there is another user selected for this job . will be used for filtering and display purposes
 function updateanyselectedB() {
     let selectedB = false
@@ -138,18 +137,6 @@ function updateanyselectedB() {
           {selectedB=state.walkerjobs[i].select}
     }
     return selectedB
-=======
-  // check if there is another user selected for this job. will be used for filtering and display purposes
-  function updateanyselectedB() {
-    let selectedB = false;
-    for (var i = 0; i < state.walkerjobs.length; i++) {
-      if (
-        state.walkerjobs[i].select == true &&
-        state.walkerjobs[i].job_id == _id
-      ) {
-        selectedB = state.walkerjobs[i].select;
-      }
->>>>>>> b4b84cd8ea515e986f4185b6fc551d46bfa60bde
     }
     return selectedB;
   }
