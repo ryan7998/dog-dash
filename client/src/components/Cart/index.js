@@ -10,6 +10,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TOGGLE_CART , ADD_MULTIPLE_TO_CART  } from "../../utils/actions";
 import "./style.css";
 
+import {
+  Icon,
+  Button
+} from 'semantic-ui-react';
+
 //const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
 
@@ -67,16 +72,24 @@ const Cart = () => {
   if (!state.cartOpen) {
     return (
       <div className="cart-closed" onClick={toggleCart}>
-        <span
+        {/* <span
           role="img"
-          aria-label="trash">🛒</span>
+          aria-label="trash">🛒</span> */}
+          <Icon className="carticon" name="shopping cart" size="small" color="teal"/>
       </div>
+  //   <ShoppingCartRounded
+  //   fontSize="inherit"
+  //   style={{ fontSize: "200px", color: 'blue'}}
+  // />
     );
   }
 
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>[close]</div>
+    <div className="cartinfo">
+      <div className="closebtn">
+      <Button className="closebtn" color='teal' size='small' onClick={toggleCart}>Close</Button>
+      </div>
+      {/* <Button color='teal' fluid size='large'>+ Create</Button> */}
       <h2>Shopping Cart</h2>
       {state.cart.length ? (
         <div>
