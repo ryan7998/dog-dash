@@ -21,26 +21,15 @@ function MyJobHistory() {
       <div className="jobpagecss">
         <div>
           <h2>Active Jobs:</h2>
-          <JobList
-            status="Live"
-            submit="any"
-            apply="true"
-            select="false"
-            selectme="false"
-            walker="false"
-          />
+          <JobList status="Live" submit="any" apply= "true" select="false" selectme="false" walker="false"/>
+          <JobList status="Live" submit="any" apply= "true" select="true"  selectme="true" walker="false"/>
+          <JobList status="Live" submit="any" apply= "true" select="true"  selectme="false" walker="false"/>
         </div>
 
         <div>
           <h2>Previous Jobs:</h2>
-          <JobList
-            status="Done"
-            submit="any"
-            apply="true"
-            select="true"
-            selectme="true"
-            walker="false"
-          />
+          <JobList status="Done" submit="any" apply= "true" select="true" selectme="true" walker="false"/>
+          <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"/>
         </div>
       </div>
     );
@@ -50,26 +39,16 @@ function MyJobHistory() {
       <div className="jobpagecss">
         <div>
           <h2>Active Jobs:</h2>
-          <JobList
-            status="Live"
-            submit="any"
-            apply="true"
-            select="false"
-            selectme="false"
-            walker="false"
-          />
+          <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true"/>
+          <JobList status="Live" submit="true" apply= "true" select="true"  selectme="any" walker="true"/>
+          <JobList status="Live" submit="true" apply= "false" select="false"  selectme="any" walker="true"/>
         </div>
 
         <div>
           <h2>Previous Jobs:</h2>
-          <JobList
-            status="Done"
-            submit="any"
-            apply="true"
-            select="true"
-            selectme="true"
-            walker="false"
-          />
+           <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true"/>
+          <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"/>
+          <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"/>
         </div>
       </div>
     );
