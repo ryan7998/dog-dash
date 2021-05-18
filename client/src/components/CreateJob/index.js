@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Header, Icon, Modal, Checkbox, Form, Container, Grid, Segment, Message, Input, Label } from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 // import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
@@ -15,10 +15,12 @@ const CreateJob = () =>{
     const [addJob, { error }] = useMutation(ADD_JOB);
     const [currentDate, setNewDate] = useState(null);
     const [value, onChange] = useState(new Date());
-    // const onChange = (event, data) => setNewDate(data.value);
-  console.log(value);
     // check if loggedin user is a walker
+    
     const userIsWalker = useQuery(QUERY_USER)?.data?.user.type === 'Dog Walker';
+    useEffect(()=>{
+
+    }, [addJob])
 
     const createJob = async event =>{
         try{

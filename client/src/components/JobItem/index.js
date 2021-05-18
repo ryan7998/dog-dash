@@ -24,6 +24,8 @@ function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  const [withdrawnJob, setWithdrawnJob] = useState();
+  const [deletedJob, setDeletedJob] = useState();
 
 
 
@@ -67,7 +69,7 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob, withdrawJob]);
+    }, [data, loading, dispatch, applyJob, updateJob, deletedJob, withdrawnJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -194,17 +196,18 @@ function updateanyselectedB() {
       return false;
     }
     try {
-      await withdrawJob({
+      const withdrawnJob = await withdrawJob({
         variables: { job_id: _id },
       });
-      dispatch({
-        type: UPDATE_WALKERJOBS,
-        walkerjobs: state.walkerjobs.filter((walkerjob) => {
-          return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
-        }),
-      });
+      setWithdrawnJob(withdrawnJob);
+      // dispatch({
+      //   type: UPDATE_WALKERJOBS,
+      //   walkerjobs: state.walkerjobs.filter((walkerjob) => {
+      //     return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
+      //   }),
+      // });
 
-      idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
+      // idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
     } catch (e) {
       console.error(e);
     }
@@ -291,13 +294,14 @@ function updateanyselectedB() {
   const deleteJobById = async() =>{
     // await console.log('delete pressed', _id);
     try{
-      const deletedJob = await deleteJob({
+      const deletedJobData = await deleteJob({
         variables:{job_id: _id}
       });
-      console.log(deletedJob);
-      return deletedJob;
+      setDeletedJob(deletedJobData);
+      // console.log(deletedJob);
+      // return deletedJob;
     }catch(e){
-      return e;
+      console.error(e);
     }
 
   }
