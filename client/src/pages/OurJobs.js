@@ -14,12 +14,12 @@ function OurJobs() {
     <div className="jobpagecss">
       <div>
         <h2>Our Jobs:</h2>
-        <JobList status="Live" />
+        <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
       </div>
 
       <div>
         <h2>Our Walkers:</h2>
-        <UserList type="Dog Walker" apply="any" job_id="any" />
+        <UserList type="Dog Walker" apply="any" job_id="any"/>
       </div>
     </div>
   );
