@@ -228,7 +228,7 @@ if (!filterUser()){return null}
           size='mini'
           src={image?image:'https://placeimg.com/50/50/people/grayscale'}
         />
-        <Link to={`/walker/${_id}`}>
+        <Link to={`/profile/${_id}`}>
           <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
         </Link>
         <Card.Meta>{email}</Card.Meta>
