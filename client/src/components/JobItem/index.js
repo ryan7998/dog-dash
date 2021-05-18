@@ -301,5 +301,5 @@ console.log(description, updateappliedB(), updateanyselectedB(), updateselectedB
       }
     </>
   );
-
+}
 export default JobItem;
