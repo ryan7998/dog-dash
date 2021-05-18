@@ -108,3 +108,13 @@ mutation addUser($firstName: String!, $lastName: String!, $email: String!, $pass
   }
 }
 `;
+
+export const UPDATE_USER = gql`
+mutation updateUser($firstName: String, $lastName: String, $email: String, $password: String, $image: String) {
+  updateUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, image: $image) {
+    _id
+    firstName
+    image
+  }
+}
+`;
