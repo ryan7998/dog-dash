@@ -39,24 +39,13 @@ function Nav() {
                 onClick={()=>setActiveItem('ourjobs')}
               />
             </Link>
-
+          
             {Auth.loggedIn() ? 
             <Link to="/myjobhistory">
             <Menu.Item
                 name='my job history'
                 active={activeItem === 'myjobhistory'}
                 onClick={()=>setActiveItem('myjobhistory')}
-              />
-            </Link>
-            : null
-            }
-
-            {(Auth.loggedIn() && me.type=="Dog Owner") ? 
-            <Link to="/cart">
-            <Menu.Item
-                name='cart'
-                active={activeItem === 'cart'}
-                onClick={()=>setActiveItem('cart')}
               />
             </Link>
             : null
