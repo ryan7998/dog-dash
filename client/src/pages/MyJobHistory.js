@@ -47,8 +47,9 @@ function MyJobHistory() {
       <Grid stackable>
           <Grid.Row>
               <Grid.Column width={16}>
-              <h2></h2>
+                <div className="postjobbtn">
               <CreateJob />
+              </div>
               </Grid.Column>
           </Grid.Row>
 

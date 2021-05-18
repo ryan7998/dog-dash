@@ -6,7 +6,7 @@ import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
 
 function OurJobs() {
   return (
-    <Container>
+    <Container className="ourjobcontainer">
         <Grid stackable>
             <Grid.Row>
                 <Grid.Column width={12}>
@@ -16,7 +16,9 @@ function OurJobs() {
 
                 <Grid.Column width={4}>
                     <h2>Our Walkers:</h2>
+                    <div className="walkercard">
                     <UserList type="Dog Walker" apply="any" job_id="any"/>
+                    </div>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
