@@ -8,7 +8,11 @@ import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif"
 import { Card, Icon } from 'semantic-ui-react';
-
+import {
+  Button,
+  Container,
+  Header,
+} from 'semantic-ui-react';
 
 
 function JobList(props) {
@@ -41,11 +45,10 @@ function JobList(props) {
   function filterJobs() {
     return state.jobs.filter(job => job.status === props.status);
   }
-// console.log(state.jobs, props)
 
 
   return (
-    <div>
+    <Container>
       <h2></h2>
       
       {state.jobs.length ? (
@@ -69,7 +72,7 @@ function JobList(props) {
       )}
       { loading ? 
       <img src={spinner} alt="loading" />: null}
-    </div>
+    </Container>
   );
 }
 

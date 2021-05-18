@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button, Image } from "semantic-ui-react";
+import { Card, Icon, Button, Image, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -18,6 +18,7 @@ import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
+import { NoUnusedFragmentsRule } from "graphql";
 
 
 function JobItem(item) {
@@ -26,7 +27,6 @@ function JobItem(item) {
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
   const [withdrawnJob, setWithdrawnJob] = useState();
   const [deletedJob, setDeletedJob] = useState();
-
 
 
   const {
@@ -303,7 +303,15 @@ function updateanyselectedB() {
     }catch(e){
       console.error(e);
     }
+  }
 
+  const options = [
+    { key: 'completed', icon: 'edit', text: 'Job Completed', value: 'completed'},
+    { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
+  ]
+  function userMenu(event, {value}){
+    if(value === 'completed'){completeJob()}
+    else if(value === 'delete'){deleteJobById()}
   }
 
   return (
@@ -357,8 +365,21 @@ function updateanyselectedB() {
               job_id={_id}
               job_price={price}
             />
-            <Button color="orange" onClick={completeJob}>Job Completed</Button>
-            <Button color="red" onClick={deleteJobById}>Delete Job</Button>
+            {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
+            {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
+              
+              <Button.Group color='yellow'>
+                <Button>Options</Button>
+                <Dropdown
+                  className='button icon'
+                  floating
+                  options={options}
+                  onChange={userMenu}
+                  // trigger={<></>}
+                />
+              </Button.Group>
+
+            
           </Card.Content>
         )}
       </Card>

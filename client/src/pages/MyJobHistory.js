@@ -19,6 +19,7 @@ function MyJobHistory() {
 
   if (me.type == "Dog Walker") {
     return (
+    <Container>
       <div className="jobpagecss">
         <div>
           <h2>Active Jobs:</h2>
@@ -33,11 +34,12 @@ function MyJobHistory() {
           <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"itemsPerRow = {4}/>
         </div>
       </div>
+    </Container>
     );
   } else {
     // Dog Owner
     return (
-    <>
+    <Container>
         <div>
           <h2>Active Jobs:</h2>
           <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true" itemsPerRow = {4} />
@@ -52,7 +54,7 @@ function MyJobHistory() {
             <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"itemsPerRow = {4}/>
         </div>
         <CreateJob />
-    </>
+    </Container>
 
     );
   }
