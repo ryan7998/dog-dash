@@ -103,6 +103,7 @@ const typeDefs = gql`
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
     updateJob(job_id: ID!, newStatus: String!): Job
+    deleteJob(job_id: ID!): Job
     
     rateUser(rated_id: ID!, ratingNb:Float!, text:String): Rating
     commentJob(user_id: ID!, job_id: ID, text:String!): Job

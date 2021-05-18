@@ -13,7 +13,7 @@ import {
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
 } from "../../utils/queries";
-import { APPLY_JOB, WITHDRAW_JOB, UPDATE_JOB } from "../../utils/mutations";
+import { APPLY_JOB, WITHDRAW_JOB, UPDATE_JOB, DELETE_JOB } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
@@ -60,10 +60,12 @@ function JobItem(item) {
     status,
     image,
   } = item;
-  // console.log(getDateFromUnix(date));
+  
+  // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
   const [updateJob] = useMutation(UPDATE_JOB);
+  const [deleteJob] = useMutation(DELETE_JOB);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -283,6 +285,20 @@ function updateanyselectedB() {
       console.error(e);
     }
   }
+  // When Owner clicks Delete Job:
+  const deleteJobById = async() =>{
+    // await console.log('delete pressed', _id);
+    try{
+      const deletedJob = await deleteJob({
+        variables:{job_id: _id}
+      });
+      console.log(deletedJob);
+      return deletedJob;
+    }catch(e){
+      return e;
+    }
+
+  }
 
   return (
     <>
@@ -336,6 +352,7 @@ function updateanyselectedB() {
               job_price={price}
             />
             <Button color="orange" onClick={completeJob}>Job Completed</Button>
+            <Button color="red" onClick={deleteJobById}>Delete Job</Button>
           </Card.Content>
         )}
       </Card>
