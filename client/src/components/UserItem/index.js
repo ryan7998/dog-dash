@@ -35,7 +35,7 @@ function UserItem(item) {
         });
        });
     }
-  }, [data, loading, dispatch]);
+  }, [data, loading, dispatch, selectWalkerForJob , filterUser]);
 
   const {
       apply,

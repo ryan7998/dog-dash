@@ -69,7 +69,7 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob, withdrawJob, updateJob, deleteJob]);
+    }, [data, loading, dispatch, applyJob, withdrawJob, updateJob, deleteJob, filterJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
