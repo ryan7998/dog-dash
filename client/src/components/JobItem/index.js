@@ -75,6 +75,10 @@ function JobItem(item) {
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
 
+
+   const [appliedB, setappliedB] = useState({})
+
+
   //refresh page
   function refresh() {
     window.location.reload(false);
@@ -96,7 +100,7 @@ function JobItem(item) {
   }
 
   // check if the current walker (me) applied to the job
-  function updateappliedB() {
+ function updateappliedB() {
     let appliedB = false;
     for (var i = 0; i < state.walkerjobs.length; i++) {
       if (
@@ -108,6 +112,12 @@ function JobItem(item) {
     }
     return appliedB;
   }
+
+  useEffect(() => {
+ 
+      setappliedB(updateappliedB()) ;
+    
+  }, [appliedB]);
 
   // check if someone applied to the job
   function updateanyappliedB() {
@@ -146,6 +156,8 @@ function updateanyselectedB() {
     }
     return selectedB
     };
+
+
 
 
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
@@ -314,6 +326,8 @@ function updateanyselectedB() {
     else if(value === 'delete'){deleteJobById()}
   }
 
+  console.log(appliedB)
+
   return (
     <>
       <Card>
@@ -359,16 +373,7 @@ function updateanyselectedB() {
         )}
         {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
-            <UserList
-              type="Dog Walker"
-              apply="true"
-              job_id={_id}
-              job_price={price}
-            />
-            {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
-            {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
-              
-              <Button.Group color='yellow'>
+             <Button.Group color='yellow'>
                 <Button>Options</Button>
                 <Dropdown
                   className='button icon'
@@ -378,8 +383,15 @@ function updateanyselectedB() {
                   // trigger={<></>}
                 />
               </Button.Group>
-
-            
+            <UserList
+              type="Dog Walker"
+              apply="true"
+              job_id={_id}
+              job_price={price}
+            />
+            {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
+            {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
+                      
           </Card.Content>
         )}
       </Card>
