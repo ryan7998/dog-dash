@@ -237,6 +237,77 @@ function updateanyselectedB() {
     }
   };
 
+<<<<<<< HEAD
+=======
+  // Display the job if it corresponds to the filter criteria coming from react props item
+  function filterJob() {
+    // Our Jobs Page
+<<<<<<< HEAD
+    if ( status === "Live" ) {
+=======
+    if (
+      status === "Live" &&
+      submit === "any" &&
+      apply === "any" &&
+      select === "any" &&
+      selectme === "any"
+    ) {
+      console.log(status);
+>>>>>>> feature/fazle
+      return true;
+    }
+
+
+    // My Job History Page
+    if (me.type == "Dog Walker") {
+      if (!initialwalkerjob()) {
+        // never applied to the job
+        if (
+          apply == false &&
+          (updateanyselectedB().toString() === select ||
+            (!updateanyselectedB() && select === false)) &&
+          selectme == false
+        ) {
+          return true;
+        } else { 
+          return false;
+        }
+      } else {
+        // applied to the job
+        let mywalkerjob = initialwalkerjob();
+        if (initialwalkerjob()[0]) {
+          mywalkerjob = initialwalkerjob()[0];
+        }
+        if (
+          mywalkerjob.apply.toString() == apply &&
+          (updateanyselectedB().toString() == select ||
+            (!updateanyselectedB() && select == false)) &&
+          mywalkerjob.select.toString() == selectme
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } // Dog Owner
+    else {
+      if (
+        updatecreatedB().toString() == submit &&
+        (updateanyappliedB().toString() == apply ||
+          (!updateanyappliedB() && apply == false)) &&
+        (updateanyselectedB().toString() == select ||
+          (!updateanyselectedB() && select == false))
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  if (!filterJob()) {
+    return null;
+  }
+>>>>>>> 9d555c0a18ce63c5c1638cf84d4e410e95b4a8f5
 
 // When Owner presses Complete Job the status updates to 'Done' ///////////
   const completeJob = async() =>{
