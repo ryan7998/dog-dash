@@ -220,7 +220,7 @@ const removeFromCart = item => {
 
 };
 
-console.log(item,updateappliedB())
+// console.log(item,updateappliedB())
 
 function filterUser() {
   if (apply=="any" || (apply=="true" && updateappliedB()))

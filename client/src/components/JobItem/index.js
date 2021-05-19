@@ -447,7 +447,6 @@ function updateanyselectedB() {
                   floating
                   options={options}
                   onChange={userMenu}
-                  // trigger={<></>}
                 />
               </Button.Group>):null}
             <UserList
