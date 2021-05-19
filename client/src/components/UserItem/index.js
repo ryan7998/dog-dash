@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Card, Icon, Image, Button, Rating } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -16,6 +16,7 @@ function UserItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  const [selectWalker] = useMutation(SELECT_WALKER);
 
   // Gets from DB and updates the jobwalkers info in the global state and indexed db
   useEffect(() => {
@@ -48,12 +49,12 @@ function UserItem(item) {
       description,
       address,
       email,
+      ratingAvg,
       image,
       type,
       appliedJobs
   } = item;
 
-  const [selectWalker] = useMutation(SELECT_WALKER);
 
    // check if the user being displayed applied to the job
 function updateappliedB() {
@@ -77,6 +78,15 @@ function userSelected() {
   else {return false}
 } 
 
+//check if the user was selected for the job
+function jobStatus() {
+  let job= state.jobs.filter(job => {
+    return (job._id == job_id );
+    })
+  if (job) 
+  {return job[0]?.status|| false} 
+  else {return false}
+} 
 
 // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
 function initialwalkerjob() {
@@ -136,8 +146,8 @@ const selectWalkerForJob = async () => {
             dispatch({
               type: UPDATE_WALKERJOBS,
               walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                              return (walkerjob._id !== initialpreviouslyselected()._id );
-                            })
+                return (walkerjob._id !== initialpreviouslyselected()._id );
+              })
             });
             idbPromise('walkerjobs', 'delete', initialpreviouslyselected() );
             
@@ -152,8 +162,8 @@ const selectWalkerForJob = async () => {
         dispatch({
           type: UPDATE_WALKERJOBS,
           walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                          return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
-                        })
+            return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
+          })
         });
  
         idbPromise('walkerjobs', 'delete', initialwalkerjob()[0] );
@@ -161,18 +171,16 @@ const selectWalkerForJob = async () => {
           type: UPDATE_WALKERJOBS,
           walkerjobs:  [...state.walkerjobs, newwalkerjob()]
         });
-         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+        idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+
+        window.location.reload(false);
       } catch (e) {
         console.error(e);
       }
+      window.location.reload(false);
 };
 
 
-function filterUser() {
-  if (apply=="any" || (apply=="true" && updateappliedB()))
-  {return true}
-  else {return false}
-}
 
 // Add items to cart
 
@@ -216,6 +224,13 @@ const removeFromCart = item => {
 
 };
 
+// console.log(item,updateappliedB())
+
+function filterUser() {
+  if (apply=="any" || (apply=="true" && updateappliedB()))
+  {return true}
+  else {return false}
+}
 
 if (!filterUser()){return null}
 
@@ -231,34 +246,39 @@ if (!filterUser()){return null}
         <Link to={`/profile/${_id}`}>
           <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
         </Link>
+        <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
         <Card.Meta>{email}</Card.Meta>
         <Card.Description>{description}</Card.Description>
       </Card.Content>
 
-      <Card.Content extra>
-        {Auth.loggedIn() && <div className='ui two buttons'>
-          { 
-            userSelected()==true && apply== "true" &&(
-              <Button basic color='green' disabled> Selected</Button>
-              // <Button basic color='green' disabled> Selected</Button>
-            )
-          }
-          {
-            userSelected()==true && apply=="true" && inCart()==false && (
-              <Button color='green' onClick={addToCart}> Add to Cart</Button>)
-          }
-          {
-            userSelected()==true  && apply=="true" && inCart()==true && (
-              <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
-            )
-          }
-          {
-            userSelected()==false  && apply=="true" && (
-              <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
-            )
-          }
-          </div>}
-      </Card.Content>
+      {
+          Auth.loggedIn() && 
+            <Card.Content extra>
+                <div className='ui two buttons'>
+                { 
+                  userSelected()==true && apply== "true" &&(
+                    <Button basic color='green' disabled> Selected</Button>
+                    // <Button basic color='green' disabled> Selected</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
+                    <Button color='green' onClick={addToCart}> Add to Cart</Button>)
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
+                    <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
+                    <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
+                  )
+                }
+                </div>
+            </Card.Content>
+      }
+          
     </Card>
 
       {/* { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 

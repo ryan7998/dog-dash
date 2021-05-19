@@ -40,7 +40,6 @@ function Nav() {
               />
             </Link> */}
 
-
             {Auth.loggedIn() ? 
             <Link to="/myjobhistory">
             <Menu.Item
@@ -52,6 +51,7 @@ function Nav() {
             : null
             }
 
+
             {(Auth.loggedIn() && me.type=="Dog Owner") ? 
             <Link to="/cart">
             <Menu.Item
@@ -62,7 +62,6 @@ function Nav() {
             </Link>
             : null
             }
-
 
             {Auth.loggedIn() ? 
             <Menu.Menu position='right'>
