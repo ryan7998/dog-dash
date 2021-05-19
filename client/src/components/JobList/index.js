@@ -49,7 +49,7 @@ function JobList(props) {
     return state.jobs.filter(job => job.status == props.status);
   }
 
-console.log(props)
+
   return (
     <Container>
       <h2></h2>

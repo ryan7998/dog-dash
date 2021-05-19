@@ -77,6 +77,15 @@ function userSelected() {
   else {return false}
 } 
 
+//check if the user was selected for the job
+function jobStatus() {
+  let job= state.jobs.filter(job => {
+    return (job._id == job_id );
+    })
+  if (job) 
+  {return job[0]?.status|| false} 
+  else {return false}
+} 
 
 // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
 function initialwalkerjob() {
@@ -168,11 +177,6 @@ const selectWalkerForJob = async () => {
 };
 
 
-function filterUser() {
-  if (apply=="any" || (apply=="true" && updateappliedB()))
-  {return true}
-  else {return false}
-}
 
 // Add items to cart
 
@@ -216,6 +220,14 @@ const removeFromCart = item => {
 
 };
 
+console.log(item,updateappliedB())
+
+function filterUser() {
+  if (apply=="any" || (apply=="true" && updateappliedB()))
+  {return true}
+  else {return false}
+}
+
 
 if (!filterUser()){return null}
 
@@ -244,16 +256,16 @@ if (!filterUser()){return null}
             )
           }
           {
-            userSelected()==true && apply=="true" && inCart()==false && (
+            jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
               <Button color='green' onClick={addToCart}> Add to Cart</Button>)
           }
           {
-            userSelected()==true  && apply=="true" && inCart()==true && (
+            jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
               <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
             )
           }
           {
-            userSelected()==false  && apply=="true" && (
+            jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
               <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
             )
           }

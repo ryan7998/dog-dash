@@ -346,13 +346,13 @@ function updateanyselectedB() {
         {Auth.loggedIn() && me.type=="Dog Walker" && (
           <Card.Content extra>
             <div className='ui buttons'>{
-              (updateappliedB()== true  && updateanyselectedB()==false && (
+              (status =="Live" && updateappliedB()== true  && updateanyselectedB()==false && (
                 <Button color='red' onClick={withdrawFromJob}>
                   Withdraw
                 </Button>
                 // <button onClick={withdrawFromJob}>Withdraw</button>
               )) || (
-                updateappliedB()== false  && updateanyselectedB()==false && (
+                status =="Live" && updateappliedB()== false  && updateanyselectedB()==false && (
                   <Button color='green' onClick={applyForJob}>
                     Apply
                   </Button>
@@ -373,8 +373,9 @@ function updateanyselectedB() {
             </div>
           </Card.Content>
         )}
-        {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
+        {Auth.loggedIn()  && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
+            {status=="Live" ? (
              <Button.Group color='yellow'>
                 <Button>Options</Button>
                 <Dropdown
@@ -384,7 +385,7 @@ function updateanyselectedB() {
                   onChange={userMenu}
                   // trigger={<></>}
                 />
-              </Button.Group>
+              </Button.Group>):null}
             <UserList
               type="Dog Walker"
               apply="true"
