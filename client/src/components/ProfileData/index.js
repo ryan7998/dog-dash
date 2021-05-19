@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link, useParams, Redirect } from 'react-router-dom'
+import Auth from "../../utils/auth";
+
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
@@ -19,6 +21,24 @@ import Upload from "../../utils/upload";
 function ProfileData(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
+  const userID = Auth.getProfile().data._id;
+  const urlID = useParams().id;
+  let subString = "amazon";
+  
+//This is important so any local images will load in both the User Profile AND the other User profile
+  if (urlID == userID) {
+      return <Redirect to='/profile' />
+  }
+    if (item.image){
+      if (!(item.image.includes(subString))){
+        item = {...item, image: "." + item.image};
+        console.log("hello");
+      }  
+    };
+    
+  
+
+ // item = {...item, image: "hello" + item.image};
   const {
       _id,
       firstName,
@@ -31,8 +51,9 @@ function ProfileData(item) {
       type,
       hideJobButton
   } = item;
-
-
+ 
+ 
+ 
 
   return (
       
@@ -41,7 +62,10 @@ function ProfileData(item) {
         <div className="centerprofileimg">
           <Image src={image} alt={description} size='medium' circular />
         </div>
+        {/*conditionaly render the image upload only if it is the USERS own page profile */}
+        {_id === userID &&
         <div className="editPic"><Popup content='Upload new profile image' trigger={<a>< Upload /></a>} /></div>
+        }
     </div>
     <Container className="card-container">
         {/* <img
