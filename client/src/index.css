@@ -186,10 +186,10 @@ input[type="file"] {
   padding-top: 2rem;
 }
 
-.job-cards {
+/* .job-cards {
   display: flex;
   flex-direction: row;
-}
+} */
 
 
 .job-list {
