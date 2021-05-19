@@ -174,7 +174,6 @@ const selectWalkerForJob = async () => {
         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
 
         window.location.reload(false);
-        
       } catch (e) {
         console.error(e);
       }
