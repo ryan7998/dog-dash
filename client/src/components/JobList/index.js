@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from "react";
-=======
 import React, { useEffect, useState, setState } from "react";
->>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 import JobItem from "../JobItem";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
@@ -23,10 +19,6 @@ function JobList(props) {
   
   const state = useSelector(state => state)
   const dispatch = useDispatch()
-<<<<<<< HEAD
-
-=======
->>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
  
   const { loading, data } = useQuery(QUERY_JOBS);
 
@@ -51,7 +43,6 @@ function JobList(props) {
     }
   }, [data, loading, dispatch]);
   
- 
 
 
   function filterJobs() {

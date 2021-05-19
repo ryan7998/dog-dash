@@ -174,10 +174,6 @@ const selectWalkerForJob = async () => {
         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
 
         window.location.reload(false);
-<<<<<<< HEAD
-        
-=======
->>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
       } catch (e) {
         console.error(e);
       }
@@ -236,7 +232,6 @@ function filterUser() {
   else {return false}
 }
 
-console.log(ratingAvg);
 if (!filterUser()){return null}
 
   return (
