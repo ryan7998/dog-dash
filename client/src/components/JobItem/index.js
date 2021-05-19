@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button, Image, Dropdown } from "semantic-ui-react";
+import { Card, Icon, Button, Image, Dropdown, Rating } from "semantic-ui-react";
 import { UPDATE_JOBS } from "../../utils/actions";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
@@ -88,6 +88,7 @@ function JobItem(item) {
     variables: { id: user_id },
   });
   const submitter = data1?.data?.userById || {};
+  
 
   // check if the current owner (me) created to the job
   function updatecreatedB() {
@@ -386,6 +387,8 @@ function updateanyselectedB() {
     }
   }
   
+  const test = submitter.ratingAvg;
+  console.log(submitter.firstName);
 
   if (!filterJob()) {
     return null;
@@ -399,8 +402,9 @@ function updateanyselectedB() {
           />
           <Card.Header>{title}</Card.Header>
           <Link to={`/profile/${submitter._id}`}>
-            <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          <Card.Header>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Header>
           </Link>
+          <Rating icon='star' defaultRating={submitter.ratingAvg} maxRating={5} disabled={true}/>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
           <Card.Meta>{`Price: $${price}`}</Card.Meta>

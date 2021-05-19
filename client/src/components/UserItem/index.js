@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Card, Icon, Image, Button, Rating } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -48,6 +48,7 @@ function UserItem(item) {
       description,
       address,
       email,
+      ratingAvg,
       image,
       type,
       appliedJobs
@@ -228,7 +229,7 @@ function filterUser() {
   else {return false}
 }
 
-
+console.log(ratingAvg);
 if (!filterUser()){return null}
 
   return (
@@ -243,6 +244,7 @@ if (!filterUser()){return null}
         <Link to={`/profile/${_id}`}>
           <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
         </Link>
+        <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
         <Card.Meta>{email}</Card.Meta>
         <Card.Description>{description}</Card.Description>
       </Card.Content>

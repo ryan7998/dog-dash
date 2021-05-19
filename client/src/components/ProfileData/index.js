@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, Redirect } from 'react-router-dom'
 import Auth from "../../utils/auth";
 
 //import { pluralize } from "../../utils/helpers"
@@ -22,12 +22,21 @@ function ProfileData(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const userID = Auth.getProfile().data._id;
-  if (item._id === userID) {
-    console.log("a");
-     } else {
-      item = {...item, image: "." + item.image};
-      
-     }
+  const urlID = useParams().id;
+  let subString = "amazon";
+  
+//This is important so any local images will load in both the User Profile AND the other User profile
+  if (urlID == userID) {
+      return <Redirect to='/profile' />
+  }
+    if (item.image){
+      if (!(item.image.includes(subString))){
+        item = {...item, image: "." + item.image};
+        console.log("hello");
+      }  
+    };
+    
+  
 
  // item = {...item, image: "hello" + item.image};
   const {
@@ -43,9 +52,8 @@ function ProfileData(item) {
       hideJobButton
   } = item;
  
- const urlID = useParams().id;
  
- console.log(image);
+ 
 
   return (
       
