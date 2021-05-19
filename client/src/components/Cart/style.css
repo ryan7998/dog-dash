@@ -1,3 +1,6 @@
+body{
+  background-color: #B2D8D8;
+}
 .cart {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -26,7 +29,7 @@
   text-align: center;
   box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
   border-radius: 2rem;
-
+  background-color:white;
 }
 
 .cart h2 {

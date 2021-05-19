@@ -50,8 +50,8 @@ function ProfileData(item) {
         /> */}
         <h1>{type}</h1>
         <p>{firstName} {lastName}</p>
-        <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
-        <p>{description}</p>
+        <Rating icon='star' size="ui massive star rating" defaultRating={ratingAvg} maxRating={5} disabled={true}/>
+        <h1>{description}</h1>
         <p>{email}</p>
         <p>{address}</p>
         <div>

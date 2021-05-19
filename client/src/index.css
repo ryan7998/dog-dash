@@ -1,6 +1,10 @@
 @font-face {
   font-family: 'OJ';
-  src: local('OJ') url(./fonts/orange-juice-2.0.ttf);
+  src: local('OJ'), url(./fonts/titlefont.ttf)format('truetype');
+}
+@font-face {
+  font-family: 'walt';
+  src: local('walt') ,url(./fonts/waltographUI.ttf)format('truetype');
 }
 
 .background-image{
@@ -27,10 +31,22 @@ td {
   padding: 50px;
 }
 
-h2 {
+h1, h2 {
   color: #00235E;
-  font-size: 2.5vw;
-  font-family: Tahoma;
+  font-size: 5vw;
+  font-family: OJ;
+}
+
+p {
+  color: #3a8c8a;
+  font-size: 2vw;
+  font-family: OJ;
+  line-height: 2rem;
+  font-family: walt;
+}
+
+.star{
+  size: 2rem;
 }
 
 .profileimg{
@@ -86,7 +102,11 @@ input[type="file"] {
 .meta{
   padding-top: 5px;
 }
-
+.pricecolor{
+  color: orange;
+  font-size: 1.5rem;
+  padding-top: 15px;
+}
 .walkercard{
   padding-top: 12px;
   padding-bottom: 50vh;
@@ -132,6 +152,8 @@ input[type="file"] {
 
   background-color: #B2D8D8;
   width: 100%;
+  padding-top: 50px;
+  padding-bottom: 150px;
 }
 
 .job-list h2 {
