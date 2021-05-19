@@ -33,7 +33,7 @@ td {
 
 .login-title {
   color: #00235E!important;
-  font-size: 7vw!important;
+  font-size: 5vw!important;
   font-family: OJ!important;
   margin-bottom: 20px!important;
   
@@ -155,10 +155,10 @@ input[type="file"] {
   padding-bottom: 50vh;
 }
 
-.ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
+/* .ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
   width: auto; 
   height: auto; 
-}
+} */
 .postjobbtn{
   padding-top: 100px;
 }
@@ -205,4 +205,8 @@ input[type="file"] {
 
 .ui.card {
     margin: 3em 0;
+}
+
+.dog-title {
+  font-family: OJ!important;
 }

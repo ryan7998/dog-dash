@@ -135,4 +135,15 @@ export const DELETE_JOB = gql`
       description
     }
   }
-`
+`;
+
+export const RATE_USER = gql`
+  mutation rateUser($rated_id: ID!, $ratingNb:Float!, $text:String) {
+    rateUser(rated_id: $rated_id, ratingNb: $ratingNb, text: $text) {
+      _id
+      rated_id
+      rater_id
+      text
+   }
+  }
+ `;
