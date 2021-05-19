@@ -44,6 +44,8 @@ function JobItem(item) {
     status,
     image,
   } = item;
+
+  
   
   // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
@@ -69,7 +71,7 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob, withdrawJob, updateJob, deleteJob, filterJob]);
+    }, [data, loading, dispatch, applyJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -235,63 +237,6 @@ function updateanyselectedB() {
     }
   };
 
-  // Display the job if it corresponds to the filter criteria coming from react props item
-  function filterJob() {
-    // Our Jobs Page
-    if ( status === "Live" ) {
-      return true;
-    }
-
-
-    // My Job History Page
-    if (me.type == "Dog Walker") {
-      if (!initialwalkerjob()) {
-        // never applied to the job
-        if (
-          apply == false &&
-          (updateanyselectedB().toString() === select ||
-            (!updateanyselectedB() && select === false)) &&
-          selectme == false
-        ) {
-          return true;
-        } else { 
-          return false;
-        }
-      } else {
-        // applied to the job
-        let mywalkerjob = initialwalkerjob();
-        if (initialwalkerjob()[0]) {
-          mywalkerjob = initialwalkerjob()[0];
-        }
-        if (
-          mywalkerjob.apply.toString() == apply &&
-          (updateanyselectedB().toString() == select ||
-            (!updateanyselectedB() && select == false)) &&
-          mywalkerjob.select.toString() == selectme
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    } // Dog Owner
-    else {
-      if (
-        updatecreatedB().toString() == submit &&
-        (updateanyappliedB().toString() == apply ||
-          (!updateanyappliedB() && apply == false)) &&
-        (updateanyselectedB().toString() == select ||
-          (!updateanyselectedB() && select == false))
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-  if (!filterJob()) {
-    return null;
-  }
 
 // When Owner presses Complete Job the status updates to 'Done' ///////////
   const completeJob = async() =>{
@@ -340,8 +285,48 @@ function updateanyselectedB() {
     if(value === 'completed'){completeJob()}
     else if(value === 'delete'){deleteJobById()}
   }
+  
+  // Display the job if it corresponds to the filter criteria coming from react props item
+  function filterJob() {
+    // Our Jobs Page
+    if ( submit == "any" && apply == "any" && select == "any" && selectme == "any" ) 
+      {return true;}
 
- 
+    // My Job History Page
+    if (me.type == "Dog Walker") {
+      if (!initialwalkerjob()) {
+        // never applied to the job
+        if (
+          apply == "false" &&
+          (updateanyselectedB().toString() == select || (!(updateanyselectedB()) && select == "false")) &&
+          selectme == "false"
+        ) {return true;} else { return false;}
+      } else {
+        // applied to the job
+        let mywalkerjob = initialwalkerjob();
+        if (initialwalkerjob()[0]) {
+          mywalkerjob = initialwalkerjob()[0];
+        }
+        if (
+          mywalkerjob.apply.toString() == apply &&
+          (updateanyselectedB().toString() == select ||(!(updateanyselectedB()) && select == "false")) &&
+          mywalkerjob.select.toString() == selectme
+        ) {return true;} else {return false;}
+      }
+    } // Dog Owner
+    else {
+      if (
+        updatecreatedB().toString() == submit &&
+        (updateanyappliedB().toString() == apply ||(!(updateanyappliedB()) && apply == "false")) &&
+        (updateanyselectedB().toString() == select || (!(updateanyselectedB()) && select == "false"))
+      ) {return true;} else {return false;}
+    }
+  }
+  
+
+  if (!filterJob()) {
+    return null;
+  }
   return (
     <>
       <Card>

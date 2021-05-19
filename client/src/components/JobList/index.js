@@ -46,10 +46,10 @@ function JobList(props) {
  
 
   function filterJobs() {
-    return state.jobs.filter(job => job.status === props.status);
+    return state.jobs.filter(job => job.status == props.status);
   }
 
-
+console.log(props)
   return (
     <Container>
       <h2></h2>
