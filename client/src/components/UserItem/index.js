@@ -247,30 +247,34 @@ if (!filterUser()){return null}
         <Card.Description>{description}</Card.Description>
       </Card.Content>
 
-      <Card.Content extra>
-        {Auth.loggedIn() && <div className='ui two buttons'>
-          { 
-            userSelected()==true && apply== "true" &&(
-              <Button basic color='green' disabled> Selected</Button>
-              // <Button basic color='green' disabled> Selected</Button>
-            )
-          }
-          {
-            jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
-              <Button color='green' onClick={addToCart}> Add to Cart</Button>)
-          }
-          {
-            jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
-              <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
-            )
-          }
-          {
-            jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
-              <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
-            )
-          }
-          </div>}
-      </Card.Content>
+      {
+          Auth.loggedIn() && 
+            <Card.Content extra>
+                <div className='ui two buttons'>
+                { 
+                  userSelected()==true && apply== "true" &&(
+                    <Button basic color='green' disabled> Selected</Button>
+                    // <Button basic color='green' disabled> Selected</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
+                    <Button color='green' onClick={addToCart}> Add to Cart</Button>)
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
+                    <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
+                    <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
+                  )
+                }
+                </div>
+            </Card.Content>
+      }
+          
     </Card>
 
       {/* { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
