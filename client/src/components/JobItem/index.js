@@ -246,6 +246,7 @@ function updateanyselectedB() {
       select == "any" &&
       selectme == "any"
     ) {
+      console.log(status);
       return true;
     }
 
@@ -446,7 +447,6 @@ function updateanyselectedB() {
                   floating
                   options={options}
                   onChange={userMenu}
-                  // trigger={<></>}
                 />
               </Button.Group>):null}
             <UserList

@@ -37,14 +37,13 @@ function UserList(props) {
   function filterUsers() {
     return state.users.filter(user => user.type === props.type);
   }
-console.log(state.users)
+// console.log(state.users)
 
   return (
-    <div className="my-2">
-   
+    <div>
       {state.users.length ? (
-        <div className="flex-row"> 
-            {filterUsers().map(user => (
+        // <div className="flex-row"> 
+            filterUsers().map(user => (
                 <UserItem apply={props.apply} job_id={props.job_id} job_price={props.job_price}  selectedUser={props.selectedUser}
                   key= {user._id}
                   _id={user._id}
@@ -57,8 +56,8 @@ console.log(state.users)
                   type={user.type}
                   appliedJobs={user.appliedJobs}
                 />
-            ))}
-        </div>
+            ))
+        // </div>
       ) : (
         <h3>You haven't added any users yet!</h3>
       )}
