@@ -16,6 +16,7 @@ function UserItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  const [selectWalker] = useMutation(SELECT_WALKER);
 
   // Gets from DB and updates the jobwalkers info in the global state and indexed db
   useEffect(() => {
@@ -53,7 +54,6 @@ function UserItem(item) {
       appliedJobs
   } = item;
 
-  const [selectWalker] = useMutation(SELECT_WALKER);
 
    // check if the user being displayed applied to the job
 function updateappliedB() {
@@ -145,8 +145,8 @@ const selectWalkerForJob = async () => {
             dispatch({
               type: UPDATE_WALKERJOBS,
               walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                              return (walkerjob._id !== initialpreviouslyselected()._id );
-                            })
+                return (walkerjob._id !== initialpreviouslyselected()._id );
+              })
             });
             idbPromise('walkerjobs', 'delete', initialpreviouslyselected() );
             
@@ -161,8 +161,8 @@ const selectWalkerForJob = async () => {
         dispatch({
           type: UPDATE_WALKERJOBS,
           walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                          return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
-                        })
+            return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
+          })
         });
  
         idbPromise('walkerjobs', 'delete', initialwalkerjob()[0] );
@@ -170,7 +170,10 @@ const selectWalkerForJob = async () => {
           type: UPDATE_WALKERJOBS,
           walkerjobs:  [...state.walkerjobs, newwalkerjob()]
         });
-         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+        idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+
+        window.location.reload(false);
+        
       } catch (e) {
         console.error(e);
       }

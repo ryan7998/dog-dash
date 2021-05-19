@@ -446,24 +446,12 @@ function updateanyselectedB() {
         {Auth.loggedIn()  && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
             {status=="Live" ? (
-            //  <Button.Group color='yellow'>
-            //     <Button>Options</Button>
-            //     <Dropdown
-            //       className='button icon'
-            //       floating
-            //       options={options}
-            //       onChange={userMenu}
-            //       // onClick={userMenu}
-            //     />
-            //   </Button.Group>
-            // <Select placeholder='Options' options={options} onClick={userMenu}/>
               <select className="ui fluid selection orange button" name="MySelect" id="MySelect" onChange={userMenu}>
                   <option value="a" class="button">Options</option>
                   <option value="delete" class="button">Delete</option>
                   <option value="completed" class="button" >Completed</option>
               </select>
-              
-              ):null}
+            ):null}
             <UserList
               type="Dog Walker"
               apply="true"
