@@ -52,6 +52,7 @@ function UserList(props) {
                   description={user.description}
                   address={user.address}
                   email={user.email}
+                  ratingAvg={user.ratingAvg}
                   image={user.image}
                   type={user.type}
                   appliedJobs={user.appliedJobs}

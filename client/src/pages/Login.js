@@ -31,14 +31,14 @@ function Login() {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${background})` }}>
+    <div className="job-list">
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
+      <Header as='h1' textAlign='center' className="login-title">
         Log-in to your account
       </Header>
       <Form size='large' onSubmit={handleFormSubmit}>
-        <Segment stacked>
+        <Segment stacked className="login-form">
           <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' name='email' onChange={handleChange} />
           <Form.Input
             fluid
@@ -50,14 +50,15 @@ function Login() {
             onChange={handleChange}
           />
 
-          <Button color='teal' fluid size='large'>
+
+          <Button fluid size='large' className="login-register">
             Login
           </Button>
             {error && <Message color='red'>Incorrect email / password</Message>}
         </Segment>
       </Form>
-      <Message>
-        New to us? <Link to="/signup">Sign up</Link>
+      <Message className="signup-link" style={{backgroundColor: "teal", color: "white"}}>
+        New to us? <Link style={{color: "white", textDecoration:"underline"}} to="/signup">Sign up</Link>
       </Message>
     </Grid.Column>
   </Grid>

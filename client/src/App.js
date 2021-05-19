@@ -45,26 +45,22 @@ function App() {
       <Router>
         <Provider store={store}>
           <Nav />
-          <Segment
-            style={{ padding: '1em 0em' }}
-            >
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/ourjobs" component={OurJobs} />
-                <Route exact path="/profile" component={Profile} />
-                <Route exact path="/myjobhistory" component={MyJobHistory} />
-                <Route exact path="/cart" component={Cart} />
-                <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
-                <Route exact path="/profile/:id" component={UserProfile} />
-                {/* <Route exact path="/success" component={Success} />
-                  <Route exact path="/orderHistory" component={OrderHistory} />
-                  <Route exact path="/products/:id" component={Detail} /> */}
-                <Route component={NoMatch} />
-              </Switch>
-            </Segment>
-            <Footer />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/ourjobs" component={OurJobs} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/myjobhistory" component={MyJobHistory} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
+            <Route exact path="/profile/:id" component={UserProfile} />
+            {/* <Route exact path="/success" component={Success} />
+              <Route exact path="/orderHistory" component={OrderHistory} />
+              <Route exact path="/products/:id" component={Detail} /> */}
+              <Route component={NoMatch} />
+            </Switch>
+            
           </Provider>
       
       </Router>

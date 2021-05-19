@@ -49,13 +49,12 @@ function JobList(props) {
     return state.jobs.filter(job => job.status == props.status);
   }
 
-
   return (
     <Container>
       <h2></h2>
       
       {state.jobs.length ? (
-        <Card.Group itemsPerRow={props.itemsPerRow}>
+        <div className="job-cards" itemsPerRow={props.itemsPerRow}>
             {filterJobs().map(job => (
                 <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}
@@ -69,7 +68,7 @@ function JobList(props) {
                   // image={job.image}
                 />
             ))}
-        </Card.Group>
+        </div>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
