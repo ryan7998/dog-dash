@@ -32,13 +32,13 @@ function Nav() {
                 />
             </Link>
 
-            <Link to="/ourjobs">
+            {/* <Link to="/ourjobs">
             <Menu.Item
                 name='Our jobs'
                 active={activeItem === 'ourjobs'}
                 onClick={()=>setActiveItem('ourjobs')}
               />
-            </Link>
+            </Link> */}
 
 
             {Auth.loggedIn() ? 

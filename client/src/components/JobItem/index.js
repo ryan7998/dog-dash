@@ -238,15 +238,11 @@ function updateanyselectedB() {
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-    if (
-      status === "Live" &&
-      submit === "any" &&
-      apply === "any" &&
-      select === "any" &&
-      selectme === "any"
-    ) {
+    if ( status === "Live" ) {
       return true;
     }
+
+
     // My Job History Page
     if (me.type == "Dog Walker") {
       if (!initialwalkerjob()) {
@@ -258,7 +254,7 @@ function updateanyselectedB() {
           selectme == false
         ) {
           return true;
-        } else {
+        } else { 
           return false;
         }
       } else {
@@ -339,6 +335,8 @@ function updateanyselectedB() {
     { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
   ]
   function userMenu(event, {value}){
+    event.preventDefault();
+    console.log(value);
     if(value === 'completed'){completeJob()}
     else if(value === 'delete'){deleteJobById()}
   }
@@ -352,9 +350,12 @@ function updateanyselectedB() {
             src= {submitter.image ? submitter.image : "https://placedog.net/500"}
           />
           <Card.Header>{title}</Card.Header>
-          <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          <Link to={`/profile/${submitter._id}`}>
+            <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          </Link>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
+          <Card.Meta>{`Price: $${price}`}</Card.Meta>
         </Card.Content>
         
         {Auth.loggedIn() && me.type=="Dog Walker" && (

@@ -28,7 +28,8 @@ function ProfileData(item) {
       email,
       image,
       ratingAvg,
-      type
+      type,
+      hideJobButton
   } = item;
 
 
@@ -54,7 +55,7 @@ function ProfileData(item) {
         <p>{email}</p>
         <p>{address}</p>
         <div>
-          <CreateJob />
+          {!hideJobButton && <CreateJob />}
           {/* <button class="ui inverted orange button">Post Job</button> */}
         </div>
         
