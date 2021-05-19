@@ -50,8 +50,7 @@ function JobList(props) {
   }
 
   return (
-    <div>
-      <h2></h2>
+    <Container>
       
       {state.jobs.length ? (
         <div className="job-cards" itemsPerRow={props.itemsPerRow}>
@@ -74,7 +73,7 @@ function JobList(props) {
       )}
       { loading ? 
       <img src={spinner} alt="loading" />: null}
-    </div>
+    </Container>
   );
 }
 
