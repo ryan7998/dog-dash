@@ -59,6 +59,7 @@ p {
   border-radius: 50%;
   border:20px solid #3a8c8a;
   float: right;
+  margin-right: 80px;
 }
 .centerprofileimg {
   border-radius: 50%;
@@ -87,7 +88,6 @@ p {
   justify-content: space-around;
   padding-top: 10rem;
 }
-
 
 .editPic {
   position: absolute;
