@@ -50,7 +50,7 @@ function JobList(props) {
   }
 
   return (
-    <Container>
+    <div>
       <h2></h2>
       
       {state.jobs.length ? (
@@ -74,7 +74,7 @@ function JobList(props) {
       )}
       { loading ? 
       <img src={spinner} alt="loading" />: null}
-    </Container>
+    </div>
   );
 }
 
