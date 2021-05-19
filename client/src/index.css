@@ -85,10 +85,10 @@ input[type="file"] {
   padding-bottom: 50vh;
 }
 
-.ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
+/* .ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
   width: auto; 
   height: auto; 
-}
+} */
 .postjobbtn{
   padding-top: 50px;
 }
