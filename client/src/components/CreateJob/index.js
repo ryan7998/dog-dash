@@ -39,6 +39,7 @@ const CreateJob = () =>{
         } catch(e){
             console.log(e, error);
         }
+        window.location.reload(false);
     }
 
     const handleChange = event => {

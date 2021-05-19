@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
+  QUERY_JOB_BYID,
   QUERY_USER,
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
@@ -26,10 +27,7 @@ import { NoUnusedFragmentsRule } from "graphql";
 function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const { loading, data } = useQuery(QUERY_WALKERJOBS);
-
-
-
+ 
   const {
     submit,
     apply,
@@ -47,15 +45,16 @@ function JobItem(item) {
   } = item;
 
   
-  
   // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
   const [updateJob] = useMutation(UPDATE_JOB);
   const [deleteJob] = useMutation(DELETE_JOB);
 
+  const { loading, data } = useQuery(QUERY_WALKERJOBS);
     // Gets from DB and updates the jobwalkers info in the global state and indexed db
     useEffect(() => {
+
       if (data) {
         dispatch({
           type: UPDATE_WALKERJOBS,
@@ -72,23 +71,21 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob]);
+    }, [data, loading, dispatch]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
 
 
-  //refresh page
-  function refresh() {
-    window.location.reload(false);
-  }
+ 
 
   // gets the job submitter/creator details
   let data1 = useQuery(QUERY_USER_BYID, {
     variables: { id: user_id },
   });
   const submitter = data1?.data?.userById || {};
+  
   
 
   // check if the current owner (me) created to the job
@@ -153,9 +150,6 @@ function updateanyselectedB() {
     return selectedB
     };
 
-
-
-
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
     let walkerjob = {
@@ -197,7 +191,7 @@ function updateanyselectedB() {
   }
 
   const applyForJob = async () => {
-    // refresh();
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -214,10 +208,11 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    window.location.reload(false);
   };
 
   const withdrawFromJob = async () => {
-    // refresh();
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -237,6 +232,7 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    window.location.reload(false);
   };
 
   // Display the job if it corresponds to the filter criteria coming from react props item
@@ -248,7 +244,7 @@ function updateanyselectedB() {
       select == "any" &&
       selectme == "any"
     ) {
-      console.log(status);
+ 
       return true;
     }
 
@@ -321,6 +317,8 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    
+
   }
   // When Owner clicks Delete Job:
   const deleteJobById = async() =>{
@@ -334,12 +332,13 @@ function updateanyselectedB() {
         type: UPDATE_JOBS,
         jobs: [...state.jobs.filter((job) => {return job.id !== _id })],
       });
-     refresh();
+
       
       idbPromise("jobs", "delete", initialjob());
     }catch(e){
       console.error(e);
     }
+    window.location.reload(false);
   }
 
   const options = [
@@ -397,7 +396,7 @@ function updateanyselectedB() {
   }
   
   const test = submitter.ratingAvg;
-  console.log(submitter.firstName);
+ 
 
   if (!filterJob()) {
     return null;
