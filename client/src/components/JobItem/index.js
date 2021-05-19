@@ -216,9 +216,6 @@ function updateanyselectedB() {
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-<<<<<<< HEAD
-    if ( status === "Live" ) {
-=======
     if (
       status === "Live" &&
       submit === "any" &&
@@ -227,7 +224,6 @@ function updateanyselectedB() {
       selectme === "any"
     ) {
       console.log(status);
->>>>>>> feature/fazle
       return true;
     }
 
