@@ -26,14 +26,106 @@ h2 {
   color: #4287f5;
 }
 
-/* .card-container {
-  margin-top: 85px;
-  display: flex;
-  align-items: center;
-} */
+.profileimg{
+  padding-top: 125px;
+  text-align: center;
+}
+.centerprofileimg{
+  Display: flex;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 30px;
+  
+}
 
-.profile-page {
+.jobpagecss {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 10rem;
+}
+
+.profilePicContainer {
+  position:relative;
+  max-width: 30%; 
+  justify-content:center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.editPic {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 30px;
+  transform: rotate(130deg);
+}
+input[type="file"] { 
+  opacity: 0; /* make transparent */
+  z-index: -1; /* move under anything else */
+  position: absolute; /* don't let it take up space */
+}
+
+.ourjobcontainer{
+  padding-top: 50px;
+}
+
+.header{
+  padding-top: 20px;
+}
+
+.meta{
+  padding-top: 5px;
+}
+
+.walkercard{
+  padding-top: 12px;
+  padding-bottom: 50vh;
+}
+
+.ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
+  width: auto; 
+  height: auto; 
+}
+.postjobbtn{
+  padding-top: 100px;
+}
+.ui.buttons {
+  display: inline-flex;
+  flex-direction: row;
+  margin: 0 .25em 0 0;
+  padding-top: 1rem;
+}
+
+.jobtitle{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 0 auto;
+  padding-left: 59px;
+}
+
+
+.card-container{
+  padding-bottom: 10rem;
+}
+
+.checkoutbtn{
+  padding-top: 2rem;
+}
+
+
+.job-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  text-align: center;
+}
+
+.job-list h2 {
+  padding-top: 50px;
+}
+
+.ui.card {
+    margin: 3em 0;
 }

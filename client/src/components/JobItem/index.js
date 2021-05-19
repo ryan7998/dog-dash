@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button } from "semantic-ui-react";
+import { Card, Icon, Button, Image, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -13,36 +13,21 @@ import {
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
 } from "../../utils/queries";
-import { APPLY_JOB, WITHDRAW_JOB } from "../../utils/mutations";
+import { APPLY_JOB, WITHDRAW_JOB, UPDATE_JOB, DELETE_JOB } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
 import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
+import { NoUnusedFragmentsRule } from "graphql";
+
 
 function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  const [withdrawnJob, setWithdrawnJob] = useState();
+  const [deletedJob, setDeletedJob] = useState();
 
-  // Gets from DB and updates the jobwalkers info in the global state and indexed db
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_WALKERJOBS,
-        walkerjobs: data.walkerjobs,
-      });
-      data.walkerjobs.forEach((walkerjob) => {
-        idbPromise("walkerjobs", "put", walkerjob);
-      });
-    } else if (!loading) {
-      idbPromise("walkerjobs", "get").then((walkerjobs) => {
-        dispatch({
-          type: UPDATE_WALKERJOBS,
-          walkerjobs: walkerjobs,
-        });
-      });
-    }
-  }, [data, loading, dispatch]);
 
   const {
     submit,
@@ -59,9 +44,32 @@ function JobItem(item) {
     status,
     image,
   } = item;
-
+  
+  // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
   const [withdrawJob] = useMutation(WITHDRAW_JOB);
+  const [updateJob] = useMutation(UPDATE_JOB);
+  const [deleteJob] = useMutation(DELETE_JOB);
+
+    // Gets from DB and updates the jobwalkers info in the global state and indexed db
+    useEffect(() => {
+      if (data) {
+        dispatch({
+          type: UPDATE_WALKERJOBS,
+          walkerjobs: data.walkerjobs,
+        });
+        data.walkerjobs.forEach((walkerjob) => {
+          idbPromise("walkerjobs", "put", walkerjob);
+        });
+      } else if (!loading) {
+        idbPromise("walkerjobs", "get").then((walkerjobs) => {
+          dispatch({
+            type: UPDATE_WALKERJOBS,
+            walkerjobs: walkerjobs,
+          });
+        });
+      }
+    }, [data, loading, dispatch, applyJob, updateJob, deletedJob, withdrawnJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
@@ -129,19 +137,16 @@ function JobItem(item) {
     return selectedB;
   }
 
-  // check if there is another user selected for this job. will be used for filtering and display purposes
-  function updateanyselectedB() {
-    let selectedB = false;
+// check if there is another user selected for this job . will be used for filtering and display purposes
+function updateanyselectedB() {
+    let selectedB = false
     for (var i = 0; i < state.walkerjobs.length; i++) {
-      if (
-        state.walkerjobs[i].select == true &&
-        state.walkerjobs[i].job_id == _id
-      ) {
-        selectedB = state.walkerjobs[i].select;
-      }
+      if (state.walkerjobs[i].select== true && state.walkerjobs[i].job_id== _id   ) 
+          {selectedB=state.walkerjobs[i].select}
     }
-    return selectedB;
-  }
+    return selectedB
+    };
+
 
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
@@ -165,7 +170,7 @@ function JobItem(item) {
   }
 
   const applyForJob = async () => {
-    refresh();
+    // refresh();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -185,23 +190,24 @@ function JobItem(item) {
   };
 
   const withdrawFromJob = async () => {
-    refresh();
+    // refresh();
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
     try {
-      await withdrawJob({
+      const withdrawnJob = await withdrawJob({
         variables: { job_id: _id },
       });
-      dispatch({
-        type: UPDATE_WALKERJOBS,
-        walkerjobs: state.walkerjobs.filter((walkerjob) => {
-          return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
-        }),
-      });
+      setWithdrawnJob(withdrawnJob);
+      // dispatch({
+      //   type: UPDATE_WALKERJOBS,
+      //   walkerjobs: state.walkerjobs.filter((walkerjob) => {
+      //     return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
+      //   }),
+      // });
 
-      idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
+      // idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
     } catch (e) {
       console.error(e);
     }
@@ -210,27 +216,23 @@ function JobItem(item) {
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-    if (
-      status == "Live" &&
-      submit == "any" &&
-      apply == "any" &&
-      select == "any" &&
-      selectme == "any"
-    ) {
+    if ( status === "Live" ) {
       return true;
     }
+
+
     // My Job History Page
     if (me.type == "Dog Walker") {
       if (!initialwalkerjob()) {
         // never applied to the job
         if (
           apply == false &&
-          (updateanyselectedB().toString() == select ||
-            (!updateanyselectedB() && select == false)) &&
+          (updateanyselectedB().toString() === select ||
+            (!updateanyselectedB() && select === false)) &&
           selectme == false
         ) {
           return true;
-        } else {
+        } else { 
           return false;
         }
       } else {
@@ -269,27 +271,132 @@ function JobItem(item) {
     return null;
   }
 
+// When Owner presses Complete Job the status updates to 'Done'
+  const completeJob = async() =>{
+    try {
+      const getVal = await updateJob({
+        variables: { job_id: _id, newStatus: 'Done' },
+      });
+
+      dispatch({
+
+      });
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  // When Owner clicks Delete Job:
+  const deleteJobById = async() =>{
+    // await console.log('delete pressed', _id);
+    try{
+      const deletedJobData = await deleteJob({
+        variables:{job_id: _id}
+      });
+      setDeletedJob(deletedJobData);
+      // console.log(deletedJob);
+      // return deletedJob;
+    }catch(e){
+      console.error(e);
+    }
+  }
+
+  const options = [
+    { key: 'completed', icon: 'edit', text: 'Job Completed', value: 'completed'},
+    { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
+  ]
+  function userMenu(event, {value}){
+    event.preventDefault();
+    console.log(value);
+    if(value === 'completed'){completeJob()}
+    else if(value === 'delete'){deleteJobById()}
+  }
+
   return (
     <>
-      <Card
-        image={image ? image : "https://placedog.net/500"}
-        header={title}
-        meta={`${submitter?.firstName}  ${submitter?.lastName}`}
-        description={description}
-        // description={`Wage: $ ${price}`}
-        // extra={`$ ${price}`}
-      />
+      <Card>
+        <Card.Content>
+          <Image
+            src= {submitter.image ? submitter.image : "https://placedog.net/500"}
+          />
+          <Card.Header>{title}</Card.Header>
+          <Link to={`/profile/${submitter._id}`}>
+            <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          </Link>
+          <Card.Description>{description}</Card.Description>
+          <Card.Meta>{date}</Card.Meta>
+          <Card.Meta>{`Price: $${price}`}</Card.Meta>
+        </Card.Content>
+        
+        {Auth.loggedIn() && me.type=="Dog Walker" && (
+          <Card.Content extra>
+            <div className='ui buttons'>{
+              (updateappliedB()== true  && updateanyselectedB()==false && (
+                <Button color='red' onClick={withdrawFromJob}>
+                  Withdraw
+                </Button>
+                // <button onClick={withdrawFromJob}>Withdraw</button>
+              )) || (
+                updateappliedB()== false  && updateanyselectedB()==false && (
+                  <Button color='green' onClick={applyForJob}>
+                    Apply
+                  </Button>
+                )
+              ) || (
+                updateselectedB()==true && (
+                  <Button basic color='green' disabled>
+                    You are selected!!
+                  </Button>
+                )) ||(
+                  updateanyselectedB()==true && updateselectedB()==false && (
+                  <Button basic color='green' disabled>
+                    Walker selected!!
+                  </Button>
+                )
+              )
+            }
+            </div>
+          </Card.Content>
+        )}
+        {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
+          <Card.Content extra>
+            <UserList
+              type="Dog Walker"
+              apply="true"
+              job_id={_id}
+              job_price={price}
+            />
+            {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
+            {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
+              
+              <Button.Group color='yellow'>
+                <Button>Options</Button>
+                <Dropdown
+                  className='button icon'
+                  floating
+                  options={options}
+                  onChange={userMenu}
+                  // trigger={<></>}
+                />
+              </Button.Group>
 
-      {Auth.loggedIn() &&
-      updateappliedB() == true &&
-      me.type == "Dog Walker" ? (
-        <button onClick={withdrawFromJob}>Withdraw</button>
-      ) : null}
-      {Auth.loggedIn() &&
-      updateappliedB() == false &&
-      me.type == "Dog Walker" ? (
-        <button onClick={applyForJob}>Apply</button>
-      ) : null}
+            
+          </Card.Content>
+        )}
+      </Card>
+ 
+      {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
+          (<button onClick={withdrawFromJob}>Withdraw</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
+        (<button onClick={applyForJob}>Apply</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateselectedB()==true) ? 
+        (<button>You were selected</button>):null
+      }
+      { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
+        (<button>Walker selected</button>):null
+      }
 
       {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
         <UserList
@@ -298,9 +405,9 @@ function JobItem(item) {
           job_id={_id}
           job_price={price}
         />
-      ) : null}
+        ) : null
+      } */}
     </>
   );
 }
-
 export default JobItem;

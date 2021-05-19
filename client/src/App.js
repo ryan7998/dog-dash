@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
+import { Segment} from "semantic-ui-react";
+
 
 // Walker jobs link
 import SingleWalkerJob from './pages/SingleWalkerJob';
@@ -16,12 +18,14 @@ import Nav from "./components/Nav";
 import OurJobs from "./pages/OurJobs";
 import Cart from "./components/Cart";
 import Profile from "./pages/Profile";
+// import UserProfile from "./pages/UserProfile";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
-
 import Success from "./pages/Success";
+import Footer from "./components/Footer";
 // import OrderHistory from "./pages/OrderHistory";
+
 
 const client = new ApolloClient({
   request: (operation) => {

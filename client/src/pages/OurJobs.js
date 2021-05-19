@@ -1,48 +1,29 @@
 import React from "react";
-//import { Link } from "react-router-dom";
-
-import { useQuery } from '@apollo/react-hooks';
-import { QUERY_USER } from "../utils/queries";
 import JobList from "../components/JobList";
 import UserList from "../components/UserList";
-//import Cart from "../components/Cart";
-import CreateJob from '../components/CreateJob';
-import {
-  Button,
-  Container,
-  Header,
-  Icon,
-} from 'semantic-ui-react'
 
-function OurJobs(){
-  // gets the current user details
-let user= useQuery(QUERY_USER)
-const me = user?.data?.user || {};
+import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
 
-const dogOwner = (me.type === 'Dog Owner');
-console.log(dogOwner);
+function OurJobs() {
+  return (
+    <Container className="ourjobcontainer">
+        <Grid stackable>
+            <Grid.Row>
+                <Grid.Column width={12}>
+                    <h2>Our Jobs:</h2>
+                    <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
+                </Grid.Column>
 
-  return (
-    <Container>
-      <br />
-      <table>
-        <tr>
-          <td>
-          <h2>Our Jobs:</h2>
-          <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
-          </td>
-          <td>
-          <h2>Our Walkers:</h2>
-          <UserList type="Dog Walker" apply="any" job_id="any"/>
-          </td>
-        </tr>
-      </table>
-      
-      {dogOwner && <CreateJob />}
-
+                <Grid.Column width={4}>
+                    <h2>Our Walkers:</h2>
+                    <div className="walkercard">
+                    <UserList type="Dog Walker" apply="any" job_id="any"/>
+                    </div>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
     </Container>
-     
-  );
-};
+  );
+}
 
 export default OurJobs;

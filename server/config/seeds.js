@@ -19,7 +19,7 @@ db.once('open', async () => {
     address: '105 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves cats more than dogs!',
     image: './images/user1.JPG',
-    type: 'wDog Owner'/*,
+    type: 'Dog Owner'/*,
     orders: [
       {
         jobs: [jobs[0]._id]
@@ -34,7 +34,7 @@ db.once('open', async () => {
     password: 'password12345',
     address: '103 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves dogs!',
-    image: './images/user1.JPG',
+    image: './images/user2.JPG',
     type: 'Dog Owner'
   });
 
@@ -45,7 +45,7 @@ db.once('open', async () => {
     password: 'password12345',
     address: '100 Eastwod Ave. Sacarborough M1N 3H4',
     description: 'Loves wolves!',
-    image: './images/user1.JPG',
+    image: './images/walker.jpeg',
     type: 'Dog Walker'
   });
 
@@ -75,7 +75,7 @@ db.once('open', async () => {
     title: 'title 01',
     user_id: users[0]._id,
     description: 'walk my white dog',
-    price: 7.00,
+    price: 7.50,
     date: '06-06-2021',
     status: 'Live'
   });

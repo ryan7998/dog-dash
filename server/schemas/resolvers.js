@@ -36,7 +36,8 @@ const resolvers = {
         const users = await User.findById(_id).populate({
           path: 'orders.jobs',
           populate: 'job'
-        });
+        })
+        .populate('receivedRatings');
         return users;
     },
 
@@ -46,7 +47,8 @@ const resolvers = {
         const user = await User.findById(context.user._id).populate({
           path: 'orders.jobs',
           populate: 'job'
-        });
+        })
+        .populate('receivedRatings');
         
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
@@ -111,6 +113,7 @@ const resolvers = {
         const user = await User.findById(context.user._id);
         const newJob = await Job.create(
           { user_id: user._id,
+           image: user.image,
            title: title,
            description: description,
            price: price,
@@ -249,6 +252,16 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+
+    updateJob: async (parent, {job_id, newStatus}) => {
+      const jobsDone = await Job.findByIdAndUpdate(job_id, {$set:{status: newStatus}}, { new: true })
+      return jobsDone;
+    },
+
+    deleteJob: async(parent, {job_id}) =>{
+      const jobDeleted = await Job.findByIdAndDelete(job_id);
+      return jobDeleted;
+    }
   }
 };
 

@@ -30,6 +30,7 @@ const typeDefs = gql`
     _id: ID
     user_id: ID!
     title: String!
+    image: String
     description: String!
     price: Float!
     date: String!
@@ -101,6 +102,8 @@ const typeDefs = gql`
     applyJob(job_id: ID!): Job
     withdrawJob(job_id: ID!): Job
     selectWalker(walker_id: ID!, job_id: ID!): Job
+    updateJob(job_id: ID!, newStatus: String!): Job
+    deleteJob(job_id: ID!): Job
     
     rateUser(rated_id: ID!, ratingNb:Float!, text:String): Rating
     commentJob(user_id: ID!, job_id: ID, text:String!): Job

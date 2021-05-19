@@ -32,13 +32,13 @@ function Nav() {
                 />
             </Link>
 
-            <Link to="/ourjobs">
+            {/* <Link to="/ourjobs">
             <Menu.Item
                 name='Our jobs'
                 active={activeItem === 'ourjobs'}
                 onClick={()=>setActiveItem('ourjobs')}
               />
-            </Link>
+            </Link> */}
 
             {Auth.loggedIn() ? 
             <Link to="/myjobhistory">
@@ -46,17 +46,6 @@ function Nav() {
                 name='my job history'
                 active={activeItem === 'myjobhistory'}
                 onClick={()=>setActiveItem('myjobhistory')}
-              />
-            </Link>
-            : null
-            }
-
-            {(Auth.loggedIn() && me.type=="Dog Owner") ? 
-            <Link to="/cart">
-            <Menu.Item
-                name='cart'
-                active={activeItem === 'cart'}
-                onClick={()=>setActiveItem('cart')}
               />
             </Link>
             : null
@@ -84,6 +73,7 @@ function Nav() {
                     onClick={()=>setActiveItem('profile')}
                   />
                 </Link>
+
                   <Menu.Item
                     name='logout'
                     onClick={() => Auth.logout()}

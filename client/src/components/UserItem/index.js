@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { QUERY_WALKERJOBS} from '../../utils/queries';
 import { SELECT_WALKER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { ADD_TO_CART,  UPDATE_WALKERJOBS } from "../../utils/actions";
+import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_WALKERJOBS } from "../../utils/actions";
 
 
 function UserItem(item) {
@@ -111,6 +111,14 @@ function newpreviouslyselected() {
   return {...initialpreviouslyselected(),select:false }
   }
   
+//selected user in cart
+function inCart(){
+  if (state.cart.length){
+    for (var i=0; i<state.cart.length; i++){
+    if (state.cart[i]._id==_id, state.cart[i].job_id==job_id) {return true} else return false
+  }}
+  else return false
+}
 
 // Select a walker for a job
 const selectWalkerForJob = async () => {
@@ -169,9 +177,10 @@ function filterUser() {
 // Add items to cart
 
 let newcartitem ={
-  image: image,
+    image: image,
     name: firstName + " " + lastName,
     _id: _id,
+    job_id: job_id,
     price: job_price,
     quantity: 1
 }
@@ -198,35 +207,78 @@ const addToCart = () => {
   //}
 }
 
+const removeFromCart = item => {
+  dispatch({
+    type: REMOVE_FROM_CART,
+    _id: item._id
+  });
+  idbPromise('cart', 'delete', { ...item });
+
+};
+
 
 if (!filterUser()){return null}
 
   return (
-    //<Link to={`/users/${_id}`}></Link>
     <>
-    <Card
-        image={image ? image : 'https://placedog.net/500'}
-        header = {email} 
-        meta={`${firstName}  ${lastName}`}
-        description={description}
-        
-      />
-      { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
+    <Card>
+      <Card.Content>
+        <Image
+          floated='right'
+          size='mini'
+          src={image?image:'https://placeimg.com/50/50/people/grayscale'}
+        />
+        <Link to={`/profile/${_id}`}>
+          <Card.Header>{`${firstName}  ${lastName}`}</Card.Header>
+        </Link>
+        <Card.Meta>{email}</Card.Meta>
+        <Card.Description>{description}</Card.Description>
+      </Card.Content>
+
+      <Card.Content extra>
+        {Auth.loggedIn() && <div className='ui two buttons'>
+          { 
+            userSelected()==true && apply== "true" &&(
+              <Button basic color='green' disabled> Selected</Button>
+              // <Button basic color='green' disabled> Selected</Button>
+            )
+          }
+          {
+            userSelected()==true && apply=="true" && inCart()==false && (
+              <Button color='green' onClick={addToCart}> Add to Cart</Button>)
+          }
+          {
+            userSelected()==true  && apply=="true" && inCart()==true && (
+              <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
+            )
+          }
+          {
+            userSelected()==false  && apply=="true" && (
+              <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
+            )
+          }
+          </div>}
+      </Card.Content>
+    </Card>
+
+      {/* { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
           (<button>Selected</button>)
           :null
       }
-      { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 
+      { (Auth.loggedIn() && userSelected()== true && (apply=="true") && inCart()==false) ? 
           (<button onClick={addToCart}>Add to cart</button>)
+          :null
+      }
+      { (Auth.loggedIn() && userSelected()== true && (apply=="true") && inCart()==true ) ? 
+          (<button onClick={() => removeFromCart(newcartitem)}>Remove From Cart</button>)
           :null
       }
       { (Auth.loggedIn() && userSelected()== false && (apply=="true")) ? 
         (<button onClick={selectWalkerForJob}>Select</button>):null
-      }
+      } */}
     </>
     
   );
 }
 
 export default UserItem;
-
-
