@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'OJ';
+  src: local('OJ') url(./fonts/orange-juice-2.0.ttf);
+}
+
 .background-image{
   background-image: url(/images/dogwalk.jpeg);
     background-position: center;
@@ -23,7 +28,9 @@ td {
 }
 
 h2 {
-  color: #4287f5;
+  color: #00235E;
+  font-size: 2.5vw;
+  font-family: Tahoma;
 }
 
 .profileimg{
@@ -69,6 +76,7 @@ input[type="file"] {
 
 .ourjobcontainer{
   padding-top: 50px;
+
 }
 
 .header{
@@ -120,6 +128,10 @@ input[type="file"] {
   display: flex;
   flex-direction: column;
   text-align: center;
+  background-image: url("../src/assets/footprint.png");
+
+  background-color: #B2D8D8;
+  width: 100%;
 }
 
 .job-list h2 {
