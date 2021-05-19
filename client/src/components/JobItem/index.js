@@ -223,6 +223,7 @@ function updateanyselectedB() {
       select === "any" &&
       selectme === "any"
     ) {
+      console.log(status);
       return true;
     }
     // My Job History Page
