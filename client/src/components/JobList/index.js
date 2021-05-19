@@ -51,7 +51,6 @@ function JobList(props) {
   
   return (
     <Container>
-      <h2></h2>
       
       {state.jobs.length ? (
         <div className="job-cards" itemsPerRow={props.itemsPerRow}>
