@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import S3 from "react-aws-s3";
 import { useMutation } from '@apollo/react-hooks';
 import { UPDATE_USER } from "./mutations";
+require('dotenv').config();
 
 
 
