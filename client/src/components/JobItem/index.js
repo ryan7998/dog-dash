@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button, Image, Dropdown } from "semantic-ui-react";
+
+import { Card, Icon, Button, Image, Dropdown, Rating, Select } from "semantic-ui-react";
+
+import { UPDATE_JOBS } from "../../utils/actions";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
 //import { useStoreContext } from "../../utils/GlobalState";
@@ -20,13 +23,11 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
 import { NoUnusedFragmentsRule } from "graphql";
 
-
 function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
-  const [withdrawnJob, setWithdrawnJob] = useState();
-  const [deletedJob, setDeletedJob] = useState();
+
 
 
   const {
@@ -44,6 +45,8 @@ function JobItem(item) {
     status,
     image,
   } = item;
+
+  
   
   // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
@@ -69,11 +72,12 @@ function JobItem(item) {
           });
         });
       }
-    }, [data, loading, dispatch, applyJob, updateJob, deletedJob, withdrawnJob]);
+    }, [data, loading, dispatch, applyJob]);
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
+
 
   //refresh page
   function refresh() {
@@ -85,6 +89,7 @@ function JobItem(item) {
     variables: { id: user_id },
   });
   const submitter = data1?.data?.userById || {};
+  
 
   // check if the current owner (me) created to the job
   function updatecreatedB() {
@@ -96,7 +101,7 @@ function JobItem(item) {
   }
 
   // check if the current walker (me) applied to the job
-  function updateappliedB() {
+ function updateappliedB() {
     let appliedB = false;
     for (var i = 0; i < state.walkerjobs.length; i++) {
       if (
@@ -108,6 +113,7 @@ function JobItem(item) {
     }
     return appliedB;
   }
+
 
   // check if someone applied to the job
   function updateanyappliedB() {
@@ -148,6 +154,8 @@ function updateanyselectedB() {
     };
 
 
+
+
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
     let walkerjob = {
@@ -167,6 +175,25 @@ function updateanyselectedB() {
 
   function newwalkerjob() {
     return { ...initialwalkerjob(), apply: true };
+  }
+
+  function initialjob() {
+    let job = {
+      _id: _id,
+      user_id:user_id,
+      title: title,
+      description: description,
+      price: price,
+      date: date,
+      status:status,
+      image: image,
+    };
+    
+    return job;
+  }
+
+  function newjobstatus() {
+    return { ...initialjob(), status: "Done" };
   }
 
   const applyForJob = async () => {
@@ -196,18 +223,17 @@ function updateanyselectedB() {
       return false;
     }
     try {
-      const withdrawnJob = await withdrawJob({
+      await withdrawJob({
         variables: { job_id: _id },
       });
-      setWithdrawnJob(withdrawnJob);
-      // dispatch({
-      //   type: UPDATE_WALKERJOBS,
-      //   walkerjobs: state.walkerjobs.filter((walkerjob) => {
-      //     return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
-      //   }),
-      // });
+      dispatch({
+         type: UPDATE_WALKERJOBS,
+         walkerjobs: state.walkerjobs.filter((walkerjob) => {
+           return walkerjob.job_id !== _id && walkerjob.walker_id !== me._id;
+        }),
+       });
 
-      // idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
+       idbPromise("walkerjobs", "delete", newwalkerjob()[0]);
     } catch (e) {
       console.error(e);
     }
@@ -216,7 +242,13 @@ function updateanyselectedB() {
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-    if ( status === "Live" ) {
+    if (
+      submit == "any" &&
+      apply == "any" &&
+      select == "any" &&
+      selectme == "any"
+    ) {
+      console.log(status);
       return true;
     }
 
@@ -227,9 +259,9 @@ function updateanyselectedB() {
         // never applied to the job
         if (
           apply == false &&
-          (updateanyselectedB().toString() === select ||
-            (!updateanyselectedB() && select === false)) &&
-          selectme == false
+          (updateanyselectedB().toString() == select ||
+            (!updateanyselectedB() && select == "false")) &&
+          selectme == "false"
         ) {
           return true;
         } else { 
@@ -244,7 +276,7 @@ function updateanyselectedB() {
         if (
           mywalkerjob.apply.toString() == apply &&
           (updateanyselectedB().toString() == select ||
-            (!updateanyselectedB() && select == false)) &&
+            (!updateanyselectedB() && select == "false")) &&
           mywalkerjob.select.toString() == selectme
         ) {
           return true;
@@ -257,9 +289,9 @@ function updateanyselectedB() {
       if (
         updatecreatedB().toString() == submit &&
         (updateanyappliedB().toString() == apply ||
-          (!updateanyappliedB() && apply == false)) &&
+          (!updateanyappliedB() && apply == "false")) &&
         (updateanyselectedB().toString() == select ||
-          (!updateanyselectedB() && select == false))
+          (!updateanyselectedB() && select == "false"))
       ) {
         return true;
       } else {
@@ -271,31 +303,40 @@ function updateanyselectedB() {
     return null;
   }
 
-// When Owner presses Complete Job the status updates to 'Done'
+
+// When Owner presses Complete Job the status updates to 'Done' ///////////
   const completeJob = async() =>{
     try {
-      const getVal = await updateJob({
+      await updateJob({
         variables: { job_id: _id, newStatus: 'Done' },
       });
 
       dispatch({
-
+        type: UPDATE_JOBS,
+        jobs: [...state.jobs.filter((job) => {return job.id !== _id }), newjobstatus()],
       });
-
+      
+      idbPromise("jobs", "delete", initialjob());
+      idbPromise("jobs", "put", newjobstatus());
     } catch (e) {
       console.error(e);
     }
   }
   // When Owner clicks Delete Job:
   const deleteJobById = async() =>{
-    // await console.log('delete pressed', _id);
     try{
-      const deletedJobData = await deleteJob({
+      await deleteJob({
         variables:{job_id: _id}
       });
-      setDeletedJob(deletedJobData);
-      // console.log(deletedJob);
-      // return deletedJob;
+      
+      
+      dispatch({
+        type: UPDATE_JOBS,
+        jobs: [...state.jobs.filter((job) => {return job.id !== _id })],
+      });
+     refresh();
+      
+      idbPromise("jobs", "delete", initialjob());
     }catch(e){
       console.error(e);
     }
@@ -305,14 +346,64 @@ function updateanyselectedB() {
     { key: 'completed', icon: 'edit', text: 'Job Completed', value: 'completed'},
     { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
   ]
-  function userMenu(event, {value}){
-    event.preventDefault();
-    console.log(value);
-    if(value === 'completed'){completeJob()}
-    else if(value === 'delete'){deleteJobById()}
+  function userMenu(event){
+    // event.onClick(alert('test'));
+    // console.log(event.target.value);
+    // event.onChange(alert('value'));
+    // alert('test')
+    if(event.target.value === 'completed'){
+      completeJob()
+    }
+    else if(event.target.value === 'delete'){
+      deleteJobById()
+    }
   }
+  
+  // Display the job if it corresponds to the filter criteria coming from react props item
+  function filterJob() {
+    // Our Jobs Page
+    if ( submit == "any" && apply == "any" && select == "any" && selectme == "any" ) 
+      {return true;}
 
+    // My Job History Page
+    if (me.type == "Dog Walker") {
+      if (!initialwalkerjob()) {
+        // never applied to the job
+        if (
+          apply == "false" &&
+          (updateanyselectedB().toString() == select || (!(updateanyselectedB()) && select == "false")) &&
+          selectme == "false"
+        ) {return true;} else { return false;}
+      } else {
+        // applied to the job
+        let mywalkerjob = initialwalkerjob();
+        if (initialwalkerjob()[0]) {
+          mywalkerjob = initialwalkerjob()[0];
+        }
+        if (
+          mywalkerjob.apply.toString() == apply &&
+          (updateanyselectedB().toString() == select ||(!(updateanyselectedB()) && select == "false")) &&
+          mywalkerjob.select.toString() == selectme
+        ) {return true;} else {return false;}
+      }
+    } // Dog Owner
+    else {
+      if (
+        updatecreatedB().toString() == submit &&
+        (updateanyappliedB().toString() == apply ||(!(updateanyappliedB()) && apply == "false")) &&
+        (updateanyselectedB().toString() == select || (!(updateanyselectedB()) && select == "false"))
+      ) {return true;} else {return false;}
+    }
+  }
+  
+  const test = submitter.ratingAvg;
+  console.log(submitter.firstName);
+
+  if (!filterJob()) {
+    return null;
+  }
   return (
+    
     <>
       <Card>
         <Card.Content>
@@ -321,23 +412,25 @@ function updateanyselectedB() {
           />
           <Card.Header>{title}</Card.Header>
           <Link to={`/profile/${submitter._id}`}>
-            <Card.Meta>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Meta>
+          <Card.Header>{`by ${submitter?.firstName}  ${submitter?.lastName}`}</Card.Header>
           </Link>
+          <Rating icon='star' defaultRating={submitter.ratingAvg} maxRating={5} disabled={true}/>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
-          <Card.Meta>{`Price: $${price}`}</Card.Meta>
+          <div className="pricecolor">
+          {`Price: $${price}`}
+          </div>
         </Card.Content>
         
         {Auth.loggedIn() && me.type=="Dog Walker" && (
           <Card.Content extra>
             <div className='ui buttons'>{
-              (updateappliedB()== true  && updateanyselectedB()==false && (
+              (status =="Live" && updateappliedB()== true  && updateanyselectedB()==false && (
                 <Button color='red' onClick={withdrawFromJob}>
                   Withdraw
                 </Button>
-                // <button onClick={withdrawFromJob}>Withdraw</button>
               )) || (
-                updateappliedB()== false  && updateanyselectedB()==false && (
+                status =="Live" && updateappliedB()== false  && updateanyselectedB()==false && (
                   <Button color='green' onClick={applyForJob}>
                     Apply
                   </Button>
@@ -358,8 +451,15 @@ function updateanyselectedB() {
             </div>
           </Card.Content>
         )}
-        {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
+        {Auth.loggedIn()  && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
+            {status=="Live" ? (
+              <select className="ui fluid selection orange button" name="MySelect" id="MySelect" onChange={userMenu}>
+                  <option value="a" class="button">Options</option>
+                  <option value="delete" class="button">Delete</option>
+                  <option value="completed" class="button" >Completed</option>
+              </select>
+            ):null}
             <UserList
               type="Dog Walker"
               apply="true"
@@ -368,19 +468,7 @@ function updateanyselectedB() {
             />
             {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
             {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
-              
-              <Button.Group color='yellow'>
-                <Button>Options</Button>
-                <Dropdown
-                  className='button icon'
-                  floating
-                  options={options}
-                  onChange={userMenu}
-                  // trigger={<></>}
-                />
-              </Button.Group>
-
-            
+                      
           </Card.Content>
         )}
       </Card>
@@ -408,6 +496,7 @@ function updateanyselectedB() {
         ) : null
       } */}
     </>
+    
   );
 }
 export default JobItem;

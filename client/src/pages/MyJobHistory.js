@@ -19,28 +19,21 @@ function MyJobHistory() {
 
   if (me.type == "Dog Walker") {
     return (
-      <Container>
-      <Grid stackable>
-          <Grid.Row>
-              <Grid.Column width={16}>
-                  <div className="actjobtitle">
-                  <h2>Active Jobs:</h2>
+      <div className="job-list">
+    <h2>Active Jobs:</h2>
+                  <div className="jobtitle">
+                  
                   <JobList status="Live" submit="any" apply= "true" select="false" selectme="false" walker="false" itemsPerRow = {4}/>
                   <JobList status="Live" submit="any" apply= "true" select="true"  selectme="true" walker="false" itemsPerRow = {4}/>
                   <JobList status="Live" submit="any" apply= "true" select="true"  selectme="false" walker="false" itemsPerRow = {4}/>
                   </div>
-              </Grid.Column>
-
-              <Grid.Column width={16}>
-              <div className="prejobtitle">
-                  <h2>Previous Jobs:</h2>
+                  <h2>Previous Jobs:</h2>
+              <div className="jobtitle">
+                  
                   <JobList status="Done" submit="any" apply= "true" select="true" selectme="true" walker="false" itemsPerRow = {4}/>
                   <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"itemsPerRow = {4}/>
                   </div>
-              </Grid.Column>
-          </Grid.Row>
-      </Grid>
-    </Container>
+    </div>
     );
   } else {
     // Dog Owner
