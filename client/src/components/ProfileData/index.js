@@ -75,6 +75,10 @@ function ProfileData(item) {
         <h1>{type}</h1>
         <p>{firstName} {lastName}</p>
         <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
+        {/*conditionaly render the Rating upload only if it is NOT USERS own page profile */}
+        {!(_id === userID) &&  
+        <Popup content={'Give a rating for '+firstName} trigger={<Button icon='add' />} />
+        }
         <p>{description}</p>
         <p>{email}</p>
         <p>{address}</p>
