@@ -65,7 +65,7 @@ body{
 }
 
 .cart-closed:hover {
-  transform: rotate(140deg);
+  transform: rotate(15deg);
 }
 .closebtn{
   margin-left: 35rem;
