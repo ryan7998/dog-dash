@@ -177,6 +177,7 @@ const selectWalkerForJob = async () => {
       } catch (e) {
         console.error(e);
       }
+      window.location.reload(false);
 };
 
 
@@ -231,7 +232,6 @@ function filterUser() {
   else {return false}
 }
 
-console.log(ratingAvg);
 if (!filterUser()){return null}
 
   return (

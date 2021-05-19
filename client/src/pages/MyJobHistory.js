@@ -19,51 +19,50 @@ function MyJobHistory() {
 
   if (me.type == "Dog Walker") {
     return (
-      <div className="job-list">
-    <h2>Active Jobs:</h2>
-                  <div className="jobtitle">
-                  
+    <Container className="ourjobcontainer">
+        <Grid stackable>
+            <Grid.Row>
+                <Grid.Column width={8}>
+                  <h2>Active Jobs:</h2>
                   <JobList status="Live" submit="any" apply= "true" select="false" selectme="false" walker="false" itemsPerRow = {4}/>
                   <JobList status="Live" submit="any" apply= "true" select="true"  selectme="true" walker="false" itemsPerRow = {4}/>
                   <JobList status="Live" submit="any" apply= "true" select="true"  selectme="false" walker="false" itemsPerRow = {4}/>
-                  </div>
+                </Grid.Column>
+                <Grid.Column width={8}>
                   <h2>Previous Jobs:</h2>
-              <div className="jobtitle">
-                  
                   <JobList status="Done" submit="any" apply= "true" select="true" selectme="true" walker="false" itemsPerRow = {4}/>
                   <JobList status="Done" submit="any" apply= "true" select="true" selectme="false" walker="false"itemsPerRow = {4}/>
-                  </div>
-    </div>
+                  </Grid.Column>
+            </Grid.Row>
+        </Grid>
+    </Container>
     );
   } else {
     // Dog Owner
     return (
-   <div className="job-list">
-          <Grid.Row>
-              <Grid.Column width={10}>
+      <Container className="ourjobcontainer">
+        <Grid stackable>
+            <Grid.Column width={10}>
                 <div className="postjobbtn">
               <CreateJob />
               </div>
               </Grid.Column>
+            <Grid.Row>
+                <Grid.Column width={8}>
+                <h2>Active Jobs:</h2>
+                        <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true"  />
+                        <JobList status="Live" submit="true" apply= "true" select="true"  selectme="any" walker="true" />
+                        <JobList status="Live" submit="true" apply= "false" select="false"  selectme="any" walker="true" />
+                </Grid.Column>
+                <Grid.Column width={8}>
+                <h2>Previous Jobs:</h2>
+                  <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true" />
+                    <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"/>
+                    <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"/>
+                 </Grid.Column> 
           </Grid.Row>
-
-          <h2>Active Jobs:</h2>
-          <div className="jobtitle">
-                <JobList status="Live" submit="true" apply= "true" select="false" selectme="any" walker="true"  />
-                <JobList status="Live" submit="true" apply= "true" select="true"  selectme="any" walker="true" />
-                <JobList status="Live" submit="true" apply= "false" select="false"  selectme="any" walker="true" />
-          </div>
-            
-
-          <h2>Previous Jobs:</h2>
-          <div className="jobtitle">
-            <JobList status="Done" submit="true" apply= "true" select="true" selectme="any" walker="true" />
-            <JobList status="Done" submit="true" apply= "true" select="false" selectme="any" walker="true"/>
-            <JobList status="Done" submit="true" apply= "false" select="false" selectme="any" walker="true"/>
-          </div>
-             
-          
-    </div>
+        </Grid>
+    </Container>
 
     );
   }
