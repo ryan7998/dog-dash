@@ -34,6 +34,8 @@ const CreateJob = () =>{
                 }
             })
             setOpen(false);
+            window.location.reload(false);
+    
         } catch(e){
             console.log(e, error);
         }

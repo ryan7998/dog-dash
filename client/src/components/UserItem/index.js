@@ -16,6 +16,7 @@ function UserItem(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
+  const [selectWalker] = useMutation(SELECT_WALKER);
 
   // Gets from DB and updates the jobwalkers info in the global state and indexed db
   useEffect(() => {
@@ -54,7 +55,6 @@ function UserItem(item) {
       appliedJobs
   } = item;
 
-  const [selectWalker] = useMutation(SELECT_WALKER);
 
    // check if the user being displayed applied to the job
 function updateappliedB() {
@@ -146,8 +146,8 @@ const selectWalkerForJob = async () => {
             dispatch({
               type: UPDATE_WALKERJOBS,
               walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                              return (walkerjob._id !== initialpreviouslyselected()._id );
-                            })
+                return (walkerjob._id !== initialpreviouslyselected()._id );
+              })
             });
             idbPromise('walkerjobs', 'delete', initialpreviouslyselected() );
             
@@ -162,8 +162,8 @@ const selectWalkerForJob = async () => {
         dispatch({
           type: UPDATE_WALKERJOBS,
           walkerjobs:  state.walkerjobs.filter(walkerjob => {
-                          return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
-                        })
+            return (walkerjob.job_id !== job_id && walkerjob.walker_id !== _id );
+          })
         });
  
         idbPromise('walkerjobs', 'delete', initialwalkerjob()[0] );
@@ -171,7 +171,10 @@ const selectWalkerForJob = async () => {
           type: UPDATE_WALKERJOBS,
           walkerjobs:  [...state.walkerjobs, newwalkerjob()]
         });
-         idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+        idbPromise('walkerjobs', 'put', newwalkerjob()[0]);
+
+        window.location.reload(false);
+        
       } catch (e) {
         console.error(e);
       }
@@ -221,7 +224,7 @@ const removeFromCart = item => {
 
 };
 
-console.log(item,updateappliedB())
+// console.log(item,updateappliedB())
 
 function filterUser() {
   if (apply=="any" || (apply=="true" && updateappliedB()))
@@ -249,30 +252,34 @@ if (!filterUser()){return null}
         <Card.Description>{description}</Card.Description>
       </Card.Content>
 
-      <Card.Content extra>
-        {Auth.loggedIn() && <div className='ui two buttons'>
-          { 
-            userSelected()==true && apply== "true" &&(
-              <Button basic color='green' disabled> Selected</Button>
-              // <Button basic color='green' disabled> Selected</Button>
-            )
-          }
-          {
-            jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
-              <Button color='green' onClick={addToCart}> Add to Cart</Button>)
-          }
-          {
-            jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
-              <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
-            )
-          }
-          {
-            jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
-              <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
-            )
-          }
-          </div>}
-      </Card.Content>
+      {
+          Auth.loggedIn() && 
+            <Card.Content extra>
+                <div className='ui two buttons'>
+                { 
+                  userSelected()==true && apply== "true" &&(
+                    <Button basic color='green' disabled> Selected</Button>
+                    // <Button basic color='green' disabled> Selected</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true && apply=="true" && inCart()==false && (
+                    <Button color='green' onClick={addToCart}> Add to Cart</Button>)
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==true  && apply=="true" && inCart()==true && (
+                    <Button color='red' onClick={() => removeFromCart(newcartitem)}> Remove from Cart</Button>
+                  )
+                }
+                {
+                  jobStatus()=="Live" && userSelected()==false  && apply=="true" && (
+                    <Button color='green' onClick={selectWalkerForJob}> Select Walker</Button>
+                  )
+                }
+                </div>
+            </Card.Content>
+      }
+          
     </Card>
 
       {/* { (Auth.loggedIn() && userSelected()== true && (apply=="true")) ? 

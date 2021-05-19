@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Card, Icon, Button, Image, Dropdown, Rating } from "semantic-ui-react";
+
+import { Card, Icon, Button, Image, Dropdown, Rating, Select } from "semantic-ui-react";
+
 import { UPDATE_JOBS } from "../../utils/actions";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers";
@@ -247,6 +249,7 @@ function updateanyselectedB() {
       select == "any" &&
       selectme == "any"
     ) {
+      console.log(status);
       return true;
     }
 
@@ -332,6 +335,7 @@ function updateanyselectedB() {
         type: UPDATE_JOBS,
         jobs: [...state.jobs.filter((job) => {return job.id !== _id })],
       });
+     refresh();
       
       idbPromise("jobs", "delete", initialjob());
     }catch(e){
@@ -343,11 +347,17 @@ function updateanyselectedB() {
     { key: 'completed', icon: 'edit', text: 'Job Completed', value: 'completed'},
     { key: 'delete', icon: 'delete', text: 'Remove Job Post', value: 'delete'},
   ]
-  function userMenu(event, {value}){
-    event.preventDefault();
-    console.log(value);
-    if(value === 'completed'){completeJob()}
-    else if(value === 'delete'){deleteJobById()}
+  function userMenu(event){
+    // event.onClick(alert('test'));
+    // console.log(event.target.value);
+    // event.onChange(alert('value'));
+    // alert('test')
+    if(event.target.value === 'completed'){
+      completeJob()
+    }
+    else if(event.target.value === 'delete'){
+      deleteJobById()
+    }
   }
   
   // Display the job if it corresponds to the filter criteria coming from react props item
@@ -417,7 +427,6 @@ function updateanyselectedB() {
                 <Button color='red' onClick={withdrawFromJob}>
                   Withdraw
                 </Button>
-                // <button onClick={withdrawFromJob}>Withdraw</button>
               )) || (
                 status =="Live" && updateappliedB()== false  && updateanyselectedB()==false && (
                   <Button color='green' onClick={applyForJob}>
@@ -443,16 +452,12 @@ function updateanyselectedB() {
         {Auth.loggedIn()  && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
             {status=="Live" ? (
-             <Button.Group color='yellow'>
-                <Button>Options</Button>
-                <Dropdown
-                  className='button icon'
-                  floating
-                  options={options}
-                  onChange={userMenu}
-                  // trigger={<></>}
-                />
-              </Button.Group>):null}
+              <select className="ui fluid selection orange button" name="MySelect" id="MySelect" onChange={userMenu}>
+                  <option value="a" class="button">Options</option>
+                  <option value="delete" class="button">Delete</option>
+                  <option value="completed" class="button" >Completed</option>
+              </select>
+            ):null}
             <UserList
               type="Dog Walker"
               apply="true"
