@@ -27,10 +27,41 @@ td {
   padding: 50px;
 }
 
+.login-title {
+  color: #00235E!important;
+  font-size: 7vw!important;
+  font-family: OJ!important;
+  margin-bottom: 20px!important;
+  
+}
+
+.login-register {
+  background-color: #00235E!important;
+  color: rgb(233, 233, 233)!important;
+  border-radius: 3px;
+  box-shadow: 4px 5px 3px 0px rgba(0,0,0,0.18)!important;
+}
+
+.login-form {
+  padding-top: 30px!important;
+}
+
+.ui.stacked.segment {
+  padding-bottom: 1.4em;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 4px 5px 3px 0px rgba(0,0,0,0.18);
+
+}
+
+.signup-link {
+  box-shadow: 4px 5px 3px 0px rgba(0,0,0,0.18)!important;
+}
+
 h2 {
   color: #00235E;
   font-size: 5vw;
-  font-family: OJ;
+  font-family: OJ!important;
 }
 
 .profileimg{
@@ -129,7 +160,7 @@ input[type="file"] {
   flex-direction: column;
   text-align: center;
   background-image: url("../src/assets/footprint.png");
-
+  background-position: 45% 89%;
   background-color: #B2D8D8;
   width: 100%;
 }

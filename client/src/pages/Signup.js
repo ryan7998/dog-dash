@@ -60,11 +60,11 @@ function Signup(props) {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${background})` }}>
+    <div className="job-list">
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>Sign up</Header>
-      <Form size='large' onSubmit={handleFormSubmit}>
+      <Header as='h1' textAlign='center' className="login-title">Sign up</Header>
+      <Form size='large' onSubmit={handleFormSubmit} className="form">
       <Segment stacked>
         <Form.Group widths='equal'>
           <Form.Input required fluid placeholder='First name' name="firstName" onChange={handleChange} />
@@ -80,7 +80,7 @@ function Signup(props) {
         <Form.Checkbox required label='I agree to the Terms and Conditions' />
         </Segment>
         
-        <Button color='teal' fluid size='large'>
+        <Button className="login-register" fluid size='large'>
           Sign up
         </Button>
         {error && <Message color='red'>Registration Failed! Please try again</Message>}
