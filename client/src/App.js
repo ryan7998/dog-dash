@@ -44,9 +44,6 @@ function App() {
       <Router>
         <Provider store={store}>
           <Nav />
-          <Segment
-            style={{ padding: '1em 0em' }}
-            >
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
@@ -61,7 +58,6 @@ function App() {
                   <Route exact path="/products/:id" component={Detail} /> */}
                 <Route component={NoMatch} />
               </Switch>
-            </Segment>
             <Footer />
           </Provider>
       

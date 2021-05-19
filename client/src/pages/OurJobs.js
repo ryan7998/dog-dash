@@ -6,15 +6,15 @@ import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
 
 function OurJobs() {
   return (
-    <Container className="ourjobcontainer">
+  <div className="ourjobcontainer">
         <Grid stackable>
             <Grid.Row>
-                <Grid.Column width={12}>
+                <Grid.Column className="job-title" width={11}>
                     <h2>Our Jobs:</h2>
                     <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
                 </Grid.Column>
 
-                <Grid.Column width={4}>
+                <Grid.Column className="job-title" width={3}>
                     <h2>Our Walkers:</h2>
                     <div className="walkercard">
                     <UserList type="Dog Walker" apply="any" job_id="any"/>
@@ -22,7 +22,7 @@ function OurJobs() {
                 </Grid.Column>
             </Grid.Row>
         </Grid>
-    </Container>
+  </div>
   );
 }
 
