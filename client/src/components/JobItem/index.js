@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
+  QUERY_JOB_BYID,
   QUERY_USER,
   QUERY_USER_BYID,
   QUERY_WALKERJOBS,
@@ -26,10 +27,14 @@ import { NoUnusedFragmentsRule } from "graphql";
 function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const { loading, data } = useQuery(QUERY_WALKERJOBS);
 
 
 
+=======
+ 
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
   const {
     submit,
     apply,
@@ -46,7 +51,10 @@ function JobItem(item) {
     image,
   } = item;
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
   
   // All Mutations:
   const [applyJob] = useMutation(APPLY_JOB);
@@ -54,8 +62,10 @@ function JobItem(item) {
   const [updateJob] = useMutation(UPDATE_JOB);
   const [deleteJob] = useMutation(DELETE_JOB);
 
+  const { loading, data } = useQuery(QUERY_WALKERJOBS);
     // Gets from DB and updates the jobwalkers info in the global state and indexed db
     useEffect(() => {
+
       if (data) {
         dispatch({
           type: UPDATE_WALKERJOBS,
@@ -72,17 +82,25 @@ function JobItem(item) {
           });
         });
       }
+<<<<<<< HEAD
     }, [data, loading, dispatch, applyJob]);
+=======
+    }, [data, loading, dispatch]);
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
 
 
+<<<<<<< HEAD
   //refresh page
   function refresh() {
     window.location.reload(false);
   }
+=======
+ 
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 
   // gets the job submitter/creator details
   let data1 = useQuery(QUERY_USER_BYID, {
@@ -90,6 +108,10 @@ function JobItem(item) {
   });
   const submitter = data1?.data?.userById || {};
   
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 
   // check if the current owner (me) created to the job
   function updatecreatedB() {
@@ -153,9 +175,12 @@ function updateanyselectedB() {
     return selectedB
     };
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
   // creates the jobwalker element to be added to the global state and the indexed db in case of change (add/withdraw)
   function initialwalkerjob() {
     let walkerjob = {
@@ -197,7 +222,7 @@ function updateanyselectedB() {
   }
 
   const applyForJob = async () => {
-    // refresh();
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -214,10 +239,11 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    window.location.reload(false);
   };
 
   const withdrawFromJob = async () => {
-    // refresh();
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -237,6 +263,7 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    window.location.reload(false);
   };
 
   // Display the job if it corresponds to the filter criteria coming from react props item
@@ -248,7 +275,11 @@ function updateanyselectedB() {
       select == "any" &&
       selectme == "any"
     ) {
+<<<<<<< HEAD
       console.log(status);
+=======
+ 
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
       return true;
     }
 
@@ -321,6 +352,8 @@ function updateanyselectedB() {
     } catch (e) {
       console.error(e);
     }
+    
+
   }
   // When Owner clicks Delete Job:
   const deleteJobById = async() =>{
@@ -334,12 +367,17 @@ function updateanyselectedB() {
         type: UPDATE_JOBS,
         jobs: [...state.jobs.filter((job) => {return job.id !== _id })],
       });
+<<<<<<< HEAD
      refresh();
+=======
+
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
       
       idbPromise("jobs", "delete", initialjob());
     }catch(e){
       console.error(e);
     }
+    window.location.reload(false);
   }
 
   const options = [
@@ -397,7 +435,11 @@ function updateanyselectedB() {
   }
   
   const test = submitter.ratingAvg;
+<<<<<<< HEAD
   console.log(submitter.firstName);
+=======
+ 
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 
   if (!filterJob()) {
     return null;

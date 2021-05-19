@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState, setState } from "react";
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
 import JobItem from "../JobItem";
 //import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from 'react-redux'
@@ -16,15 +20,18 @@ import {
 
 
 function JobList(props) {
-
+  
   const state = useSelector(state => state)
   const dispatch = useDispatch()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
  
   const { loading, data } = useQuery(QUERY_JOBS);
 
-
   useEffect(() => {
+  
     if(data) {
       dispatch({
           type: UPDATE_JOBS,
@@ -33,6 +40,7 @@ function JobList(props) {
         data.jobs.forEach((job) => {
           idbPromise('jobs', 'put', job);
         });
+        
     } else if (!loading) {
        idbPromise('jobs', 'get').then((jobs) => {
          dispatch({
@@ -45,13 +53,13 @@ function JobList(props) {
   
  
 
+
   function filterJobs() {
     return state.jobs.filter(job => job.status == props.status);
   }
-
+  
   return (
     <Container>
-      <h2></h2>
       
       {state.jobs.length ? (
         <div className="job-cards" itemsPerRow={props.itemsPerRow}>

@@ -18,7 +18,7 @@ import Nav from "./components/Nav";
 import OurJobs from "./pages/OurJobs";
 import Cart from "./components/Cart";
 import Profile from "./pages/Profile";
-// import UserProfile from "./pages/UserProfile";
+import UserProfile from "./pages/UserProfile";
 // //import { StoreProvider } from "./utils/GlobalState";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
@@ -54,12 +54,12 @@ function App() {
             <Route exact path="/myjobhistory" component={MyJobHistory} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/singlewalkerjob/:id" component={SingleWalkerJob} />
+            <Route exact path="/profile/:id" component={UserProfile} />
             {/* <Route exact path="/success" component={Success} />
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} /> */}
               <Route component={NoMatch} />
             </Switch>
-            
           </Provider>
       
       </Router>

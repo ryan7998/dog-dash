@@ -18,12 +18,20 @@ const Home = () => {
         <Grid stackable>
             <Grid.Row>
                 <Grid.Column width={12}>
+<<<<<<< HEAD
                     <h2>Live Jobs:</h2>
+=======
+                    <h2 style={{fontSize:"3vw"}}>Live Jobs:</h2>
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
                     <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false" itemsPerRow={3}/>
                 </Grid.Column>
 
                 <Grid.Column width={4}>
+<<<<<<< HEAD
                     <h2>Top Walkers:</h2>
+=======
+                    <h2 style={{fontSize:"3vw", paddingBottom:"5%"}}>Top Walkers:</h2>
+>>>>>>> 9696ebfd09509873fd27c69479ad03ea7eddebd9
                     {/* <div className="walkercard"> */}
                     <UserList type="Dog Walker" apply="any" job_id="any"/>
                     {/* </div> */}
