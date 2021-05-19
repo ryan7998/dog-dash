@@ -16,6 +16,7 @@ import {
 import CreateJob from '../CreateJob';
 import Upload from "../../utils/upload";
 
+
 function ProfileData(item) {
   const state = useSelector(state => state)
   const dispatch = useDispatch()
@@ -38,20 +39,18 @@ function ProfileData(item) {
       
     <div className="profileimg">
       <div className="profilePicContainer">
-        <div className="centerprofileimg">
-          <Image src={image} alt={description} size='medium' circular />
+      <div className="editPic">
+        <Popup content='Upload new profile image' trigger={<a>< Upload /></a>} />
         </div>
-        <div className="editPic"><Popup content='Upload new profile image' trigger={<a>< Upload /></a>} /></div>
+        <div className="centerprofileimg">
+            <Image src={image} alt={description} size='medium' circular />
+        </div>
     </div>
     <Container className="card-container">
-        {/* <img
-          alt={description}
-          src={`/images/${image}`}
-        /> */}
         <h1>{type}</h1>
         <p>{firstName} {lastName}</p>
-        <Rating icon='star' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
-        <p>{description}</p>
+        <Rating icon='star' size="ui massive star rating" defaultRating={ratingAvg} maxRating={5} disabled={true}/>
+        <h1>{description}</h1>
         <p>{email}</p>
         <p>{address}</p>
         <div>

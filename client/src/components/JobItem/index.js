@@ -20,7 +20,6 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import UserList from "../UserList";
 import { NoUnusedFragmentsRule } from "graphql";
 
-
 function JobItem(item) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -313,6 +312,7 @@ function updateanyselectedB() {
   }
 
   return (
+    
     <>
       <Card>
         <Card.Content>
@@ -325,7 +325,9 @@ function updateanyselectedB() {
           </Link>
           <Card.Description>{description}</Card.Description>
           <Card.Meta>{date}</Card.Meta>
-          <Card.Meta>{`Price: $${price}`}</Card.Meta>
+          <div className="pricecolor">
+          {`Price: $${price}`}
+          </div>
         </Card.Content>
         
         {Auth.loggedIn() && me.type=="Dog Walker" && (
@@ -408,6 +410,7 @@ function updateanyselectedB() {
         ) : null
       } */}
     </>
+    
   );
 }
 export default JobItem;

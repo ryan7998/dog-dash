@@ -1,6 +1,10 @@
 @font-face {
   font-family: 'OJ';
-  src: local('OJ'), url(./fonts/orange-juice-2.0.ttf);
+  src: local('OJ'), url(./fonts/titlefont.ttf)format('truetype');
+}
+@font-face {
+  font-family: 'walt';
+  src: local('walt') ,url(./fonts/waltographUI.ttf)format('truetype');
 }
 
 .background-image{
@@ -58,10 +62,22 @@ td {
   box-shadow: 4px 5px 3px 0px rgba(0,0,0,0.18)!important;
 }
 
-h2 {
+h1, h2 {
   color: #00235E;
   font-size: 5vw;
   font-family: OJ!important;
+}
+
+p {
+  color: #3a8c8a;
+  font-size: 2vw;
+  font-family: OJ;
+  line-height: 2rem;
+  font-family: walt;
+}
+
+.star{
+  size: 2rem;
 }
 
 .profileimg{
@@ -69,14 +85,34 @@ h2 {
   text-align: center;
 }
 .centerprofileimg{
-  Display: flex;
-  height:100%;
-  align-items:center;
-  justify-content:center;
-  margin-bottom: 30px;
+  width:200px;
+  height:200px;
+  border-radius: 50%;
+  border:20px solid #3a8c8a;
+  float: right;
+  margin-right: 80px;
+}
+.centerprofileimg {
+  border-radius: 50%;
+  cursor:pointer;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+}
+.centerprofileimg:hover img {
+ transform: scale(1.1);
+-ms-transform: scale(1.1); 
+-webkit-transform: scale(1.1);
+  box-shadow: 2px 2px 2px #00235E;
   
 }
-
+.profilePicContainer {
+  position:relative;
+  max-width: 30%; 
+  margin-left: 380px;
+  left: 21%;
+  transform: translateX(-50%);
+  padding-bottom: 250px;
+}
 .jobpagecss {
   display: flex;
   flex-direction: row;
@@ -84,20 +120,12 @@ h2 {
   padding-top: 10rem;
 }
 
-.profilePicContainer {
-  position:relative;
-  max-width: 30%; 
-  justify-content:center;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .editPic {
   position: absolute;
   bottom: 0;
   right: 0;
   font-size: 30px;
-  transform: rotate(130deg);
+  transform: rotate(140deg);
 }
 input[type="file"] { 
   opacity: 0; /* make transparent */
@@ -117,7 +145,11 @@ input[type="file"] {
 .meta{
   padding-top: 5px;
 }
-
+.pricecolor{
+  color: orange;
+  font-size: 1.5rem;
+  padding-top: 15px;
+}
 .walkercard{
   padding-top: 12px;
   padding-bottom: 50vh;
@@ -163,6 +195,8 @@ input[type="file"] {
   background-position: 45% 89%;
   background-color: #B2D8D8;
   width: 100%;
+  padding-top: 50px;
+  padding-bottom: 150px;
 }
 
 .job-list h2 {
