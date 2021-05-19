@@ -11,7 +11,7 @@ function OurJobs() {
             <Grid.Row>
                 <Grid.Column width={12}>
                     <h2>Our Jobs:</h2>
-                    <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
+                    <JobList status="Live" submit="any" apply= "any" selectme="any" select="any"  walker="false"/>
                 </Grid.Column>
 
                 <Grid.Column width={4}>

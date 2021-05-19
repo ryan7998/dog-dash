@@ -19,7 +19,7 @@ const Home = () => {
             <Grid.Row>
                 <Grid.Column width={8}>
                     <h2>Live Jobs:</h2>
-                    <JobList status="Live" submit="any" apply= "any" select="any" selectme="false" walker="false"/>
+                    <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false"/>
                 </Grid.Column>
 
                 <Grid.Column width={8}>
