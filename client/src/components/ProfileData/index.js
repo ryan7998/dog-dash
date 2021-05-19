@@ -38,10 +38,12 @@ function ProfileData(item) {
       
     <div className="profileimg">
       <div className="profilePicContainer">
+      <div className="editPic">
+        <Popup content='Upload new profile image' trigger={<a>< Upload /></a>} />
+        </div>
         <div className="centerprofileimg">
           <Image src={image} alt={description} size='medium' circular />
         </div>
-        <div className="editPic"><Popup content='Upload new profile image' trigger={<a>< Upload /></a>} /></div>
     </div>
     <Container className="card-container">
         {/* <img

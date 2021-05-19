@@ -54,14 +54,33 @@ p {
   text-align: center;
 }
 .centerprofileimg{
-  Display: flex;
-  height:100%;
-  align-items:center;
-  justify-content:center;
-  margin-bottom: 30px;
+  width:200px;
+  height:200px;
+  border-radius: 50%;
+  border:20px solid #3a8c8a;
+  float: right;
+}
+.centerprofileimg {
+  border-radius: 50%;
+  cursor:pointer;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+}
+.centerprofileimg:hover img {
+ transform: scale(1.1);
+-ms-transform: scale(1.1); 
+-webkit-transform: scale(1.1);
+  box-shadow: 2px 2px 2px #00235E;
   
 }
-
+.profilePicContainer {
+  position:relative;
+  max-width: 30%; 
+  margin-left: 380px;
+  left: 22%;
+  transform: translateX(-50%);
+  padding-bottom: 250px;
+}
 .jobpagecss {
   display: flex;
   flex-direction: row;
@@ -69,20 +88,13 @@ p {
   padding-top: 10rem;
 }
 
-.profilePicContainer {
-  position:relative;
-  max-width: 30%; 
-  justify-content:center;
-  left: 50%;
-  transform: translateX(-50%);
-}
 
 .editPic {
   position: absolute;
   bottom: 0;
   right: 0;
   font-size: 30px;
-  transform: rotate(130deg);
+  transform: rotate(140deg);
 }
 input[type="file"] { 
   opacity: 0; /* make transparent */
