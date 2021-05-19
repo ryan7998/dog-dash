@@ -237,23 +237,15 @@ function updateanyselectedB() {
     }
   };
 
-<<<<<<< HEAD
-=======
   // Display the job if it corresponds to the filter criteria coming from react props item
   function filterJob() {
     // Our Jobs Page
-<<<<<<< HEAD
-    if ( status === "Live" ) {
-=======
     if (
-      status === "Live" &&
-      submit === "any" &&
-      apply === "any" &&
-      select === "any" &&
-      selectme === "any"
+      submit == "any" &&
+      apply == "any" &&
+      select == "any" &&
+      selectme == "any"
     ) {
-      console.log(status);
->>>>>>> feature/fazle
       return true;
     }
 
@@ -264,9 +256,9 @@ function updateanyselectedB() {
         // never applied to the job
         if (
           apply == false &&
-          (updateanyselectedB().toString() === select ||
-            (!updateanyselectedB() && select === false)) &&
-          selectme == false
+          (updateanyselectedB().toString() == select ||
+            (!updateanyselectedB() && select == "false")) &&
+          selectme == "false"
         ) {
           return true;
         } else { 
@@ -281,7 +273,7 @@ function updateanyselectedB() {
         if (
           mywalkerjob.apply.toString() == apply &&
           (updateanyselectedB().toString() == select ||
-            (!updateanyselectedB() && select == false)) &&
+            (!updateanyselectedB() && select == "false")) &&
           mywalkerjob.select.toString() == selectme
         ) {
           return true;
@@ -294,9 +286,9 @@ function updateanyselectedB() {
       if (
         updatecreatedB().toString() == submit &&
         (updateanyappliedB().toString() == apply ||
-          (!updateanyappliedB() && apply == false)) &&
+          (!updateanyappliedB() && apply == "false")) &&
         (updateanyselectedB().toString() == select ||
-          (!updateanyselectedB() && select == false))
+          (!updateanyselectedB() && select == "false"))
       ) {
         return true;
       } else {
@@ -307,7 +299,7 @@ function updateanyselectedB() {
   if (!filterJob()) {
     return null;
   }
->>>>>>> 9d555c0a18ce63c5c1638cf84d4e410e95b4a8f5
+
 
 // When Owner presses Complete Job the status updates to 'Done' ///////////
   const completeJob = async() =>{
