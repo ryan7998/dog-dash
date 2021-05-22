@@ -11,24 +11,24 @@ import {
 const HomepageBanner = () =>{
     return(
         <div>
-            <div class="whole-shiba">
-  <div class="shiba-head">
+            <div className="whole-shiba">
+  <div className="shiba-head">
       
-    <div class="ears" id="ear-left"></div>
-    <div class="ears" id="ear-right"></div>
+    <div className="ears" id="ear-left"></div>
+    <div className="ears" id="ear-right"></div>
     <div id="face"></div>
-    <div class="brows" id="brow-left"></div>
-    <div class="brows" id="brow-right"></div>
-    <div class="eyes" id="eye-left"></div>
-    <div class="eyes" id="eye-right"></div>
-    <div class="eye-light" id="eye-light-right1"></div>
-    <div class="eye-light" id="eye-light-left1"></div>
+    <div className="brows" id="brow-left"></div>
+    <div className="brows" id="brow-right"></div>
+    <div className="eyes" id="eye-left"></div>
+    <div className="eyes" id="eye-right"></div>
+    <div className="eye-light" id="eye-light-right1"></div>
+    <div className="eye-light" id="eye-light-left1"></div>
     <div id="sniff-white-1"></div>
     <div id="sniff-white-2"></div>
     <div id="nose"></div>
     <div id="mouth-up"></div>
-    <div class="mouth" id="mouth-left"></div>
-    <div class="mouth" id="mouth-right"></div>
+    <div className="mouth" id="mouth-left"></div>
+    <div className="mouth" id="mouth-right"></div>
     
     
     <div className="homepage-header">

@@ -155,7 +155,7 @@ function ProfileData(item) {
         <p>{address}</p>
         <div>
           {!hideJobButton && <CreateJob />}
-          {/* <button class="ui inverted orange button">Post Job</button> */}
+          {/* <button className="ui inverted orange button">Post Job</button> */}
         </div>
         
     </Container>
