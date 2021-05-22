@@ -26,12 +26,11 @@ const Home = () => {
             </Grid.Column>
 
             <Grid.Column width={3}>
+                      <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
+              {/* <div className="walkercard"> */}
                       
-              <h2 style={{ fontSize: "3vw", }}>Top Walkers:</h2>
-              {/*<div className="walkercard">*/}
-                        
-                <UserList type="Dog Walker" apply="any" job_id="any"/>
-              {/*</div>*/}
+              <UserList type="Dog Walker" apply="any" job_id="any" />
+              {/* </div> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

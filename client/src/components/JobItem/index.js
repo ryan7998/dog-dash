@@ -566,7 +566,6 @@ function JobItem(item) {
         </table>
       </Modal>
 
-
       {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null
       }
