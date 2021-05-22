@@ -135,7 +135,7 @@ const CreateJob = () => {
                       name="dateAndTime"
                       label="Date and Time"
                       type="datetime-local"
-                      defaultValue="2017-05-24T10:30"
+                      defaultValue="0000-00-00T00:00"
                       onChange={handleChange}
                       className={classes.textField}
                       InputLabelProps={{
