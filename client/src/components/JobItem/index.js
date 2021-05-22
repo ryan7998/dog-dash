@@ -453,7 +453,7 @@ function JobItem(item) {
   }
   return (
     <>
-      <Card
+      <Card style={{margin: "10px 0"}}
         onClick={() => {
           setOpen(true);
           console.log("clicked");
@@ -517,13 +517,13 @@ function JobItem(item) {
                 id="MySelect"
                 onChange={userMenu}
               >
-                <option value="a" class="button">
+                <option value="a" className="button">
                   Options
                 </option>
-                <option value="delete" class="button">
+                <option value="delete" className="button">
                   Delete
                 </option>
-                <option value="completed" class="button">
+                <option value="completed" className="button">
                   Completed
                 </option>
               </select>
@@ -565,7 +565,6 @@ function JobItem(item) {
           </tr>
         </table>
       </Modal>
-
 
       {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
           (<button onClick={withdrawFromJob}>Withdraw</button>):null

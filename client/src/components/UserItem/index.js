@@ -236,7 +236,7 @@ if (!filterUser()){return null}
 
   return (
     <>
-    <Card>
+    <Card style={{margin: "10px 0"}}>
       <Card.Content>
         <Image
           floated='right'

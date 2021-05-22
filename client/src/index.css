@@ -191,6 +191,10 @@ input[type="file"] {
   display: flex;
   flex-direction: row;
 } */
+.job-cards {
+  justify-content: flex-start;
+  gap: 20px 30px;
+}
 
 
 .job-list {
@@ -209,8 +213,12 @@ input[type="file"] {
   padding-top: 50px;
 }
 
-.ui.card {
+/* .ui.card {
     margin: 3em 0;
+} */
+
+.ui.card, .ui.grid {
+  margin: 0;
 }
 
 .dog-title {
