@@ -53,7 +53,7 @@ function JobList(props) {
     <Container>
       
       {state.jobs.length ? (
-        <div className="job-cards" itemsPerRow={props.itemsPerRow}>
+        <div class="ui three column grid">
             {filterJobs().map(job => (
                 <JobItem apply= {props.apply} submit={props.submit} select={props.select} selectme={props.selectme} walker={props.walker}
                   key= {job._id}

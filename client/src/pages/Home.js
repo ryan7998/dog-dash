@@ -17,13 +17,13 @@ const Home = () => {
     <Container className="ourjobcontainer">
         <Grid stackable>
             <Grid.Row>
-                <Grid.Column width={12}>
+                <Grid.Column width={13}>
                     <h2 style={{fontSize:"3vw"}}>Live Jobs:</h2>
                     <JobList status="Live" submit="any" apply= "any" select="any" selectme="any" walker="false" itemsPerRow={3}/>
                 </Grid.Column>
 
-                <Grid.Column width={4}>
-                    <h2 style={{fontSize:"3vw", paddingBottom:"5%"}}>Top Walkers:</h2>
+                <Grid.Column width={3}>
+                    <h2 style={{fontSize:"3vw", }}>Top Walkers:</h2>
                     {/* <div className="walkercard"> */}
                     <UserList type="Dog Walker" apply="any" job_id="any"/>
                     {/* </div> */}

@@ -47,7 +47,7 @@ function JobHistory(props) {
       <h2></h2>
       <h2>Jobs History</h2>
       {state.jobs.length ? (
-        <Card.Group itemsPerRow={3}>
+        <div class="ui two column grid">
             {filterJobs().map(job => (
                 <JobItem
                   key= {job._id}
@@ -61,7 +61,7 @@ function JobHistory(props) {
                   image={job.image}                  
                 />
             ))}
-        </Card.Group>
+        </div>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
