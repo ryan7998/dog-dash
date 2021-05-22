@@ -57,7 +57,8 @@ function App() {
               component={SingleWalkerJob}
             />
             <Route exact path="/profile/:id" component={UserProfile} />
-            {/* <Route exact path="/success" component={Success} />
+            <Route exact path="/success" component={Success} />
+            {/* 
               <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} /> */}
             <Route component={NoMatch} />
