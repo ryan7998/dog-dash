@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-//import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from '@apollo/react-hooks';
 import { QUERY_CHECKOUT } from "../../utils/queries"
 import { idbPromise } from "../../utils/helpers"
@@ -15,7 +15,7 @@ import {
   Button
 } from 'semantic-ui-react';
 
-//const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+// const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
 
 const Cart = () => {

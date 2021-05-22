@@ -44,26 +44,26 @@ const CartItem = ({ item }) => {
 
   return (
 
-    <div class="ui items">
-  <div class="item">
+    <div className="ui items">
+  <div className="item">
 
-    <div class="image">
+    <div className="image">
       <img  src={`/images/${item.image}`}
           alt=""
         />
     </div>
 
-    <div class="content">
+    <div className="content">
       <div>
       {item.name} 
       </div>
       <div className="cartprice">
       ${item.price}
       </div>
-      <div class="meta">
+      <div className="meta">
         <span>Description</span>
       </div>
-      <div class="extra">
+      <div className="extra">
         Additional Details
         <div>
      </div>
