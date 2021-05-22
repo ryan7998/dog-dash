@@ -43,7 +43,7 @@ const CreateJob = () => {
           title: formState.title,
           description: formState.description,
           price: parseFloat(formState.price),
-          date: value,
+          date: formState.dateAndTime,
           status: "Live",
         },
       });
@@ -132,9 +132,11 @@ const CreateJob = () => {
                   <form className={classes.container} noValidate>
                     <TextField
                       id="datetime-local"
-                      label="Next appointment"
+                      name="dateAndTime"
+                      label="Date and Time"
                       type="datetime-local"
                       defaultValue="2017-05-24T10:30"
+                      onChange={handleChange}
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,
