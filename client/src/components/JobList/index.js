@@ -7,10 +7,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
-<<<<<<< HEAD
-import { Card, Icon } from "semantic-ui-react";
-=======
->>>>>>> feature/manjula-v1
 import { Button, Container, Header } from "semantic-ui-react";
 
 function JobList(props) {

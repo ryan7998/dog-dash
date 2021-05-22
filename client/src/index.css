@@ -187,13 +187,6 @@ input[type="file"] {
   padding-top: 2rem;
 }
 
-<<<<<<< HEAD
-=======
-/* .job-cards {
-  display: flex;
-  flex-direction: row;
-} */
->>>>>>> feature/manjula-v1
 .job-cards {
   justify-content: flex-start;
   gap: 20px 30px;
