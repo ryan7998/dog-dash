@@ -75,15 +75,17 @@ const resolvers = {
       const order = new Order({ jobs: args.jobs });
       const line_items = [];
 
+
       const { jobs } = await order.populate('jobs').execPopulate();
 
       for (let i = 0; i < jobs.length; i++) {
-        const job = await stripe.jobs.create({
+        const job = await stripe.products.create({
+          name: jobs[i].description,
           description: jobs[i].description
         });
 
         const price = await stripe.prices.create({
-          job: job.id,
+          product: job.id,
           unit_amount: jobs[i].price * 100,
           currency: 'usd',
         });
