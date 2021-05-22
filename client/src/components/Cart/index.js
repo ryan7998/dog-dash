@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-//import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from '@apollo/react-hooks';
 import { QUERY_CHECKOUT } from "../../utils/queries"
 import { idbPromise } from "../../utils/helpers"
@@ -15,8 +15,8 @@ import {
   Button
 } from 'semantic-ui-react';
 
-//const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
-const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+// const stripePromise = []  /////////////////// to be corrected to use the commented out loadStripe
 
 const Cart = () => {
   const state = useSelector(state => state)
@@ -60,12 +60,12 @@ const Cart = () => {
 
     state.cart.forEach((item) => {
       //for (let i = 0; i < item.purchaseQuantity; i++) {
-        productIds.push(item._id);
+        productIds.push(item.job_id);
       //}
     });
-
+    
     getCheckout({
-      variables: { products: productIds }
+      variables: { jobs: productIds }
     });
   }
 
