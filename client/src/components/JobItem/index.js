@@ -453,7 +453,8 @@ function JobItem(item) {
   }
   return (
     <>
-      <Card style={{margin: "10px 0"}}
+      <Card
+        style={{ margin: "10px 0" }}
         onClick={() => {
           setOpen(true);
           console.log("clicked");
@@ -511,22 +512,11 @@ function JobItem(item) {
         {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
             {status == "Live" ? (
-              <select
-                className="ui fluid selection orange button"
-                name="MySelect"
-                id="MySelect"
-                onChange={userMenu}
-              >
-                <option value="a" className="button">
-                  Options
-                </option>
-                <option value="delete" className="button">
-                  Delete
-                </option>
-                <option value="completed" className="button">
-                  Completed
-                </option>
-              </select>
+              <Button.Group>
+                <Button value="delete" onClick={userMenu} negative>Delete</Button>
+                <Button.Or />
+                <Button value="completed" onClick={userMenu} positive>Completed</Button>
+              </Button.Group>
             ) : null}
             <UserList
               type="Dog Walker"

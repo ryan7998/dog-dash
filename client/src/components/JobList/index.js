@@ -35,7 +35,8 @@ function JobList(props) {
   }, [data, loading, dispatch]);
 
   function filterJobs() {
-    return state.jobs.filter((job) => job.status == props.status);
+    let result = state.jobs.filter((job) => job.status == props.status).reverse();
+    return result.sort(state.jobs.date);    //Jobs are shown in the ascending order
   }
 
   return (

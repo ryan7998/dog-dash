@@ -34,6 +34,7 @@ const CreateJob = () => {
   // check if loggedin user is a walker
 
   const userIsWalker = useQuery(QUERY_USER)?.data?.user.type === "Dog Walker";
+
   useEffect(() => {}, [addJob]);
 
   const createJob = async (event) => {
@@ -48,11 +49,13 @@ const CreateJob = () => {
         },
       });
       setOpen(false);
-      window.location.reload(false);
+      console.log("Modal was closed");
+      window.location.replace("/myjobhistory");
     } catch (e) {
       console.log(e, error);
+      window.location.reload(false);
     }
-    window.location.reload(false);
+    //window.location.reload(false);
   };
 
   const handleChange = (event) => {
@@ -135,7 +138,7 @@ const CreateJob = () => {
                       name="dateAndTime"
                       label="Date and Time"
                       type="datetime-local"
-                      defaultValue="2017-05-24T10:30"
+                      defaultValue="0000-00-00T00:00"
                       onChange={handleChange}
                       className={classes.textField}
                       InputLabelProps={{
