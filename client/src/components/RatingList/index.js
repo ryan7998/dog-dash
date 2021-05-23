@@ -31,13 +31,14 @@ function RatingList() {
     if (!ratings) {
       return rating;
     }
+    console.log("Start");
     return ratings.ratings.filter(obj => {
         console.log(obj);
         return obj.rated_id._id == userID
     });
   }
 
-//console.log(filterRatings(data0?.data));
+console.log(filterRatings(data0?.data));
   return (
     <div className="flex-row">  
        {data0?.data ? (
