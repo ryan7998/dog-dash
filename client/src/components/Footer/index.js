@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <Segment inverted vertical style={{ padding: "2em 0em" }}>
+    <Segment inverted vertical style={{ padding: "2em 0em", margin:'40px 0' }}>
       <Container>
         <List style={{ margin: "0em 2em" }} horizontal>
           <List.Item>

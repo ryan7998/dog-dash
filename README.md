@@ -32,9 +32,9 @@ Main functionalities:
 2. When user is logged in on the website, then user sees job postings and a list of dog walkers. The user can also see ratings, comments, MyJob section. If the user is a dog owner, user can see a cart section. If user is a dog walker, user can click to apply to a job and it will be added to MyJobs page, Dog walker can click on a user to see more details.
 3. When user views other users profile, then user can see the user details, the individual ratings and add comments.
 4. When user clicks on the picture, then user can see the detail of the dog information. 
-5. When user is a dog owner and clicks on MyJobs, then user can see and create the jobs (live and done). User can also see the job applicants and select a dog Walker if it is not already done. If user selects a dog Walker, that item is added to the cart. Once user checkout, user cannot change the selected dog Walker.
+5. When user is a dog owner and clicks on MyJobs, then user can see and create the jobs (live and done). User can also see the job applicants and select a dog Walker if it is not already done. If user selects a dog Walker, that item is added to the cart. The owner can go to cart and make the payment checkout.
 6. When user is a dog walker and clicks on MyJobs, then user can see the jobs he/she applied for (live and done). User can withdraw my application as long as user is not selected yet.
-10. When user logout, then user is directed to the home page and can only see job postings and a list of dog walkers.
+10. When user logout, then user is directed back to the register page.
 
 
 <a name="Technologies"></a>
