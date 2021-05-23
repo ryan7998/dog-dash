@@ -41,16 +41,7 @@ function RatingList() {
        {data0?.data ? (
            <div className='ratingList'>
                <List divided relaxed verticalAlign="middle" >
-               {filterRatings(data0?.data).map(rating => (
-                <RatingItem
-                 key= {rating._id}
-                 firstName= {rating.rater_id.firstName}
-                 lastName= {rating.rater_id.lastName}
-                 text= {rating.text}
-                 ratingNb= {rating.ratingNb}
-                 image= {rating.rater_id.image}
-                 />
-               ))}
+               
                </List>
             </div>
        ) : (
