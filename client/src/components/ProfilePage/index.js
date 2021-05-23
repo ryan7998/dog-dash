@@ -16,7 +16,7 @@ function ProfilePage() {
     console.log("This is me: ", me);
     setMe(data0?.data?.user || {});
   }, [data0]);
-//<RatingList _id={me._id}/>
+
 
   // const me = data0?.data?.user || {};
   console.log(me);
@@ -36,7 +36,7 @@ function ProfilePage() {
         ratingAvg={me.ratingAvg}
         type={me.type}
       />
-      
+      <RatingList _id={me._id}/>
     </div>
   );
 }
