@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import HomepageBanner from "../components/HompageBanner";
-import { Button, Container, Header, Icon, Grid } from "semantic-ui-react";
+import { Container, Grid } from "semantic-ui-react";
 import JobList from "../components/JobList";
 import Auth from "../utils/auth";
 import UserList from "../components/UserList";
@@ -27,10 +26,8 @@ const Home = () => {
 
             <Grid.Column width={3}>
                       <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
-              {/* <div className="walkercard"> */}
                       
               <UserList type="Dog Walker" apply="any" job_id="any" />
-              {/* </div> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

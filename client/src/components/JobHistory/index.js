@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import JobItem from "../JobItem";
-//import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_JOBS } from "../../utils/actions";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
-import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
-import { Card, Icon } from "semantic-ui-react";
 
 function JobHistory(props) {
   const state = useSelector((state) => state);
@@ -20,16 +17,7 @@ function JobHistory(props) {
         type: UPDATE_JOBS,
         jobs: data.jobs,
       });
-      // data.jobs.forEach((job) => {
-      //   idbPromise('jobs', 'put', job);
-      // });
     } else if (!loading) {
-      // idbPromise('jobs', 'get').then((jobs) => {
-      //   dispatch({
-      //     type: UPDATE_JOBS,
-      //     jobs: jobs
-      //  });
-      // });
     }
   }, [data, loading, dispatch]);
 

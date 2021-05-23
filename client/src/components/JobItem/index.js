@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
-//import Modal from 'ract-modal'
-import {
-  Card,
-  Icon,
-  Button,
-  Image,
-  Dropdown,
-  Rating,
-  Select,
-} from "semantic-ui-react";
+
+import { Card, Button, Image, Rating } from "semantic-ui-react";
 
 import { UPDATE_JOBS } from "../../utils/actions";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers";
-//import { useStoreContext } from "../../utils/GlobalState";
+
 import { useSelector, useDispatch } from "react-redux";
-//import { ADD_TO_CART } from "../../utils/actions";
+
 import { idbPromise } from "../../utils/helpers";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
@@ -34,9 +24,8 @@ import {
 } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { UPDATE_WALKERJOBS } from "../../utils/actions";
-import { useLazyQuery } from "@apollo/react-hooks";
+
 import UserList from "../UserList";
-import { NoUnusedFragmentsRule } from "graphql";
 
 function JobItem(item) {
   const state = useSelector((state) => state);
@@ -501,9 +490,12 @@ function JobItem(item) {
                   </Button>
                 ))}
             </div>
-            <div className="ui buttons right floated" onClick={() => setOpen(true)}>
+            <div
+              className="ui buttons right floated"
+              onClick={() => setOpen(true)}
+            >
               <Button className="centered" secondary>
-               Expand
+                Expand
               </Button>
             </div>
           </Card.Content>
@@ -527,8 +519,6 @@ function JobItem(item) {
               job_id={_id}
               job_price={price}
             />
-            {/* <Button color="orange" onClick={completeJob}>Job Completed</Button> */}
-            {/* <Button color="red" onClick={deleteJobById}>Delete Job</Button> } */}
           </Card.Content>
         )}
       </Card>
@@ -544,7 +534,6 @@ function JobItem(item) {
               <Card
                 image={image ? image : "https://placedog.net/500"}
                 header={title}
-                //meta={`${submitter?.firstName}  ${submitter?.lastName}`}
                 description={description}
               />
             </th>
@@ -558,29 +547,6 @@ function JobItem(item) {
           </tr>
         </table>
       </Modal>
-
-      {/* { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== true  && updateanyselectedB()==false) ? 
-          (<button onClick={withdrawFromJob}>Withdraw</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateappliedB()== false  && updateanyselectedB()==false) ? 
-        (<button onClick={applyForJob}>Apply</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateselectedB()==true) ? 
-        (<button>You were selected</button>):null
-      }
-      { (Auth.loggedIn() && me.type=="Dog Walker" && updateanyselectedB()==true && updateselectedB()==false) ? 
-        (<button>Walker selected</button>):null
-      }
-
-      {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" ? (
-        <UserList
-          type="Dog Walker"
-          apply="true"
-          job_id={_id}
-          job_price={price}
-        />
-        ) : null
-      } */}
     </>
   );
 }

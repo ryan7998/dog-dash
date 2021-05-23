@@ -1,12 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
-//import ReactionList from '../components/ReactionList';
-
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_JOB_BYID } from '../utils/queries';
-//import ReactionForm from '../components/ReactionForm';
-import Auth from '../utils/auth';  //Not yet
+
 
 const SingleWalkerJob = props => {
   const { id: walkerJobId } = useParams();
@@ -36,9 +32,6 @@ const SingleWalkerJob = props => {
           <p>Status: {walkerjob.status}</p>
         </div>
       </div>
-
-      {/* {thought.reactionCount > 0 && <ReactionList reactions={thought.reactions} />}
-      {Auth.loggedIn() && <ReactionForm thoughtId={thought._id} />} */}
     </div>
   );
 };
