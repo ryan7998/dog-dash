@@ -4,6 +4,7 @@ import ProfileData from "../ProfileData";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
 import CreateJob from '../CreateJob';
+import RatingList from "../RatingList";
 
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
@@ -31,6 +32,7 @@ function ProfilePage() {
         ratingAvg={me.ratingAvg}
         type={me.type}
       />
+      <RatingList _id={me._id}/>
     </div>
   );
 }

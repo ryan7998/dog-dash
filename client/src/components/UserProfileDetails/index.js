@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileData from '../ProfileData';
 import JobItem from '../JobItem';
+import RatingList from "../RatingList";
 
 const UserProfileDetails = ({profileData}) =>{
 
@@ -41,6 +42,7 @@ const UserProfileDetails = ({profileData}) =>{
         type={type}
         hideJobButton = {true}
       />
+      <RatingList _id={_id}/>
     </div>
     {/* if user is a walker show number of jobs completed: */}
     {userIsWalker && (

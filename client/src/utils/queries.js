@@ -113,6 +113,17 @@ export const QUERY_USERS = gql`
   }
 `;
 
+export const QUERY_RATINGS = gql`
+{
+  ratings {
+    _id
+    rated_id {_id firstName lastName}
+    rater_id {_id firstName lastName}
+    text
+    ratingNb
+  }
+}
+`;
 
 
 export const QUERY_CHECKOUT = gql`
