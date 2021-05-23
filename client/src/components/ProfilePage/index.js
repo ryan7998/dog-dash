@@ -38,7 +38,7 @@ function ProfilePage() {
       />
       {me._id && (
           <div>
-            <RatingList _id={me._id}/>
+            <RatingList />
           </div>
         )}
     </div>

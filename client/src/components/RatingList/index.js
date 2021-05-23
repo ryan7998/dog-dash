@@ -10,11 +10,12 @@ import {
     List
   } from 'semantic-ui-react';
 
-function RatingList({ _id }) {
+function RatingList() {
   //  GET LOGGED IN USER INFO
   let [rating, setRating] = useState({});
   let data0 = useQuery(QUERY_RATINGS);
 
+  const userID = Auth.getProfile().data._id;
   const urlID = useParams().id;
   //console.log(_id);
   useEffect(() => {
@@ -30,7 +31,7 @@ function RatingList({ _id }) {
       return rating;
     }
     return ratings.ratings.filter(obj => {
-        return obj.rated_id._id === _id
+        return obj.rated_id._id === userID
     });
   }
 
