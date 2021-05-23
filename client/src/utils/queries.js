@@ -33,6 +33,7 @@ export const QUERY_USER_BYID = gql`
         submittedJobs
         appliedJobs
         selectedJobs
+        receivedRatings {_id}
         orders {
           _id
           purchaseDate
@@ -113,6 +114,17 @@ export const QUERY_USERS = gql`
   }
 `;
 
+export const QUERY_RATINGS = gql`
+{
+  ratings {
+    _id
+    rated_id {_id firstName lastName}
+    rater_id {_id firstName lastName image}
+    text
+    ratingNb
+  }
+}
+`;
 
 
 export const QUERY_CHECKOUT = gql`
@@ -137,6 +149,7 @@ export const QUERY_USER = gql`
     email
     image
     ratingAvg
+    receivedRatings {_id}
     orders {
       _id
       purchaseDate

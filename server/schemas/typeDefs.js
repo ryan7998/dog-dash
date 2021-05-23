@@ -69,8 +69,8 @@ const typeDefs = gql`
 
   type Rating {
     _id: ID
-    rater_id: ID!
-    rated_id: ID!
+    rater_id: User
+    rated_id: User
     ratingNb: String!
     text: String
   }
@@ -90,7 +90,7 @@ const typeDefs = gql`
     walkerjobs: [WalkerJob]
     jobById(_id: ID!): Job
     userById(_id: ID!): User
-    
+    ratings: [Rating]
 
     user: User
     order(_id: ID!): Order

@@ -43,20 +43,29 @@ function ProfileData(item) {
   }
 
   const {
-    _id,
-    firstName,
-    lastName,
-    description,
-    address,
-    email,
-    image,
-    ratingAvg,
-    type,
-    hideJobButton,
+      _id,
+      firstName,
+      lastName,
+      description,
+      address,
+      email,
+      image,
+      ratingAvg,
+      type,
+      receivedRate,
+      hideJobButton
   } = item;
 
-  const handleChange = (event) => {
-    if (event.target.textContent) {
+  let numOfRating = 0;
+  if (receivedRate) {
+    numOfRating = receivedRate.length;
+  } else {
+    numOfRating = 0;
+  }
+  
+ 
+  const handleChange = event => {
+    if(event.target.textContent){
       setFormState({
         ...formState,
         type: event.target.textContent,
@@ -100,16 +109,6 @@ function ProfileData(item) {
   return (
     <div className="profileimg">
       <div className="profilePicContainer">
-        <div className="editPic">
-          <Popup
-            content="Upload new profile image"
-            trigger={
-              <a>
-                <Upload />
-              </a>
-            }
-          />
-        </div>
         <div className="centerprofileimg">
           <Image src={image} alt={description} size="medium" circular />
         </div>

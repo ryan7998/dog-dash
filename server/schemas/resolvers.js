@@ -28,6 +28,12 @@ const resolvers = {
         .populate('receivedRatings');
         return users;
     },
+
+    ratings: async (parent) => {
+        const ratings = await Rating.find().populate('rater_id').populate('rated_id');
+
+        return ratings;
+    },
     
     jobById: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
