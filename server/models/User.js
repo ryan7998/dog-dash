@@ -41,7 +41,8 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
-    required: false
+    required: false,
+    default: 'https://dogdash.s3.us-east-2.amazonaws.com/defaultPic.png'
   },
   type: {
     type: String,

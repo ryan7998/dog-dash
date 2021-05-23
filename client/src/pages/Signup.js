@@ -28,7 +28,7 @@ function Signup(props) {
           type: formState.type,
           address: formState.address, 
           description: formState.description, 
-          image: "testimage"
+          image: "https://dogdash.s3.us-east-2.amazonaws.com/defaultPic.png"
         }
       });
       const token = mutationResponse.data.addUser.token;

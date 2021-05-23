@@ -43,20 +43,29 @@ function ProfileData(item) {
   }
 
   const {
-    _id,
-    firstName,
-    lastName,
-    description,
-    address,
-    email,
-    image,
-    ratingAvg,
-    type,
-    hideJobButton,
+      _id,
+      firstName,
+      lastName,
+      description,
+      address,
+      email,
+      image,
+      ratingAvg,
+      type,
+      receivedRate,
+      hideJobButton
   } = item;
 
-  const handleChange = (event) => {
-    if (event.target.textContent) {
+  let numOfRating = 0;
+  if (receivedRate) {
+    numOfRating = receivedRate.length;
+  } else {
+    numOfRating = 0;
+  }
+  
+ 
+  const handleChange = event => {
+    if(event.target.textContent){
       setFormState({
         ...formState,
         type: event.target.textContent,
@@ -100,6 +109,7 @@ function ProfileData(item) {
   return (
     <div className="profileimg">
       <div className="profilePicContainer">
+
         <div className="editPic">
           <Popup
             content="Upload new profile image"
@@ -129,16 +139,10 @@ function ProfileData(item) {
       </div>
       <Container className="card-container">
         <h1>{type}</h1>
-        <p>
-          {firstName} {lastName}
-        </p>
-        <Rating
-          icon="star"
-          size="ui massive star rating"
-          defaultRating={ratingAvg}
-          maxRating={5}
-          disabled={true}
-        />
+        <p>{firstName} {lastName}</p>
+        <p className='mainRating'>({numOfRating})</p>
+        <Rating className='mainRating' icon='star' size='ui massive star rating' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
+
         {/*conditionaly render the Rating upload only if it is NOT USERS own page profile */}
         {!(_id === userID) && (
           <Modal
