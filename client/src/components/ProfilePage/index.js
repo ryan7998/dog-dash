@@ -36,7 +36,11 @@ function ProfilePage() {
         ratingAvg={me.ratingAvg}
         type={me.type}
       />
-      
+      {me._id && (
+          <div>
+            <RatingList _id={me._id}/>
+          </div>
+        )}
     </div>
   );
 }

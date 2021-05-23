@@ -43,7 +43,7 @@ const UserProfileDetails = ({profileData}) =>{
         hideJobButton = {true}
         receivedRate={receivedRatings}
       />
-      <RatingList _id={_id}/>
+      
     </div>
     {/* if user is a walker show number of jobs completed: */}
     {userIsWalker && (
