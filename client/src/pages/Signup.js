@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Form, Button, Grid, Header, Icon, Image, Message, Segment, TextArea } from 'semantic-ui-react'
+import { Form, Button, Grid, Header, Message, Segment} from 'semantic-ui-react'
 import { useMutation } from '@apollo/react-hooks';
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
-import background from "../assets/bgwhite.png";
+
 
 function Signup(props) {
 

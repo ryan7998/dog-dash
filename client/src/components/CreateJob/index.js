@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Header,
-  Icon,
   Modal,
-  Checkbox,
   Form,
   Container,
   Grid,
@@ -13,10 +11,6 @@ import {
   Input,
   Label,
 } from "semantic-ui-react";
-import SemanticDatepicker from "react-semantic-ui-datepickers";
-// import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import DateTimePicker from "react-datetime-picker";
-// import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle'
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_JOB } from "../../utils/mutations";
 import { useQuery } from "@apollo/react-hooks";
@@ -55,7 +49,6 @@ const CreateJob = () => {
       console.log(e, error);
       window.location.reload(false);
     }
-    //window.location.reload(false);
   };
 
   const handleChange = (event) => {
@@ -131,7 +124,6 @@ const CreateJob = () => {
                     <input onChange={handleChange} />
                     <Label>.00</Label>
                   </Input>
-                  {/* <DateTimePicker name="datePicker" onChange={onChange} value={value} label="Select Date"/> */}
                   <form className={classes.container} noValidate>
                     <TextField
                       id="datetime-local"

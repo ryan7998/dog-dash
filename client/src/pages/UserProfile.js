@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_USER_BYID } from '../utils/queries';
 import UserProfileDetails from '../components/UserProfileDetails';
