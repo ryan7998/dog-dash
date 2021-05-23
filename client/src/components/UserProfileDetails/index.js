@@ -24,7 +24,7 @@ const UserProfileDetails = ({profileData}) =>{
 
     // get the type of user:
     const userIsWalker = (type === 'Dog Walker');
-    
+    //<RatingList _id={_id}/>
   return (
       <>
     <div className="flex-row">
@@ -43,7 +43,7 @@ const UserProfileDetails = ({profileData}) =>{
         hideJobButton = {true}
         receivedRate={receivedRatings}
       />
-      <RatingList _id={_id}/>
+      
     </div>
     {/* if user is a walker show number of jobs completed: */}
     {userIsWalker && (
