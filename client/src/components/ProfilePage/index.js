@@ -6,6 +6,7 @@ import { QUERY_USER } from "../../utils/queries";
 
 import RatingList from "../RatingList";
 
+
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
@@ -15,6 +16,10 @@ function ProfilePage() {
     console.log("This is me: ", me);
     setMe(data0?.data?.user || {});
   }, [data0]);
+
+
+  // const me = data0?.data?.user || {};
+  console.log(me);
 
   return (
     <div className="flex-row">
