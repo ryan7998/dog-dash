@@ -453,13 +453,7 @@ function JobItem(item) {
   }
   return (
     <>
-      <Card
-        style={{ margin: "10px 0" }}
-        onClick={() => {
-          setOpen(true);
-          console.log("clicked");
-        }}
-      >
+      <Card style={{ margin: "10px 0" }}>
         <Card.Content>
           <Image
             src={submitter.image ? submitter.image : "https://placedog.net/500"}
@@ -507,15 +501,24 @@ function JobItem(item) {
                   </Button>
                 ))}
             </div>
+            <div className="ui buttons right floated" onClick={() => setOpen(true)}>
+              <Button className="centered" secondary>
+               Expand
+              </Button>
+            </div>
           </Card.Content>
         )}
         {Auth.loggedIn() && me.type == "Dog Owner" && walker == "true" && (
           <Card.Content extra>
             {status == "Live" ? (
               <Button.Group>
-                <Button value="delete" onClick={userMenu} negative>Delete</Button>
+                <Button value="delete" onClick={userMenu} negative>
+                  Delete
+                </Button>
                 <Button.Or />
-                <Button value="completed" onClick={userMenu} positive>Completed</Button>
+                <Button value="completed" onClick={userMenu} positive>
+                  Completed
+                </Button>
               </Button.Group>
             ) : null}
             <UserList
