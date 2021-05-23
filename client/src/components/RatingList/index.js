@@ -32,7 +32,7 @@ function RatingList() {
       return rating;
     }
     return ratings.ratings.filter(obj => {
-        return obj.rated_id._id === userID
+        return obj.rated_id._id == userID
     });
   }
 
