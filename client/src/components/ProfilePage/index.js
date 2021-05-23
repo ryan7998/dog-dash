@@ -4,6 +4,10 @@ import ProfileData from "../ProfileData";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
 
+import CreateJob from '../CreateJob';
+import RatingList from "../RatingList";
+
+
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
@@ -13,6 +17,10 @@ function ProfilePage() {
     console.log("This is me: ", me);
     setMe(data0?.data?.user || {});
   }, [data0]);
+
+
+  // const me = data0?.data?.user || {};
+  console.log(me);
 
   return (
     <div className="flex-row">
@@ -25,9 +33,11 @@ function ProfilePage() {
         address={me.address}
         email={me.email}
         image={me.image}
+        receivedRate={me.receivedRatings}
         ratingAvg={me.ratingAvg}
         type={me.type}
       />
+      <RatingList _id={me._id}/>
     </div>
   );
 }

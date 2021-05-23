@@ -1,6 +1,10 @@
 import React from 'react';
 import ProfileData from '../ProfileData';
 
+import JobItem from '../JobItem';
+import RatingList from "../RatingList";
+
+
 const UserProfileDetails = ({profileData}) =>{
 
     // Destructure profile Data:
@@ -17,6 +21,7 @@ const UserProfileDetails = ({profileData}) =>{
         submittedJobs,
         appliedJobs,
         selectedJobs,
+        receivedRatings,
         orders
     } = profileData;
 
@@ -39,7 +44,9 @@ const UserProfileDetails = ({profileData}) =>{
         ratingAvg={ratingAvg}
         type={type}
         hideJobButton = {true}
+        receivedRate={receivedRatings}
       />
+      <RatingList _id={_id}/>
     </div>
     {/* if user is a walker show number of jobs completed: */}
     {userIsWalker && (

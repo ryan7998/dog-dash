@@ -13,7 +13,9 @@ const UserProfile = () =>{
 
     if(loading){return <div>Loading..</div>}
     return(
-        <UserProfileDetails profileData={profileData.userById}/>
+        <div>
+          <UserProfileDetails profileData={profileData.userById}/>
+        </div>
     )
 }
 

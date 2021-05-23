@@ -180,7 +180,7 @@ input[type="file"] {
 
 
 .card-container{
-  padding-bottom: 10rem;
+  padding-bottom: 0;
 }
 
 .checkoutbtn{
@@ -224,6 +224,21 @@ input[type="file"] {
   text-align: center;
 }
 
+.ratingList {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.ratingItem {
+  margin: auto;
+  width: 100%;
+}
+
+.mainRating {
+  display: inline-block;
+  margin-bottom: 0;
+}
 
 /*************************** DOG ANIMATION HOME PAGE ****************************/
 
