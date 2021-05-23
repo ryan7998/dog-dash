@@ -43,20 +43,29 @@ function ProfileData(item) {
   }
 
   const {
-    _id,
-    firstName,
-    lastName,
-    description,
-    address,
-    email,
-    image,
-    ratingAvg,
-    type,
-    hideJobButton,
+      _id,
+      firstName,
+      lastName,
+      description,
+      address,
+      email,
+      image,
+      ratingAvg,
+      type,
+      receivedRate,
+      hideJobButton
   } = item;
 
-  const handleChange = (event) => {
-    if (event.target.textContent) {
+  let numOfRating = 0;
+  if (receivedRate) {
+    numOfRating = receivedRate.length;
+  } else {
+    numOfRating = 0;
+  }
+  
+ 
+  const handleChange = event => {
+    if(event.target.textContent){
       setFormState({
         ...formState,
         type: event.target.textContent,

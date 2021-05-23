@@ -4,6 +4,8 @@ import ProfileData from "../ProfileData";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
 
+import RatingList from "../RatingList";
+
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
@@ -25,9 +27,11 @@ function ProfilePage() {
         address={me.address}
         email={me.email}
         image={me.image}
+        receivedRate={me.receivedRatings}
         ratingAvg={me.ratingAvg}
         type={me.type}
       />
+      <RatingList _id={me._id}/>
     </div>
   );
 }
