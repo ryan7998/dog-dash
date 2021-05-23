@@ -35,7 +35,7 @@ function RatingList() {
     });
   }
 
-
+console.log(filterRatings(data0?.data));
   return (
     <div className="flex-row">  
        {data0?.data ? (
