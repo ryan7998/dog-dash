@@ -2,7 +2,7 @@ import React from "react";
 import JobList from "../components/JobList";
 import UserList from "../components/UserList";
 
-import { Button, Container, Grid, Header, Icon } from "semantic-ui-react";
+import {Container, Grid} from "semantic-ui-react";
 
 function OurJobs() {
   return (

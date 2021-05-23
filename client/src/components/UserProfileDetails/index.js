@@ -1,7 +1,9 @@
 import React from 'react';
 import ProfileData from '../ProfileData';
+
 import JobItem from '../JobItem';
 import RatingList from "../RatingList";
+
 
 const UserProfileDetails = ({profileData}) =>{
 

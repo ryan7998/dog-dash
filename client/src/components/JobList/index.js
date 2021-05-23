@@ -1,13 +1,12 @@
 import React, { useEffect, useState, setState } from "react";
 import JobItem from "../JobItem";
-//import { useStoreContext } from "../../utils/GlobalState";
 import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_JOBS } from "../../utils/actions";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
-import { Button, Container, Header } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 
 function JobList(props) {
   const state = useSelector((state) => state);
@@ -35,8 +34,10 @@ function JobList(props) {
   }, [data, loading, dispatch]);
 
   function filterJobs() {
-    let result = state.jobs.filter((job) => job.status == props.status).reverse();
-    return result.sort(state.jobs.date);    //Jobs are shown in the ascending order
+    let result = state.jobs
+      .filter((job) => job.status == props.status)
+      .reverse();
+    return result.sort(state.jobs.date); //Jobs are shown in the ascending order
   }
 
   return (
@@ -58,7 +59,6 @@ function JobList(props) {
               price={job.price}
               date={job.date}
               status={job.status}
-              // image={job.image}
             />
           ))}
         </div>

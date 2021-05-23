@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import ProfileData from "../ProfileData";
-//import { useStoreContext } from "../../utils/GlobalState";
+
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
+
 import CreateJob from '../CreateJob';
 import RatingList from "../RatingList";
+
 
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
   let data0 = useQuery(QUERY_USER);
-  
+
   useEffect(() => {
     console.log("This is me: ", me);
     setMe(data0?.data?.user || {});
   }, [data0]);
+
 
   // const me = data0?.data?.user || {};
   console.log(me);
