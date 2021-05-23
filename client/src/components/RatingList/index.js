@@ -23,7 +23,8 @@ function RatingList() {
     //console.log(data0?.data);
   }, [data0], urlID);
 
-  //console.log(rating);
+  console.log(rating);
+  console.log(data0?.data);
   const ratings = rating;
 
   function filterRatings(ratings) {
