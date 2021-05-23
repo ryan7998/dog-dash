@@ -60,8 +60,17 @@ function ProfileData(item) {
       image,
       ratingAvg,
       type,
+      receivedRate,
       hideJobButton
   } = item;
+
+  let numOfRating = 0;
+  if (receivedRate) {
+    numOfRating = receivedRate.length;
+  } else {
+    numOfRating = 0;
+  }
+  
  
   const handleChange = event => {
     if(event.target.textContent){
@@ -121,7 +130,8 @@ function ProfileData(item) {
     <Container className="card-container">
         <h1>{type}</h1>
         <p>{firstName} {lastName}</p>
-        <Rating icon='star' size='ui massive star rating' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
+        <p className='mainRating'>({numOfRating})</p>
+        <Rating className='mainRating' icon='star' size='ui massive star rating' defaultRating={ratingAvg} maxRating={5} disabled={true}/>
         {/*conditionaly render the Rating upload only if it is NOT USERS own page profile */}
         {!(_id === userID) &&  
         <Modal

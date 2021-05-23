@@ -19,6 +19,7 @@ const UserProfileDetails = ({profileData}) =>{
         submittedJobs,
         appliedJobs,
         selectedJobs,
+        receivedRatings,
         orders
     } = profileData;
 
@@ -41,6 +42,7 @@ const UserProfileDetails = ({profileData}) =>{
         ratingAvg={ratingAvg}
         type={type}
         hideJobButton = {true}
+        receivedRate={receivedRatings}
       />
       <RatingList _id={_id}/>
     </div>

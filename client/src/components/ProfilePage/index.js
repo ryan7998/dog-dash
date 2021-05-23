@@ -17,6 +17,7 @@ function ProfilePage() {
   }, [data0]);
 
   // const me = data0?.data?.user || {};
+  console.log(me);
 
   return (
     <div className="flex-row">
@@ -29,6 +30,7 @@ function ProfilePage() {
         address={me.address}
         email={me.email}
         image={me.image}
+        receivedRate={me.receivedRatings}
         ratingAvg={me.ratingAvg}
         type={me.type}
       />

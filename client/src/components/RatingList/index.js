@@ -5,45 +5,57 @@ import { useParams } from 'react-router-dom'
 import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_RATINGS } from "../../utils/queries";
-
+import RatingItem from "../RatingItem";
+import {
+    List
+  } from 'semantic-ui-react';
 
 function RatingList({ _id }) {
   //  GET LOGGED IN USER INFO
   let [rating, setRating] = useState({});
   let data0 = useQuery(QUERY_RATINGS);
 
-  const userID = Auth.getProfile().data._id;
   const urlID = useParams().id;
-  console.log(_id);
+  //console.log(_id);
   useEffect(() => {
-    setRating(data0?.data?.ratings || {});
-    console.log(data0?.data?.ratings);
+    setRating(data0?.data || {});
+    //console.log(data0?.data);
   }, [data0], urlID);
 
-  console.log(rating);
+  //console.log(rating);
+  const ratings = rating;
 
-  function filterRatings() {
-    // if (!currentCategory) {
-    //   return state.products;
-    // }
-    if (rating){
-       //const ratings = rating.filter(rating => rating._id == "60a4609e18870a3cecf3fece");
-    //    const ratings = rating.filter(function (el) {
-    //     return el.rated_id  
-    //   });
-       const ratings = rating;
-    console.log(ratings); 
+  function filterRatings(ratings) {
+    if (!ratings) {
+      return rating;
     }
-    
-    return
+    return ratings.ratings.filter(obj => {
+        return obj.rated_id._id === _id
+    });
   }
 
-  //console.log(filterRatings());
- 
 
   return (
-    <div className="flex-row">
-       Rating Test
+    <div className="flex-row">  
+       {data0?.data ? (
+           <div className='ratingList'>
+               <List divided relaxed verticalAlign="middle" >
+               {filterRatings(data0?.data).map(rating => (
+                <RatingItem
+                 key= {rating._id}
+                 firstName= {rating.rater_id.firstName}
+                 lastName= {rating.rater_id.lastName}
+                 text= {rating.text}
+                 ratingNb= {rating.ratingNb}
+                 image= {rating.rater_id.image}
+                 />
+               ))}
+               </List>
+            </div>
+       ) : (
+        <h3>No ratings yet!</h3>
+       )}
+       
     </div>
   );
 }
