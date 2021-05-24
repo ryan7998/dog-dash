@@ -88,6 +88,7 @@ function ProfileData(item) {
 
   const submitRating = async (num) => {
     // refresh();
+    console.log(formState);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -97,7 +98,7 @@ function ProfileData(item) {
         variables: {
           rated_id: urlID,
           ratingNb: formState.rating,
-          text: formState.firstName,
+          text: formState.text,
         },
       });
       setOpen(false);
