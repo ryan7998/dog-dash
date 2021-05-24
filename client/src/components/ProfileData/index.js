@@ -132,6 +132,7 @@ function ProfileData(item) {
         <p>
           {firstName} {lastName}
         </p>
+        <p className='mainRating'>({numOfRating})</p>
         <Rating
           icon="star"
           size="ui massive star rating"
