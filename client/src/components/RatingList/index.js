@@ -10,7 +10,7 @@ import {
     List
   } from 'semantic-ui-react';
 
-function RatingList() {
+function RatingList({ _id }){
   //  GET LOGGED IN USER INFO
   let [rating, setRating] = useState({});
   let data0 = useQuery(QUERY_RATINGS);
@@ -34,7 +34,7 @@ function RatingList() {
     console.log("Start");
     return ratings.ratings.filter(obj => {
         console.log(obj);
-        return obj.rated_id._id == userID
+        return obj.rated_id._id == _id
     });
   }
 
