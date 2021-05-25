@@ -20,6 +20,7 @@ import { Provider } from "react-redux";
 import { store } from "./utils/store";
 import Success from "./pages/Success";
 
+
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
@@ -33,6 +34,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -44,7 +46,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/ourjobs" component={OurJobs} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path="/myjobhistory" component={MyJobHistory} />
+            <Route exact path="/myjobhistory" component={MyJobHistory}/>
             <Route exact path="/cart" component={Cart} />
             <Route
               exact
