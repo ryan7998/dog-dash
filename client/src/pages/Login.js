@@ -10,15 +10,19 @@ import {
   Header,
   Message,
   Segment,
+  Loader,
+  Dimmer, 
+  Image, 
 } from "semantic-ui-react";
+
 
 function Login() {
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN);
+  const [login, { loading, error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+    // console.log(formState);
     try {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
@@ -91,7 +95,13 @@ function Login() {
           </Message>
         </Grid.Column>
       </Grid>
+      {loading ?       
+        <Dimmer active>
+          <Loader content='Loading' />
+        </Dimmer> 
+      : null}
     </div>
+    
   );
 }
 

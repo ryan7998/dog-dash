@@ -12,6 +12,7 @@ function Nav() {
   const me = data0?.data?.user || {};
 
   function showNavigation() {
+    // console.log(me);
     return (
       <Menu fixed="top" inverted>
         <Container>
@@ -51,7 +52,7 @@ function Nav() {
             <Menu.Menu position="right">
               <Link to="/profile">
                 <Menu.Item
-                  name="profile"
+                  name={`${me.firstName} ${me.lastName}`}
                   active={activeItem === "profile"}
                   onClick={() => setActiveItem("profile")}
                 />

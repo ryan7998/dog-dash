@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+// const dateFormat = require('../utils/');
+
 
 const { Schema } = mongoose;
 const Comment = require('./Comment');
 
 const jobSchema = new Schema({
-  creator_id: {
+  user_id: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -14,6 +16,7 @@ const jobSchema = new Schema({
     type: String,
     required: true
   },
+
   description: {
     type: String,
     required: true
@@ -28,6 +31,7 @@ const jobSchema = new Schema({
     default: Date.now,
     required: true,
     get: createdAtVal => dateFormat(createdAtVal)
+
   },
   status: {
     type: String,
