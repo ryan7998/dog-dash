@@ -3,8 +3,14 @@ import JobList from "../components/JobList";
 import UserList from "../components/UserList";
 
 import {Container, Grid} from "semantic-ui-react";
+import Auth from "../utils/auth";
+import { Redirect } from 'react-router-dom';
+
 
 function OurJobs() {
+    if(!Auth.loggedIn()){
+        return <Redirect to="/login" />;
+    }
   return (
     <Container className="ourjobcontainer">
         <Grid stackable>

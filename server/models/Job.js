@@ -4,9 +4,7 @@ const dateFormat = require('../utils/dateFormat');
 
 
 const { Schema } = mongoose;
-// const User = require('./User');
 const Comment = require('./Comment');
-const WalkerJob = require('./Comment');
 
 const jobSchema = new Schema({
   user_id: {
@@ -18,10 +16,7 @@ const jobSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
-    type: String,
-    required: false
-  },
+
   description: {
     type: String,
     required: true

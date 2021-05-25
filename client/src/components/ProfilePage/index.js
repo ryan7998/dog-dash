@@ -10,16 +10,15 @@ import RatingList from "../RatingList";
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
-  let data0 = useQuery(QUERY_USER);
+  let userMe = useQuery(QUERY_USER);
 
   useEffect(() => {
-    console.log("This is me: ", me);
-    setMe(data0?.data?.user || {});
-  }, [data0]);
+    // console.log("This is me: ", me);
+    setMe(userMe?.data?.user || {});
+  }, [userMe]);
 
 
-  // const me = data0?.data?.user || {};
-  console.log(me);
+  // const me = userMe?.data?.user || {};
 
   return (
     <div className="flex-row">

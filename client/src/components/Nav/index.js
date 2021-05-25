@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import Auth from "../../utils/auth";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Container, Menu } from "semantic-ui-react";
 import { QUERY_USER } from "../../utils/queries";
 
 function Nav() {
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState();
+  const location = useLocation();
+  
   // gets the current user details
-  let data0 = useQuery(QUERY_USER);
-  const me = data0?.data?.user || {};
+  let dataUser = useQuery(QUERY_USER);
+  const me = dataUser?.data?.user || {};
+
+  useEffect(() => {
+    // console.log(activeItem);
+    const title = `Dog Dash- ${activeItem ? activeItem : (location ? location.pathname : '')}`;
+    document.title = title;
+ 
+  }, [location, me]);
 
   function showNavigation() {
+    // console.log(Menu.Item);
     return (
       <Menu fixed="top" inverted>
         <Container>
@@ -21,7 +31,7 @@ function Nav() {
           <Link to="/">
             <Menu.Item
               name="home"
-              active={activeItem === "home"}
+              active={window.location.pathname === '/'}
               onClick={() => setActiveItem("home")}
               href="/"
             />
@@ -31,7 +41,7 @@ function Nav() {
             <Link to="/myjobhistory">
               <Menu.Item
                 name="my job history"
-                active={activeItem === "myjobhistory"}
+                active={window.location.pathname === '/myjobhistory'}
                 onClick={() => setActiveItem("myjobhistory")}
               />
             </Link>
@@ -41,7 +51,7 @@ function Nav() {
             <Link to="/cart">
               <Menu.Item
                 name="cart"
-                active={activeItem === "cart"}
+                active={window.location.pathname === '/cart'}
                 onClick={() => setActiveItem("cart")}
               />
             </Link>
@@ -51,8 +61,8 @@ function Nav() {
             <Menu.Menu position="right">
               <Link to="/profile">
                 <Menu.Item
-                  name="profile"
-                  active={activeItem === "profile"}
+                  name={`${me.firstName} ${me.lastName}`}
+                  active={window.location.pathname === '/profile'}
                   onClick={() => setActiveItem("profile")}
                 />
               </Link>
@@ -64,7 +74,7 @@ function Nav() {
               <Link to="/login">
                 <Menu.Item
                   name="login"
-                  active={activeItem === "login"}
+                  active={window.location.pathname === "/login"}
                   onClick={() => setActiveItem("login")}
                 />
               </Link>
@@ -72,7 +82,7 @@ function Nav() {
               <Link to="/signup">
                 <Menu.Item
                   name="signup"
-                  active={activeItem === "signup"}
+                  active={window.location.pathname === "/signup"}
                   onClick={() => setActiveItem("signup")}
                 />
               </Link>

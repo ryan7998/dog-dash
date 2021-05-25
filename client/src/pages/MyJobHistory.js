@@ -1,17 +1,23 @@
 import React from "react";
-
+import { Redirect } from 'react-router-dom';
 import { useQuery } from "@apollo/react-hooks";
 import JobList from "../components/JobList";
 import CreateJob from "../components/CreateJob";
 
 import { QUERY_USER } from "../utils/queries";
 import { Container, Grid } from "semantic-ui-react";
+import Auth from "../utils/auth";
+
 
 function MyJobHistory() {
+
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
-
+// console.log(Auth.loggedIn());
+if(!Auth.loggedIn()){
+  return <Redirect to="/login" />;
+}
   if (me.type == "Dog Walker") {
     return (
       <Container className="ourjobcontainer">
