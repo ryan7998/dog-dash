@@ -43,17 +43,17 @@ function ProfileData({profileData}) {
   // const data = item.profileData
 
   const {
-      _id,
-      firstName,
-      lastName,
-      description,
-      address,
-      email,
-      image,
-      ratingAvg,
-      type,
-      receivedRate,
-      hideJobButton
+    _id,
+    firstName,
+    lastName,
+    description,
+    address,
+    email,
+    image,
+    ratingAvg,
+    type,
+    receivedRate,
+    hideJobButton
   } = profileData;
 
   let numOfRating = 0;
