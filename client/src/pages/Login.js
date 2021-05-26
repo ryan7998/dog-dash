@@ -15,16 +15,27 @@ import {
   Image, 
 } from "semantic-ui-react";
 
+import { useDispatch } from "react-redux";
+import { UPDATE_ME } from "../utils/actions";
 
 function Login() {
+
+  const dispatch = useDispatch();
+
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { loading, error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const mutationResponse = await login({
+        const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
+      });
+
+      // add me data in redux state:
+      dispatch({
+        type: UPDATE_ME,
+        me: mutationResponse.data.login.user
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);

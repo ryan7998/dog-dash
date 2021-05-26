@@ -4,15 +4,23 @@ import { Container, Grid } from "semantic-ui-react";
 import JobList from "../components/JobList";
 import Auth from "../utils/auth";
 import UserList from "../components/UserList";
+import { useDispatch } from "react-redux";
+import { UPDATE_TITLE } from "../utils/actions";
+
 const Home = () => {
+  const dispatch = useDispatch();
+  dispatch({
+    type: UPDATE_TITLE,
+    title: 'Home'
+  });
+
   if (Auth.loggedIn()) {
     return (
       <Container className="ourjobcontainer">
         <Grid columns={2} stackable>
           <Grid.Row>
             <Grid.Column width={13}>
-                      <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
-                      
+              <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
               <JobList
                 status="Live"
                 submit="any"
@@ -25,8 +33,7 @@ const Home = () => {
             </Grid.Column>
 
             <Grid.Column width={3}>
-                      <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
-                      
+              <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
               <UserList type="Dog Walker" apply="any" job_id="any" />
             </Grid.Column>
           </Grid.Row>

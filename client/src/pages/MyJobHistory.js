@@ -8,7 +8,7 @@ import { QUERY_USER } from "../utils/queries";
 import { Container, Grid } from "semantic-ui-react";
 import Auth from "../utils/auth";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UPDATE_TITLE } from "../utils/actions";
 
 
@@ -21,10 +21,11 @@ const dispatch = useDispatch();
     title: 'Job History'
   });
 
-  // gets the current user details
-  let data0 = useQuery(QUERY_USER);
-  const me = data0?.data?.user || {};
-  // console.log(Auth.loggedIn());
+  // gets the current user details:
+  let dataUser = useQuery(QUERY_USER);
+  const me = dataUser?.data?.user || {};
+
+  // redirect to login if user not logged in:
   if(!Auth.loggedIn()){
     return <Redirect to="/login" />;
   }

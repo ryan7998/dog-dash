@@ -1,4 +1,5 @@
 export const UPDATE_TITLE = "UPDATE_TITLE";
+export const UPDATE_ME = "UPDATE_ME";
 export const UPDATE_WALKERJOBS = "UPDATE_WALKERJOBS";
 export const UPDATE_USERS = "UPDATE_USERS";
 export const UPDATE_JOBS = "UPDATE_JOBS";

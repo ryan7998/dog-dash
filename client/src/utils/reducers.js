@@ -1,4 +1,5 @@
 import {
+  UPDATE_ME,
   UPDATE_TITLE,
   UPDATE_USERS,
   UPDATE_JOBS,
@@ -12,6 +13,7 @@ import {
 
 // Define an initial state value for the app
 const initialState = {
+    me: null,
     title: 'Home',
     cart: [],
     cartOpen: false,
@@ -26,6 +28,12 @@ export function jobReducer(state = initialState, action) {
   // Reducers usually look at the type of action that happened
   // to decide how to update the state
   switch (action.type) {
+
+    case UPDATE_ME:
+      return{
+        ...state,
+        me:[action.me],
+      }
     
     case UPDATE_TITLE:
       // console.log(state);
