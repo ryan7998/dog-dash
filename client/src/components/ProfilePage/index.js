@@ -4,7 +4,6 @@ import ProfileData from "../ProfileData";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../../utils/queries";
 
-import CreateJob from '../CreateJob';
 import RatingList from "../RatingList";
 
 

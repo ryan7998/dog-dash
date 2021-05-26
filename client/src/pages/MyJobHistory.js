@@ -8,16 +8,27 @@ import { QUERY_USER } from "../utils/queries";
 import { Container, Grid } from "semantic-ui-react";
 import Auth from "../utils/auth";
 
+import { useSelector, useDispatch } from "react-redux";
+import { UPDATE_TITLE } from "../utils/actions";
+
+
 
 function MyJobHistory() {
+const dispatch = useDispatch();
+
+  dispatch({
+    type: UPDATE_TITLE,
+    title: 'Job History'
+  });
 
   // gets the current user details
   let data0 = useQuery(QUERY_USER);
   const me = data0?.data?.user || {};
-// console.log(Auth.loggedIn());
-if(!Auth.loggedIn()){
-  return <Redirect to="/login" />;
-}
+  // console.log(Auth.loggedIn());
+  if(!Auth.loggedIn()){
+    return <Redirect to="/login" />;
+  }
+
   if (me.type == "Dog Walker") {
     return (
       <Container className="ourjobcontainer">

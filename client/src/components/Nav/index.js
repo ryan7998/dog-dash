@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
+import {useSelector, useDispatch} from 'react-redux';
 import { useLocation, Link } from "react-router-dom";
+import Auth from "../../utils/auth";
+// import {UPDATE_TITLE} from '../../utils/actions';
+
 import { Container, Menu } from "semantic-ui-react";
 import { QUERY_USER } from "../../utils/queries";
 
 function Nav() {
+
+  const state = useSelector(state=>state);
+  const {title} = state;
+
   const [activeItem, setActiveItem] = useState();
   const location = useLocation();
   
@@ -14,11 +21,10 @@ function Nav() {
   const me = dataUser?.data?.user || {};
 
   useEffect(() => {
-    // console.log(activeItem);
-    const title = `Dog Dash- ${activeItem ? activeItem : (location ? location.pathname : '')}`;
-    document.title = title;
+    const pageTitle = `Dog Dash- ${title}`;
+    document.title = pageTitle;
  
-  }, [location, me]);
+  }, [state]);
 
   function showNavigation() {
     // console.log(Menu.Item);

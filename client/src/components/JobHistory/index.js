@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import JobItem from "../JobItem";
 import { useSelector, useDispatch } from "react-redux";
-import { UPDATE_JOBS } from "../../utils/actions";
+import { UPDATE_JOBS, UPDATE_TITLE } from "../../utils/actions";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
 import spinner from "../../assets/spinner.gif";
@@ -9,6 +9,7 @@ import spinner from "../../assets/spinner.gif";
 function JobHistory(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
+
   const { loading, data } = useQuery(QUERY_JOBS);
 
   useEffect(() => {
