@@ -30,24 +30,21 @@ const UserProfileDetails = ({profileData}) =>{
     
   return (
       <>
-    <div className="flex-row">
-    
       <ProfileData
-        key={_id}
-        _id={_id}
-        firstName={firstName}
-        lastName={lastName}
-        description={description}
-        address={address}
-        email={email}
-        image={image}
-        ratingAvg={ratingAvg}
-        type={type}
-        hideJobButton = {true}
-        receivedRate={receivedRatings}
+        // key={_id}
+        // _id={_id}
+        // firstName={firstName}
+        // lastName={lastName}
+        // description={description}
+        // address={address}
+        // email={email}
+        // image={image}
+        // ratingAvg={ratingAvg}
+        // type={type}
+        // hideJobButton = {true}
+        // receivedRate={receivedRatings}
       />
       <RatingList _id={_id}/>
-    </div>
     {/* if user is a walker show number of jobs completed: */}
     {userIsWalker && (
         <div className="flex-row">

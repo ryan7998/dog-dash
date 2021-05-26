@@ -31,14 +31,15 @@ function Login() {
         const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
-
+      
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
       // add me data in redux state:
       dispatch({
         type: UPDATE_ME,
         me: mutationResponse.data.login.user
       });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
+
     } catch (e) {
       console.log(e);
     }

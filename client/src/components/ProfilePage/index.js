@@ -18,23 +18,10 @@ function ProfilePage() {
   }, [userMe]);
 
 
-  // const me = userMe?.data?.user || {};
 
   return (
-    <div className="flex-row">
-      <ProfileData
-        key={me._id}
-        _id={me._id}
-        firstName={me.firstName}
-        lastName={me.lastName}
-        description={me.description}
-        address={me.address}
-        email={me.email}
-        image={me.image}
-        receivedRate={me.receivedRatings}
-        ratingAvg={me.ratingAvg}
-        type={me.type}
-      />
+    <div>
+      <ProfileData profileData={me}/>
       <RatingList _id={me._id}/>
     </div>
   );

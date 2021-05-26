@@ -14,11 +14,12 @@ import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 import OurJobs from "./pages/OurJobs";
 import Cart from "./components/Cart";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
 import { Provider } from "react-redux";
 import { store } from "./utils/store";
 import Success from "./pages/Success";
+import ProfilePage from "./components/ProfilePage";
 
 
 const client = new ApolloClient({
@@ -34,7 +35,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -45,7 +45,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/ourjobs" component={OurJobs} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/myjobhistory" component={MyJobHistory}/>
             <Route exact path="/cart" component={Cart} />
             <Route
@@ -54,6 +54,7 @@ function App() {
               component={SingleWalkerJob}
             />
             <Route exact path="/profile/:id" component={UserProfile} />
+            {/* <Route exact path="/profile/:id" component={ProfilePage} /> */}
             <Route exact path="/success" component={Success} />
             <Route component={NoMatch} />
           </Switch>

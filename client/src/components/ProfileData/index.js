@@ -4,29 +4,27 @@ import { useMutation } from "@apollo/react-hooks";
 import Auth from "../../utils/auth";
 import { RATE_USER } from "../../utils/mutations";
 
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import {
   Button,
   Container,
   Popup,
   Rating,
-  Header,
   Image,
-  Icon,
-  Card,
   Modal,
   Form,
 } from "semantic-ui-react";
 import CreateJob from "../CreateJob";
 import Upload from "../../utils/upload";
 
-function ProfileData(item) {
+function ProfileData({profileData}) {
+  console.log({...profileData})
   const [open, setOpen] = React.useState(false);
   const [formState, setFormState] = useState();
   const [rateUser, { error }] = useMutation(RATE_USER);
 
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
+  // const state = useSelector((state) => state);
+  // const dispatch = useDispatch();
   const userID = Auth.getProfile().data._id;
   const urlID = useParams().id;
 
@@ -36,11 +34,13 @@ function ProfileData(item) {
   if (urlID == userID) {
     return <Redirect to="/profile" />;
   }
-  if (item.image) {
-    if (!item.image.includes(subString)) {
-      item = { ...item, image: "." + item.image };
-    }
-  }
+  // if (item.image) {
+  //   if (!item.image.includes(subString)) {
+  //     item = { ...item, image: "." + item.image };
+  //   }
+  // }
+
+  // const data = item.profileData
 
   const {
       _id,
@@ -54,7 +54,7 @@ function ProfileData(item) {
       type,
       receivedRate,
       hideJobButton
-  } = item;
+  } = profileData;
 
   let numOfRating = 0;
   if (receivedRate) {
