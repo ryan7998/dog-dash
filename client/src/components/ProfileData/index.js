@@ -1,47 +1,23 @@
 import React, { useState } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
+import { useDispatch } from "react-redux";
+import { UPDATE_TITLE } from "../../utils/actions";
 import Auth from "../../utils/auth";
 import { RATE_USER } from "../../utils/mutations";
-
-// import { useSelector, useDispatch } from "react-redux";
-import {
-  Button,
-  Container,
-  Popup,
-  Rating,
-  Image,
-  Modal,
-  Form,
-} from "semantic-ui-react";
+import { Button, Container, Popup, Rating, Image, Modal, Form,} from "semantic-ui-react";
 import CreateJob from "../CreateJob";
 import Upload from "../../utils/upload";
 
+
 function ProfileData({profileData}) {
-  console.log({...profileData})
   const [open, setOpen] = React.useState(false);
   const [formState, setFormState] = useState();
   const [rateUser, { error }] = useMutation(RATE_USER);
+  const dispatch = useDispatch();
 
-  // const state = useSelector((state) => state);
-  // const dispatch = useDispatch();
   const userID = Auth.getProfile().data._id;
-  const urlID = useParams().id;
-
-  let subString = "amazon";
-
-  //This is important so any local images will load in both the User Profile AND the other User profile
-  if (urlID == userID) {
-    return <Redirect to="/profile" />;
-  }
-  // if (item.image) {
-  //   if (!item.image.includes(subString)) {
-  //     item = { ...item, image: "." + item.image };
-  //   }
-  // }
-
-  // const data = item.profileData
-
+  const {id:urlID} = useParams();
   const {
     _id,
     firstName,
@@ -53,8 +29,32 @@ function ProfileData({profileData}) {
     ratingAvg,
     type,
     receivedRate,
-    hideJobButton
+    hideJobButton,
+    selectedJobs,
+    orders,
+    self
   } = profileData;
+  
+  let subString = "amazon";
+
+  //This is important so any local images will load in both the User Profile AND the other User profile
+  if (urlID == userID) {
+    return <Redirect to="/profile" />;
+  }
+  if (profileData.image) {
+    if (!profileData.image.includes(subString)) {
+      profileData = { ...profileData, image: "." + profileData.image };
+    }
+  }
+
+
+
+  console.log(self);
+  dispatch({
+    type: UPDATE_TITLE,
+    title: `${firstName}'s profile`
+  });
+
 
   let numOfRating = 0;
   if (receivedRate) {
@@ -105,6 +105,7 @@ function ProfileData({profileData}) {
       console.error(e);
     }
   };
+  const userIsWalker = (type === 'Dog Walker');
 
   return (
     <div className="profileimg">
@@ -173,10 +174,15 @@ function ProfileData({profileData}) {
 
         <p>{email}</p>
         <p>{address}</p>
-        <div>
-          {!hideJobButton && <CreateJob />}
-          {/* <button className="ui inverted orange button">Post Job</button> */}
-        </div>
+        {/* add job button: */}
+        <div>{self && <CreateJob />}</div>
+          {!self && userIsWalker && (
+            <p>Total Jobs {firstName} Completed: <b>{selectedJobs.length}</b></p>
+          )}
+          {/* if user is owner show number of posts: */}
+          {!self && !userIsWalker && (
+              <p>Total Hires: {orders?.length}</p>
+          )}
       </Container>
     </div>
   );

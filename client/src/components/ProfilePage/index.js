@@ -6,7 +6,6 @@ import { QUERY_USER } from "../../utils/queries";
 
 import RatingList from "../RatingList";
 
-
 function ProfilePage() {
   //  GET LOGGED IN USER INFO
   let [me, setMe] = useState({});
@@ -14,10 +13,14 @@ function ProfilePage() {
 
   useEffect(() => {
     // console.log("This is me: ", me);
-    setMe(userMe?.data?.user || {});
+    const data = {...userMe?.data?.user};
+    data.self = true;
+    // data.self = true;
+    setMe(data || {});
+
   }, [userMe]);
 
-
+// console.log(me);
 
   return (
     <div>

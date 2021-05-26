@@ -14,8 +14,8 @@ import { UPDATE_TITLE } from "../utils/actions";
 
 
 function MyJobHistory() {
-const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   dispatch({
     type: UPDATE_TITLE,
     title: 'Job History'
