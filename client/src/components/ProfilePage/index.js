@@ -12,15 +12,11 @@ function ProfilePage() {
   let userMe = useQuery(QUERY_USER);
 
   useEffect(() => {
-    // console.log("This is me: ", me);
     const data = {...userMe?.data?.user};
     data.self = true;
-    // data.self = true;
     setMe(data || {});
-
   }, [userMe]);
 
-// console.log(me);
 
   return (
     <div>

@@ -34,7 +34,7 @@ function ProfileData({profileData}) {
     orders,
     self
   } = profileData;
-  
+
   let subString = "amazon";
 
   //This is important so any local images will load in both the User Profile AND the other User profile
@@ -47,9 +47,7 @@ function ProfileData({profileData}) {
     }
   }
 
-
-
-  console.log(self);
+  // update title according to the profile name:
   dispatch({
     type: UPDATE_TITLE,
     title: `${firstName}'s profile`
@@ -176,8 +174,8 @@ function ProfileData({profileData}) {
         <p>{address}</p>
         {/* add job button: */}
         <div>{self && <CreateJob />}</div>
-          {!self && userIsWalker && (
-            <p>Total Jobs {firstName} Completed: <b>{selectedJobs.length}</b></p>
+          {userIsWalker && (
+            <p>Total Jobs {firstName} Completed: <b>{selectedJobs?.length}</b></p>
           )}
           {/* if user is owner show number of posts: */}
           {!self && !userIsWalker && (
