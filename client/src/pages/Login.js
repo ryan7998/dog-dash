@@ -108,9 +108,7 @@ function Login() {
         </Grid.Column>
       </Grid>
       {loading ?       
-        <Dimmer active>
-          <Loader content='Loading' />
-        </Dimmer> 
+        <Dimmer active> <Loader content='Loading' /></Dimmer>
       : null}
       {redirectPage && <Redirect to="/profile" />}
     </div>

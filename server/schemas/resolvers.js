@@ -38,6 +38,15 @@ const resolvers = {
     jobById: async (parent, { _id }) => {
       return await Job.findById(_id).populate('user');
     },
+
+    jobByUserId: async(parent, {user_id})=>{
+      const jobs = await Job.find({
+        user_id: user_id
+      })
+      // console.log(jobs);
+      return jobs;
+    },
+
     userById: async (parent, { _id }) => {
         const users = await User.findById(_id).populate({
           path: 'orders.jobs',

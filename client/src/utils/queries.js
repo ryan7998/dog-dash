@@ -52,6 +52,23 @@ export const QUERY_USER_BYID = gql`
   }
 `;
 
+export const QUERY_JOB_BY_USER_ID = gql`
+  query jobByUserId($id: ID!) {
+    jobByUserId(user_id: $id) {
+      _id
+      title
+      status
+      appliedUsers
+      description
+      price
+      date
+      comments {
+        _id
+      }
+    }
+  }
+`
+
 export const QUERY_WALKERJOBS = gql`
   {
     walkerjobs {

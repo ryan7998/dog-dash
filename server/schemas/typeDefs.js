@@ -89,6 +89,7 @@ const typeDefs = gql`
     users: [User]
     walkerjobs: [WalkerJob]
     jobById(_id: ID!): Job
+    jobByUserId(user_id: ID!): [Job]
     userById(_id: ID!): User
     ratings: [Rating]
 

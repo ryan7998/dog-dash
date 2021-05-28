@@ -1,5 +1,5 @@
 import React, { useEffect, useState, setState } from "react";
-import JobItem from "../JobItem";
+import JobItem from "../JobItem_bk";
 import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_JOBS } from "../../utils/actions";
 import { useQuery } from "@apollo/react-hooks";
@@ -44,7 +44,7 @@ function JobList(props) {
     <Container>
       {state.jobs.length ? (
         <div className="ui three column grid job-cards">
-          {filterJobs().map((job) => (
+          {/* {filterJobs().map((job) => (
             <JobItem
               apply={props.apply}
               submit={props.submit}
@@ -60,12 +60,11 @@ function JobList(props) {
               date={job.date}
               status={job.status}
             />
-          ))}
+          ))} */}
         </div>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
-      {/* {loading ? <img src={spinner} alt="loading" /> : null} */}
       {loading ? <Dimmer active inverted> <Loader inverted content='Loading' /></Dimmer> : null}
     </Container>
   );
