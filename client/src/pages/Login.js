@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import {
@@ -23,6 +23,7 @@ function Login() {
   const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({ email: "", password: "" });
+  const [redirectPage, setRedirectPage] = useState(false);
   const [login, { loading, error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
@@ -39,7 +40,7 @@ function Login() {
         type: UPDATE_ME,
         me: mutationResponse.data.login.user
       });
-
+      setRedirectPage(true);
     } catch (e) {
       console.log(e);
     }
@@ -111,6 +112,7 @@ function Login() {
           <Loader content='Loading' />
         </Dimmer> 
       : null}
+      {redirectPage && <Redirect to="/profile" />}
     </div>
     
   );

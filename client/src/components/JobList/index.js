@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
-import { Container } from "semantic-ui-react";
+import { Container, Loader, Dimmer } from "semantic-ui-react";
 
 function JobList(props) {
   const state = useSelector((state) => state);
@@ -21,15 +21,15 @@ function JobList(props) {
         jobs: data.jobs,
       });
       data.jobs.forEach((job) => {
-        idbPromise("jobs", "put", job);
+        // idbPromise("jobs", "put", job);
       });
     } else if (!loading) {
-      idbPromise("jobs", "get").then((jobs) => {
-        dispatch({
-          type: UPDATE_JOBS,
-          jobs: jobs,
-        });
-      });
+      // idbPromise("jobs", "get").then((jobs) => {
+      //   dispatch({
+      //     type: UPDATE_JOBS,
+      //     jobs: jobs,
+      //   });
+      // });
     }
   }, [data, loading, dispatch]);
 
@@ -65,7 +65,8 @@ function JobList(props) {
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}
-      {loading ? <img src={spinner} alt="loading" /> : null}
+      {/* {loading ? <img src={spinner} alt="loading" /> : null} */}
+      {loading ? <Dimmer active inverted> <Loader inverted content='Loading' /></Dimmer> : null}
     </Container>
   );
 }
