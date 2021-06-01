@@ -24,7 +24,7 @@ function Nav() {
     const pageTitle = `Dog Dash- ${title}`;
     document.title = pageTitle;
  
-  }, [state]);
+  }, [title]);
 
   function showNavigation() {
     // console.log(Menu.Item);

@@ -19,7 +19,7 @@ const initialState = {
     cartOpen: false,
     users: [] ,
     jobs: [],
-    walkerjobs: [] 
+    walkerjobs: []
 }
 
 // Create a "reducer" function that determines what the new state

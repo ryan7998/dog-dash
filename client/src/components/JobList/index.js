@@ -1,8 +1,8 @@
 import React, { useEffect, useState, setState } from "react";
-import JobItem from "../JobItem_bk";
+import JobItem from "../JobItem";
 import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_JOBS } from "../../utils/actions";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { QUERY_JOBS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";

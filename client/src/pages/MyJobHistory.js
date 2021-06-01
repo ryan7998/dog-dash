@@ -33,6 +33,7 @@ function MyJobHistory() {
     me: me
   });
   
+  
   // redirect to login if user not logged in:
   if(!Auth.loggedIn()){
     return <Redirect to="/login" />;
