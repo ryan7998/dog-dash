@@ -16,19 +16,28 @@ function OwnersJobHistory(){
         variables: { id: me[0]._id },
     });
     // const [deleteData, setDeleteData] = useState('');
+    useEffect(() => {
+        if (jobs) {
+          dispatch({
+            type: UPDATE_JOBS,
+            jobs: jobs.jobByUserId,
+          });
+        //   jobs.jobs.forEach((job) => {
+        //     // idbPromise("jobs", "put", job);
+        //   });
+        } else if (!loading) {
+          // idbPromise("jobs", "get").then((jobs) => {
+          //   dispatch({
+          //     type: UPDATE_JOBS,
+          //     jobs: jobs,
+          //   });
+          // });
+        }
+      }, [jobs]);
     if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
-    if(jobs){
-        // dispatch({
-        //     type: UPDATE_JOBS,
-        //     jobs: jobs.jobByUserId,
-        // }); 
-    }
-    // try{
 
-    // }catch(error){
-    //     console.log(error);
-    // }
-    console.log(state);
+    // console.log('state at History page: ', state);
+
     
     return(
         <>

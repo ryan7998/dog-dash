@@ -20,8 +20,25 @@ function JobItem(props){
     const [deleteJob] = useMutation(DELETE_JOB);
     const dispatch = useDispatch();
     const state = useSelector(state=>state);
+    const [deletedState, setDeletedState] = useState(null);
+    useEffect(() => {
+        if (deletedState) {
+            console.log(deletedState);
+          dispatch({
+            type: UPDATE_JOBS,
+            jobs: [
+                ...state.jobs.filter((job) => {
+                      console.log(job._id, deletedState.data.deleteJob._id);
+                    return job._id !== deletedState.data.deleteJob._id;
+                }),
+            ],
+          });
+        }
+        // console.log(state);
+    }, [deletedState]);
+    
+    if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
-    if(loading){return null}
 
     const completeJob = async () => {
         try{
@@ -40,15 +57,23 @@ function JobItem(props){
             const deletedJob = await deleteJob({
                 variables: { job_id: _id },
             });
-            dispatch({
-                type: UPDATE_JOBS,
-                jobs: [
-                  ...state.jobs.filter((job) => {
-                    return job.id !== deletedJob._id;
-                  }),
-                ],
-            });    
-            console.log(deletedJob);
+            window.location.reload(false);
+
+            // setDeletedState(deletedJob);
+            // if(deletedJob){
+            //     dispatch({
+            //         type: UPDATE_JOBS,
+            //         jobs: [
+            //           ...state.jobs.filter((job) => {
+            //             //   console.log(job._id, deletedJob.data.deleteJob._id);
+            //             return job._id !== deletedJob.data.deleteJob._id;
+            //           }),
+            //         ],
+            //     });    
+            // }
+            // console.log(jobs)
+            // console.log(deletedJob);
+            // console.log('state at jobItem Component: ', state);
         } catch (e) {
             console.error(e);
         }
