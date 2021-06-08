@@ -47,6 +47,13 @@ const resolvers = {
       return jobs;
     },
 
+    jobByStatus: async(parent, {status})=>{
+      return await Job.find({status: status}).populate({
+        path:'orders.user',
+        populate:'user'
+      });
+    },
+
     userById: async (parent, { _id }) => {
         const users = await User.findById(_id).populate({
           path: 'orders.jobs',

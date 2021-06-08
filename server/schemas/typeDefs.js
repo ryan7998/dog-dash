@@ -90,6 +90,7 @@ const typeDefs = gql`
     walkerjobs: [WalkerJob]
     jobById(_id: ID!): Job
     jobByUserId(user_id: ID!): [Job]
+    jobByStatus(status: String!) : [Job]
     userById(_id: ID!): User
     ratings: [Rating]
 

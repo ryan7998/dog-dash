@@ -16,7 +16,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 function JobItem(props){
     // console.log(props);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const state = useSelector(state=>state);
     const {me} = state;
     const{ appliedUsers, comments, date, description, price, status, title, _id } = props.item;
@@ -59,6 +59,8 @@ function JobItem(props){
         try{
             await deleteJob({
                 variables: { job_id: _id },
+                // instead of manually updating, we can refetch queries like this:
+                // refetchQueries: [{query: QUERY_JOB_BY_USER_ID, variables:{ id: me[0]._id }}]
             });
         } catch (e) {
             console.error(e);

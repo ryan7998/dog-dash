@@ -98,6 +98,8 @@ export const QUERY_JOBS = gql`
   }
 `;
 
+// export const QUERY_LIVE_JOBS = gql``;
+
 export const QUERY_USERS = gql`
   {
     users {

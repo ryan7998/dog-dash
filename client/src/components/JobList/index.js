@@ -12,38 +12,39 @@ function JobList(props) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const { loading, data } = useQuery(QUERY_JOBS);
+  const { loading, data:liveJobs } = useQuery(QUERY_JOBS);
+  console.log(liveJobs);
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch({
+  //       type: UPDATE_JOBS,
+  //       jobs: data.jobs,
+  //     });
+  //     data.jobs.forEach((job) => {
+  //       // idbPromise("jobs", "put", job);
+  //     });
+  //   } else if (!loading) {
+  //     // idbPromise("jobs", "get").then((jobs) => {
+  //     //   dispatch({
+  //     //     type: UPDATE_JOBS,
+  //     //     jobs: jobs,
+  //     //   });
+  //     // });
+  //   }
+  // }, [data, loading, dispatch]);
 
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_JOBS,
-        jobs: data.jobs,
-      });
-      data.jobs.forEach((job) => {
-        // idbPromise("jobs", "put", job);
-      });
-    } else if (!loading) {
-      // idbPromise("jobs", "get").then((jobs) => {
-      //   dispatch({
-      //     type: UPDATE_JOBS,
-      //     jobs: jobs,
-      //   });
-      // });
-    }
-  }, [data, loading, dispatch]);
-
-  function filterJobs() {
-    let result = state.jobs
-      .filter((job) => job.status == props.status)
-      .reverse();
-    return result.sort(state.jobs.date); //Jobs are shown in the ascending order
-  }
+  // function filterJobs() {
+  //   let result = state.jobs
+  //     .filter((job) => job.status == props.status)
+  //     .reverse();
+  //   return result.sort(state.jobs.date); //Jobs are shown in the ascending order
+  // }
 
   return (
     <Container>
       {state.jobs.length ? (
         <div className="ui three column grid job-cards">
+
           {/* {filterJobs().map((job) => (
             <JobItem
               apply={props.apply}

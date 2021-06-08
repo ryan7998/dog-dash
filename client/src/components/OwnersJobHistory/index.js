@@ -15,7 +15,7 @@ function OwnersJobHistory(){
     const {loading, error, data:jobs} = useQuery(QUERY_JOB_BY_USER_ID, {
         variables: { id: me[0]._id },
     });
-    // const [deleteData, setDeleteData] = useState('');
+
     useEffect(() => {
         if (jobs) {
           dispatch({
@@ -36,9 +36,6 @@ function OwnersJobHistory(){
       }, [jobs]);
     if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
-    // console.log('state at History page: ', state);
-
-    
     return(
         <>
             <h2>Open Jobs</h2>
