@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {Item, Button, Label, Icon, Divider, Dimmer, Loader} from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
+
 import {
     APPLY_JOB,
     WITHDRAW_JOB,
     UPDATE_JOB,
     DELETE_JOB,
 } from '../../utils/mutations';
+import { QUERY_JOB_BY_USER_ID } from '../../utils/queries';
 import { UPDATE_JOBS } from '../../utils/actions';
 import {useSelector, useDispatch} from 'react-redux';
   
@@ -14,28 +16,29 @@ import {useSelector, useDispatch} from 'react-redux';
 
 function JobItem(props){
     // console.log(props);
+    const dispatch = useDispatch();
+    const state = useSelector(state=>state);
+    const {me} = state;
     const{ appliedUsers, comments, date, description, price, status, title, _id } = props.item;
     // console.log(appliedUsers, comments, date, description, price, status, title, _id);
     const [updateJob, { loading, error }] = useMutation(UPDATE_JOB);
-    const [deleteJob] = useMutation(DELETE_JOB);
-    const dispatch = useDispatch();
-    const state = useSelector(state=>state);
-    const [deletedState, setDeletedState] = useState(null);
-    useEffect(() => {
-        if (deletedState) {
-            console.log(deletedState);
-          dispatch({
-            type: UPDATE_JOBS,
-            jobs: [
-                ...state.jobs.filter((job) => {
-                      console.log(job._id, deletedState.data.deleteJob._id);
-                    return job._id !== deletedState.data.deleteJob._id;
-                }),
-            ],
-          });
+    const [deleteJob] = useMutation(DELETE_JOB,{
+        update(cache, {data: {deleteJob}}){
+            try{
+                // get cache of jobs by user id:
+                const {jobByUserId} = cache.readQuery({query:QUERY_JOB_BY_USER_ID, variables:{ id: me[0]._id }});
+                // update cache by removing deleted item:
+                cache.writeQuery({
+                    query: QUERY_JOB_BY_USER_ID, variables:{ id: me[0]._id },
+                    data:  {
+                        jobByUserId: jobByUserId.filter(job=>job._id !== deleteJob._id)
+                    }
+                })
+            } catch (e) {
+                console.error(e);
+            }
         }
-        // console.log(state);
-    }, [deletedState]);
+    });
     
     if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
@@ -54,30 +57,12 @@ function JobItem(props){
     // When Owner clicks Delete Job:
     const deleteJobById = async () => {
         try{
-            const deletedJob = await deleteJob({
+            await deleteJob({
                 variables: { job_id: _id },
             });
-            window.location.reload(false);
-
-            // setDeletedState(deletedJob);
-            // if(deletedJob){
-            //     dispatch({
-            //         type: UPDATE_JOBS,
-            //         jobs: [
-            //           ...state.jobs.filter((job) => {
-            //             //   console.log(job._id, deletedJob.data.deleteJob._id);
-            //             return job._id !== deletedJob.data.deleteJob._id;
-            //           }),
-            //         ],
-            //     });    
-            // }
-            // console.log(jobs)
-            // console.log(deletedJob);
-            // console.log('state at jobItem Component: ', state);
         } catch (e) {
             console.error(e);
         }
-    // window.location.reload(false);
     };
 
 
@@ -111,6 +96,5 @@ function JobItem(props){
             <Divider clearing />
         </>
     )
-
 }
 export default JobItem;
