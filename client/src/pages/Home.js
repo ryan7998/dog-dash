@@ -19,23 +19,23 @@ const Home = () => {
       <Container className="ourjobcontainer">
         <Grid columns={2} stackable>
           <Grid.Row>
-            <Grid.Column width={13}>
+            <Grid.Column width={16}>
               <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
               <JobList
-                status="Live"
-                submit="any"
-                apply="any"
-                select="any"
-                selectme="any"
-                walker="false"
-                itemsPerRow={3}
+                // status="Live"
+                // submit="any"
+                // apply="any"
+                // select="any"
+                // selectme="any"
+                // walker="false"
+                // itemsPerRow={3}
               />
             </Grid.Column>
 
-            <Grid.Column width={3}>
+            {/* <Grid.Column width={3}>
               <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
               <UserList type="Dog Walker" apply="any" job_id="any" />
-            </Grid.Column>
+            </Grid.Column> */}
           </Grid.Row>
         </Grid>
       </Container>

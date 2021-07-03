@@ -50,7 +50,7 @@ const userSchema = new Schema({
   },
   submittedJobs :  [
     {
-      type: Schema.Types.ObjectId,
+      type: SchemaTypes.ObjectId,
       ref: 'Job'
     }
   ],

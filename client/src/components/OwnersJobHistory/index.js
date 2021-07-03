@@ -35,20 +35,21 @@ function OwnersJobHistory(){
         }
       }, [jobs]);
     if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
+    // console.log(jobs);
 
     return(
         <>
             <h2>Open Jobs</h2>
             {jobs.jobByUserId.filter(job=>job.status === 'Live').map(job =>(
                 <Item.Group relaxed key={job._id}>
-                    <JobItem item = {job} img={me[0].image} />
+                    <JobItem item = {job} img={me[0].image} type='owner' />
                 </Item.Group>
             ))}
             {/* Closed Jobs: */}
             <h2>Closed Jobs</h2>
             {jobs.jobByUserId.filter(job=>job.status !== 'Live').map(job =>(
                 <Item.Group relaxed key={job._id}>
-                    <JobItem item = {job} img={me[0].image} />
+                    <JobItem item = {job} img={me[0].image} type='owner'/>
                 </Item.Group>
             ))}
         </>

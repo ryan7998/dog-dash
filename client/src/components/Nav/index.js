@@ -34,64 +34,62 @@ function Nav() {
           <Menu.Item as="a" header>
             Dog Dash
           </Menu.Item>
-          <Link to="/">
             <Menu.Item
+              as={Link}
+              to='/'
               name="home"
               active={window.location.pathname === '/'}
               onClick={() => setActiveItem("home")}
-              href="/"
             />
-          </Link>
-
           {Auth.loggedIn() ? (
-            <Link to="/myjobhistory">
               <Menu.Item
+                as={Link}
+                to='/myjobhistory'
                 name="my job history"
                 active={window.location.pathname === '/myjobhistory'}
                 onClick={() => setActiveItem("myjobhistory")}
               />
-            </Link>
           ) : null}
 
           {Auth.loggedIn() && me.type == "Dog Owner" ? (
-            <Link to="/cart">
               <Menu.Item
+                as={Link}
+                to='/cart'
                 name="cart"
                 active={window.location.pathname === '/cart'}
                 onClick={() => setActiveItem("cart")}
               />
-            </Link>
           ) : null}
 
           {Auth.loggedIn() ? (
             <Menu.Menu position="right">
-              <Link to="/profile">
                 <Menu.Item
+                  as={Link}
+                  to='/profile'
                   name={`${me.firstName} ${me.lastName}`}
                   active={window.location.pathname === '/profile'}
                   onClick={() => setActiveItem("profile")}
                 />
-              </Link>
 
               <Menu.Item name="logout" onClick={() => Auth.logout()} />
             </Menu.Menu>
           ) : (
             <Menu.Menu position="right">
-              <Link to="/login">
                 <Menu.Item
+                  as={Link}
+                  to='/login'
                   name="login"
                   active={window.location.pathname === "/login"}
                   onClick={() => setActiveItem("login")}
                 />
-              </Link>
 
-              <Link to="/signup">
                 <Menu.Item
+                  as={Link}
+                  to='/signup'                
                   name="signup"
                   active={window.location.pathname === "/signup"}
                   onClick={() => setActiveItem("signup")}
                 />
-              </Link>
             </Menu.Menu>
           )}
         </Container>

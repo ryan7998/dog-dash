@@ -3,17 +3,22 @@ import JobItem from "../JobItem";
 import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_JOBS } from "../../utils/actions";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { QUERY_JOBS } from "../../utils/queries";
+// import { QUERY_JOBS } from "../../utils/queries";
+import { QUERY_JOB_BY_STATUS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
-import { Container, Loader, Dimmer } from "semantic-ui-react";
+import { Container, Loader, Dimmer, Item } from "semantic-ui-react";
 
 function JobList(props) {
   const state = useSelector((state) => state);
+  const {me} = state;
+  // console.log(state);
   const dispatch = useDispatch();
 
-  const { loading, data:liveJobs } = useQuery(QUERY_JOBS);
-  console.log(liveJobs);
+  const { loading, data:liveJobs } = useQuery(QUERY_JOB_BY_STATUS, {
+    variables: { status: 'Live' },
+});
+  // console.log(liveJobs);
   // useEffect(() => {
   //   if (data) {
   //     dispatch({
@@ -39,12 +44,17 @@ function JobList(props) {
   //     .reverse();
   //   return result.sort(state.jobs.date); //Jobs are shown in the ascending order
   // }
+  if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
   return (
     <Container>
-      {state.jobs.length ? (
-        <div className="ui three column grid job-cards">
-
+      {liveJobs ? (
+        <>
+          {liveJobs.jobByStatus.map(job =>(
+              <Item.Group relaxed key={job._id}>
+                  <JobItem item = {job} />
+              </Item.Group>
+          ))}
           {/* {filterJobs().map((job) => (
             <JobItem
               apply={props.apply}
@@ -62,7 +72,7 @@ function JobList(props) {
               status={job.status}
             />
           ))} */}
-        </div>
+        </>
       ) : (
         <h3>You haven't added any jobs yet!</h3>
       )}

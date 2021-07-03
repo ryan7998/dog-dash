@@ -28,7 +28,6 @@ const typeDefs = gql`
 
   type Job {
     _id: ID
-    user_id: ID!
     title: String!
     image: String
     description: String!
@@ -89,11 +88,11 @@ const typeDefs = gql`
     users: [User]
     walkerjobs: [WalkerJob]
     jobById(_id: ID!): Job
-    jobByUserId(user_id: ID!): [Job]
+    jobByUserId(user: ID!): [Job]
     jobByStatus(status: String!) : [Job]
     userById(_id: ID!): User
     ratings: [Rating]
-
+    
     user: User
     order(_id: ID!): Order
     checkout(jobs: [ID]!): Checkout

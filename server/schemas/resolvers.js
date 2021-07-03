@@ -11,10 +11,7 @@ const resolvers = {
     },
 
     jobs: async () => {
-      const jobs= await Job.find().populate({
-        path:'orders.user',
-        populate:'user'
-      });
+      const jobs= await Job.find().populate('user');
       return jobs;
     },
     
@@ -39,19 +36,12 @@ const resolvers = {
       return await Job.findById(_id).populate('user');
     },
 
-    jobByUserId: async(parent, {user_id})=>{
-      const jobs = await Job.find({
-        user_id: user_id
-      })
-      // console.log(jobs);
-      return jobs;
+    jobByUserId: async(parent, {user})=>{
+      return jobs = await Job.find({ user: user }).populate('user');
     },
 
     jobByStatus: async(parent, {status})=>{
-      return await Job.find({status: status}).populate({
-        path:'orders.user',
-        populate:'user'
-      });
+      return await Job.find({status: status}).populate('user');
     },
 
     userById: async (parent, { _id }) => {
@@ -132,21 +122,23 @@ const resolvers = {
 
   Mutation: {
 
-    addJob: async (parent, {title, description, price, date, status,}, context) => {
+    addJob: async (parent, {title, description, price, date, status}, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
         const newJob = await Job.create(
-          { user_id: user._id,
-           image: user.image,
-           title: title,
-           description: description,
-           price: price,
-           date: date,
-           status: status,
-           new: true }
+          { 
+            image: user.image,
+            title: title,
+            description: description,
+            price: price,
+            date: date,
+            status: status,
+            user: user,
+            new: true 
+          }
         );
     
-        await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob._id } });
+        // await User.findByIdAndUpdate(context.user._id, { $push: { submittedJobs: newJob._id } });
         return newJob;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -227,7 +219,6 @@ const resolvers = {
     },
 
     addOrder: async (parent, { jobs }, context) => {
-      console.log(context);
       if (context.user) {
         const order = new Order({ jobs });
 

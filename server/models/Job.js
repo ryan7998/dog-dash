@@ -7,10 +7,9 @@ const { Schema } = mongoose;
 const Comment = require('./Comment');
 
 const jobSchema = new Schema({
-  user_id: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
   },
   title:{
     type: String,
@@ -31,7 +30,6 @@ const jobSchema = new Schema({
     default: Date.now,
     required: true,
     get: createdAtVal => dateFormat(createdAtVal)
-
   },
   status: {
     type: String,
