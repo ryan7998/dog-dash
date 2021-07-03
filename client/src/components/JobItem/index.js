@@ -13,12 +13,8 @@ function JobItem(props){
 
     const{ appliedUsers, comments, date, description, price, status, title, _id, user } = props.item;
 
-    
-    // if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
-
     return(
         <>
-            {/* {loading ? <Dimmer active> <Loader content='Loading' /></Dimmer> : null} */}
             <Item>
                 <Item.Image size='small' src={props.img} />
                 <Item.Content verticalAlign='middle'>

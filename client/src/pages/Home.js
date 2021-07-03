@@ -1,45 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomepageBanner from "../components/HompageBanner";
 import { Container, Grid } from "semantic-ui-react";
 import JobList from "../components/JobList";
 import Auth from "../utils/auth";
 import UserList from "../components/UserList";
-import { useDispatch } from "react-redux";
+
+import { useQuery } from "@apollo/react-hooks";
+import { QUERY_USER } from "../utils/queries";
+import { useSelector, useDispatch } from "react-redux";
 import { UPDATE_TITLE } from "../utils/actions";
 
 const Home = () => {
   const dispatch = useDispatch();
-  dispatch({
-    type: UPDATE_TITLE,
-    title: 'Home'
-  });
+  useEffect(() => {
+    dispatch({
+      type: UPDATE_TITLE,
+      title: 'Home'
+    });
+  }, []);
+  
+  const userMe = useQuery(QUERY_USER);
+
+  const state = useSelector((state) => state);
+  let {me} = state;
+  me =  me ? me[0] : {...userMe?.data?.user};
 
   if (Auth.loggedIn()) {
-    return (
-      <Container className="ourjobcontainer">
-        <Grid columns={2} stackable>
-          <Grid.Row>
-            <Grid.Column width={16}>
-              <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
-              <JobList
-                // status="Live"
-                // submit="any"
-                // apply="any"
-                // select="any"
-                // selectme="any"
-                // walker="false"
-                // itemsPerRow={3}
-              />
-            </Grid.Column>
-
-            {/* <Grid.Column width={3}>
-              <h2 style={{ fontSize: "3vw" }}>Top Walkers:</h2>
-              <UserList type="Dog Walker" apply="any" job_id="any" />
-            </Grid.Column> */}
-          </Grid.Row>
-        </Grid>
-      </Container>
-    );
+    if(me && me.type === 'Dog Walker'){
+      return (
+        <Container className="ourjobcontainer">
+          <Grid columns={2} stackable>
+            <Grid.Row>
+              <Grid.Column width={16}>
+                <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
+                <JobList/>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      );
+    }else{
+      return (
+        <Container className="ourjobcontainer">
+          <Grid columns={2} stackable>
+            <Grid.Row>
+              <Grid.Column width={16}>
+                <h2 style={{ fontSize: "3vw" }}>Live Jobs:</h2>
+                {/* <JobList/> */}
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      );
+      
+    }
   } else {
     return <HomepageBanner />;
   }
