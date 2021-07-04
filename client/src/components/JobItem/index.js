@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import {Item, Button, Label, Icon, Divider, Dimmer, Loader} from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
 import OwnerBtn from '../OwnersBtn';
+import WalkerBtn from '../WalkerBtn';
 
 import {useSelector, useDispatch} from 'react-redux';
 
 
 function JobItem(props){
-    // console.log(props);
+    // console.log(props.type);
     const state = useSelector((state)=>state);
     const {me} = state;
 
     const{ appliedUsers, comments, date, description, price, status, title, _id, user } = props.item;
-
+    // console.log(_id);
     return(
         <>
             <Item>
@@ -28,9 +29,8 @@ function JobItem(props){
 
                     <Item.Extra>
                         <div>{appliedUsers}</div>
-                        {props.type === 'owner' &&
-                            <OwnerBtn _id/>
-                        }
+                        {props.type === 'owner' && <OwnerBtn _id={_id}/>}
+                        {props.type === 'walker' && <WalkerBtn _id={_id}/>}
                     </Item.Extra>
                 </Item.Content>
             </Item>

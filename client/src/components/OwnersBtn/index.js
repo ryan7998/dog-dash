@@ -5,14 +5,13 @@ import {useSelector, useDispatch} from 'react-redux';
 
 
 import {
-    APPLY_JOB,
-    WITHDRAW_JOB,
     UPDATE_JOB,
     DELETE_JOB,
 } from '../../utils/mutations';
 import { QUERY_JOB_BY_USER_ID } from '../../utils/queries';
 
 function OwnerBtn({_id}){
+    // console.log(_id);
     const state = useSelector((state)=>state);
     const {me} = state;
     const [updateJob, { loading, error }] = useMutation(UPDATE_JOB);
@@ -48,6 +47,7 @@ function OwnerBtn({_id}){
     // When Owner clicks Delete Job:
     const deleteJobById = async () => {
         try{
+            // console.log(_id);
             await deleteJob({
                 variables: { job_id: _id },
                 // instead of manually updating, we can refetch queries like this:

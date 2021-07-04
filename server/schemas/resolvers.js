@@ -153,7 +153,6 @@ const resolvers = {
       )
      
         if (context.user) {
-      
               await WalkerJob.create(
                   { walker_id: context.user._id ,
                   job_id: job_id ,

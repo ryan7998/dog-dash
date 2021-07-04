@@ -24,7 +24,7 @@ function JobList(props) {
         <>
           {liveJobs.jobByStatus.map(job =>(
               <Item.Group relaxed key={job._id}>
-                  <JobItem item = {job} />
+                  <JobItem item = {job} type='walker'/>
               </Item.Group>
           ))}
         </>

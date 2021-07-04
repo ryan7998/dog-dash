@@ -22,7 +22,6 @@ import gql from 'graphql-tag';
          price
          date
          status
-
      }
    }
  `;
