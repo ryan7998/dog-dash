@@ -8,12 +8,12 @@ import {useSelector, useDispatch} from 'react-redux';
 
 
 function JobItem(props){
-    // console.log(props.type);
+
     const state = useSelector((state)=>state);
     const {me} = state;
-
     const{ appliedUsers, comments, date, description, price, status, title, _id, user } = props.item;
-    // console.log(_id);
+    const applied = appliedUsers.includes(me[0]._id);
+
     return(
         <>
             <Item>
@@ -28,9 +28,8 @@ function JobItem(props){
                     </Item.Meta>
 
                     <Item.Extra>
-                        <div>{appliedUsers}</div>
-                        {props.type === 'owner' && <OwnerBtn _id={_id}/>}
-                        {props.type === 'walker' && <WalkerBtn _id={_id}/>}
+                        {me[0].type === 'Dog Owner' && <OwnerBtn _id={_id}/>}
+                        {me[0].type === 'Dog Walker' && <WalkerBtn _id={_id} applied={applied}/>}
                     </Item.Extra>
                 </Item.Content>
             </Item>

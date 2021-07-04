@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
 import {useSelector, useDispatch} from 'react-redux';
+import { QUERY_JOB_BY_STATUS } from "../../utils/queries";
 
 
 import {

@@ -170,10 +170,10 @@ const resolvers = {
 
     withdrawJob: async (parent, {job_id}, context) => {
       if (context.user) {
-       await WalkerJob.deleteOne(
-          { walker_id: context.user._id, 
-            job_id: job_id  }
-        );
+       await WalkerJob.deleteOne({
+          walker_id: context.user._id, 
+          job_id: job_id
+        });
        
         await User.findByIdAndUpdate(context.user._id, { $pull: { appliedJobs: job_id }  });
         let updatedJob = await Job.findByIdAndUpdate(job_id, { $pull: { appliedUsers: context.user._id } , new: true });

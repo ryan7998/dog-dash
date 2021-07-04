@@ -17,7 +17,9 @@ import gql from 'graphql-tag';
    mutation applyJob($job_id: ID!) {
      applyJob(job_id: $job_id) {
          _id
-         user_id
+         user{
+           _id
+         }
          description
          price
          date
@@ -30,7 +32,6 @@ import gql from 'graphql-tag';
    mutation withdrawJob($job_id: ID!) {
      withdrawJob(job_id: $job_id) {
          _id
-         user_id
          description
          price
          date

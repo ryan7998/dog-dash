@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HomepageBanner from "../components/HompageBanner";
-import { Container, Grid } from "semantic-ui-react";
+import { Container, Grid, Dimmer, Loader } from "semantic-ui-react";
 import JobList from "../components/JobList";
 import Auth from "../utils/auth";
 import UserList from "../components/UserList";
@@ -8,7 +8,7 @@ import UserList from "../components/UserList";
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from "../utils/queries";
 import { useSelector, useDispatch } from "react-redux";
-import { UPDATE_TITLE } from "../utils/actions";
+import { UPDATE_TITLE, UPDATE_ME } from "../utils/actions";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,11 +19,16 @@ const Home = () => {
     });
   }, []);
   
-  const userMe = useQuery(QUERY_USER);
+  //  gets the current user details:
+  const {loading, error, data} = useQuery(QUERY_USER);
+  if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
+  const me = data?.user || {};
 
-  const state = useSelector((state) => state);
-  let {me} = state;
-  me =  me ? me[0] : {...userMe?.data?.user};
+  // update redux state of me:
+  dispatch({
+    type: UPDATE_ME,
+    me: me
+  });
 
   if (Auth.loggedIn()) {
     if(me && me.type === 'Dog Walker'){

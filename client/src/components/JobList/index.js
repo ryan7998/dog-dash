@@ -9,13 +9,13 @@ import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
 import { Container, Loader, Dimmer, Item } from "semantic-ui-react";
 
-function JobList(props) {
+function JobList() {
 
   const dispatch = useDispatch();
 
   const { loading, data:liveJobs } = useQuery(QUERY_JOB_BY_STATUS, {
     variables: { status: 'Live' },
-});
+  });
   if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
   return (
@@ -24,7 +24,7 @@ function JobList(props) {
         <>
           {liveJobs.jobByStatus.map(job =>(
               <Item.Group relaxed key={job._id}>
-                  <JobItem item = {job} type='walker'/>
+                  <JobItem item = {job}/>
               </Item.Group>
           ))}
         </>
