@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Button, Dimmer, Loader} from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
 import {useSelector, useDispatch} from 'react-redux';
-import { QUERY_JOB_BY_STATUS } from "../../utils/queries";
-
-
 import {
     UPDATE_JOB,
     DELETE_JOB,
@@ -61,7 +58,6 @@ function OwnerBtn({_id}){
     if(loading){return <Dimmer active> <Loader content='Loading' /></Dimmer>}
 
     return(
-
         <Button.Group floated='right'>
             <Button onClick={()=>deleteJobById()} negative>
                 Delete
@@ -71,7 +67,6 @@ function OwnerBtn({_id}){
                 Completed
             </Button>
         </Button.Group>
-        
     )
 }
 

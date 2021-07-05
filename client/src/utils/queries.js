@@ -59,7 +59,7 @@ export const QUERY_USER_BYID = gql`
           purchaseDate
           jobs {
             _id
-            user_id
+            
             description
             price
             date

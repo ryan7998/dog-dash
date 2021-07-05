@@ -46,13 +46,13 @@ import gql from 'graphql-tag';
  export const SELECT_WALKER = gql`
    mutation selectWalker($walker_id: ID!, $job_id: ID!) {
      selectWalker(walker_id: $walker_id, job_id: $job_id) {
-         _id
-         user_id
-         description
-         price
-         date
-         status
-         appliedUsers
+        _id
+        user_id
+        description
+        price
+        date
+        status
+        appliedUsers
         selectedUser
         
      }

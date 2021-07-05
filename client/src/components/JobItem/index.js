@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {Item, Button, Label, Icon, Divider, Dimmer, Loader} from 'semantic-ui-react';
+import {Item, Button, Label, Icon, Divider, Dimmer, Loader, Accordion} from 'semantic-ui-react';
 import { useMutation } from "@apollo/react-hooks";
 import OwnerBtn from '../OwnersBtn';
 import WalkerBtn from '../WalkerBtn';
+import AppliedUsers from '../AppliedUsers';
 
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -13,6 +14,7 @@ function JobItem(props){
     const {me} = state;
     const{ appliedUsers, comments, date, description, price, status, title, _id, user } = props.item;
     const applied = appliedUsers.includes(me[0]._id);
+    const [collapse, setCollapse] = useState(false);
 
     return(
         <>
@@ -29,6 +31,24 @@ function JobItem(props){
 
                     <Item.Extra>
                         {me[0].type === 'Dog Owner' && <OwnerBtn _id={_id}/>}
+                        {me[0].type === 'Dog Owner' && (appliedUsers.length !== 0 &&
+                        <Accordion>
+                            <Accordion.Title
+                                active={false}
+                                index={0}
+                                onClick={()=>setCollapse(!collapse)}
+                            >
+                                <Icon name='dropdown' />
+                                {appliedUsers.length} applications
+                            </Accordion.Title>
+                            <Accordion.Content active={collapse}>{
+                                appliedUsers.map(id=>{
+                                    return <AppliedUsers id={id} key = {id}/>
+                                })
+                            }</Accordion.Content>
+                        </Accordion>)}
+                        
+                        {/* {me[0].type === 'Dog Owner' && `Applied Users: ${appliedUsers}`} */}
                         {me[0].type === 'Dog Walker' && <WalkerBtn _id={_id} applied={applied}/>}
                     </Item.Extra>
                 </Item.Content>

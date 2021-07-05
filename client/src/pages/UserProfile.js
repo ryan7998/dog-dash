@@ -16,6 +16,7 @@ const UserProfile = () =>{
     // if loading return loading:
     if(loading){return <Dimmer active><Loader content='Loading' /></Dimmer>}
 
+    // console.log(profileData);
     return(
       <>
         <ProfileData profileData={profileData.userById}/>

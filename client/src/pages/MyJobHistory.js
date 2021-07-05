@@ -42,7 +42,7 @@ function MyJobHistory() {
   return(
       <Container className="ourjobcontainer">
         {/* if there is a error */}
-         {error  && 
+         {error && 
            <Message negative>
              <Message.Header>Error Occured</Message.Header>
              <p>{error}</p>
